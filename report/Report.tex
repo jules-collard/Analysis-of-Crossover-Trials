@@ -114,21 +114,43 @@ Carryover is both difficult to test for and then to adjust for. Tests for carryo
 Senn [2002] proposes that the most efficient way to deal with carryover is introducing a \textit{wash-out period} to the experiment design. A wash-out period is "a period in a trial during which the effect of a treatment given previously is believed to disappear" \cite{senn2002crossover}. After the wash-out period, we can assume that all measurements taken are no longer affected by the previous treatment, the consequence being that all conclusions become conditional on the absence of a carryover effect.
 
 \chapter{Visualisation of Cross-over Data}
-This chapter will follow example data from Jones and Kenward \cite{jones2003design}, on a study testing efficacy of a drug and a placebo on patients with \textit{chronic obstructive pulmonary disease} (COPD). Due to the nature of the condition, the observation measurement used was \textit{peak expiratory flow rate} (PEFR), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 56 patients, where each patient measured their PEFR 3 times per day during the treatment periods, recording the highest value. A sub-sample of the data is outlined in table \ref{crossoverDataLong}.
+This chapter will follow example data from Jones and Kenward \cite{jones2003design}, on a study testing efficacy of a drug and a placebo on patients with \textit{chronic obstructive pulmonary disease} (COPD). Due to the nature of the condition, the observation measurement used was \textit{peak expiratory flow rate} (PEFR), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 56 patients, where each patient measured their PEFR 3 times per day during the treatment periods, recording the highest value. A sub-sample of the data is outlined in table \ref{pefData}.
+
+\input{report/tables/pefData.tex}
 
 \section{Introductory Plots}
 Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the introductory plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials.
 
-The first plot is a simple scatter plot of observations in each period, separated by group, as demonstrated in figure INSERT HERE. Also included is a straight line with slope 1 and intercept 0; if the treatments were identical we would expect all observations to lie along this line. Using this plot we can verify within-patient correlation, and also notice the spread of points across the line, indicating between-patient variation.
+The first plot is a simple scatter plot of observations in each period, separated by group, as demonstrated in figure \ref{fig:period2vsperiod1}. Also included is a straight line with slope 1 and intercept 0; if the treatments were identical we would expect all observations to lie along this line. Using this plot we can verify within-patient correlation, and also notice the spread of points across the line, indicating between-patient variation.
 
-Additionally, we can overlay these plots, distinguishing the groups using colour (or shape), and also including the centroids for each group. This allows us to make some preliminary conclusions:
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/periodsPlot.png}
+    \caption{Period 2 vs Period 1 Plots}
+    \label{fig:period2vsperiod1}
+\end{figure}
+
+Additionally, we can overlay these plots, distinguishing the groups using colour (or shape), and also including the centroids for each group, as demonstrated in figure \ref{fig:centroids}. This allows us to make some preliminary conclusions:
 \begin{itemize}
     \item Both groups appearing symmetrical about the diagonal line suggests absence of period effect.
     \item Centroids appearing on opposite sides of the line, with some vertical separation, suggests there is a direct treatment effect.
 \end{itemize}
 
-\input{report/tables/crossoverDataLong.tex}
-\input{report/tables/crossoverDataWide}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/centroidsPlot.png}
+    \caption{Period 2 vs Period 1 with Centroids}
+    \label{fig:centroids}
+\end{figure}
+
+A plot which clearly shows the within-patient differences is the subject-profile plot, demonstrated in figure \ref{fig:subjectprofile}. This plot also allows us to visualise both within-patient and between-patient variability, whilst seeing all patient observations.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/subjectProfilesPlot.png}
+    \caption{Subject-Profile Plot}
+    \label{fig:subjectprofile}
+\end{figure}
 
 \chapter{Analysis of Cross-over Data}
 
