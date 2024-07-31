@@ -2,30 +2,19 @@ library(tidyverse)
 library(readxl)
 library(kableExtra)
 
-cross.data <- read_xlsx("../data/CrossOverData.xlsx")
-cross.data <- cross.data %>%
-  arrange(Subject, Period) %>%
-  mutate(across(c(Sequence, Subject, Period, Treat), as_factor))
+pef.data <- read_xlsx("../data/DataExample_Ch2_JK.xlsx")
+pef.data <- pef.data %>%
+  arrange(Group, Subject) %>%
+  mutate(Sequence = if_else(Group == 1, "AB", "BA")) %>%
+  mutate(across(c(Group, Sequence, Subject, Subject_Label), as_factor))
 
 # Render chunk of table in latex
-table.latex <- cross.data %>% head(10) %>%
-  kbl(caption = "Sample of For/Sal Crossover Trial Results",
+table.latex <- pef.data %>% 
+  select(-Group) %>%
+  arrange(Subject)
+  head(10) %>%
+  kbl(caption = "Mean PEFR (L/min)",
       format = "latex") %>%
   kable_paper()
 
-writeLines(table.latex, "../report/tables/crossoverDataLong.tex")
-
-# Pivot data wider for plotting
-cross.data.wider <- cross.data %>%
-  select(-Treat) %>%
-  pivot_wider(names_from = Period,
-              names_prefix = "Period ",
-              values_from = "PEF")
-
-# Render chunk of table in latex
-table.latex.wider <- cross.data.wider %>% head(5) %>%
-  kbl(caption = "Sample of For/Sal Crossover Trial Results (Wider Format)",
-      format = "latex") %>%
-  kable_paper()
-
-writeLines(table.latex.wider, "../report/tables/crossoverDataWide.tex")
+writeLines(table.latex, "../report/tables/pefData.tex")
