@@ -10,8 +10,10 @@ pef.data <- pef.data %>%
 
 # Render chunk of table in latex
 table.latex <- pef.data %>% 
-  select(-Group) %>%
-  arrange(Subject)
+  select(Sequence, Subject, Subject_Label, Period1, Period2) %>%
+  arrange(Sequence, Subject) %>%
+  rename(`Subject Label` = "Subject_Label", `Period 1` = "Period1",
+         `Period 2` = "Period2") %>%
   head(10) %>%
   kbl(caption = "Mean PEFR (L/min)",
       format = "latex") %>%
