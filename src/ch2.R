@@ -13,7 +13,7 @@ table.latex <- cross.data %>% head(10) %>%
       format = "latex") %>%
   kable_paper()
 
-writeLines(table.latex, "../report/tables/crossoverDataLonger.tex")
+writeLines(table.latex, "../report/tables/crossoverDataLong.tex")
 
 # Pivot data wider for plotting
 cross.data.wider <- cross.data %>%
@@ -28,4 +28,4 @@ table.latex.wider <- cross.data.wider %>% head(5) %>%
       format = "latex") %>%
   kable_paper()
 
-writeLines(table.latex.wider, "../report/tables/crossoverDataWider")
+writeLines(table.latex.wider, "../report/tables/crossoverDataWide.tex")
