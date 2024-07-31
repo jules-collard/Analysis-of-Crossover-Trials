@@ -1,61 +1,7 @@
-% Authors: Simon Geoffroy-Gagnon and Farhad Shokraneh
-% Based on the Thesis by Rubana Bahar Priti
-% Edit: 2020.04.16
-
 \documentclass[12pt, TexShade, letterpaper]{report}
-\usepackage[utf8]{inputenc}
-\usepackage{palatino}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage[labelfont=bf]{caption}
-\usepackage{subcaption}
-\usepackage{setspace}
-\captionsetup[table]{font = {stretch=1.35}}
-\captionsetup[figure]{font = {stretch=1.35}}
-\usepackage[margin=1in, headsep=1cm, bottom=5cm]{geometry}
-\usepackage[hidelinks]{hyperref}
-\newcommand{\MYhref}[3][blue]{\href{#2}{\color{#1}{#3}}}%
-\usepackage{tabu}
-\usepackage{cite}
-\usepackage[table]{xcolor}
-\usepackage{nomencl}
-\usepackage{floatrow}
-\usepackage{wrapfig}
-\renewcommand{\baselinestretch}{2}
-\usepackage{fancyhdr}
-\usepackage{lmodern}
 
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}} % Ensure List of Figs, ToC, and glossary are named in the header
-
-% Overwrite the plain page style with a red line and page numbering
-\fancypagestyle{plain}{%
-	\fancyhf{} % clear all header and footer fields
-	\fancyhead[R]{\textbf{\thepage}} % except the center
-}
-
-% Create the fancy page style header
-\pagestyle{fancy}
-\fancyhf{}
-\lhead{\textbf{\nouppercase{\leftmark}}}
-\chead{}
-\rhead{\textbf{\thepage}}
-
-
-\usepackage{xpatch}
-\xpretocmd\headrule{\color{red}}{}{\PatchFailed}
-
-% Get rid of all dashed words
-\tolerance=1
-\emergencystretch=\maxdimen
-\hyphenpenalty=10000
-\hbadness=10000
-
-% Set page numbering to roman
-\setcounter{page}{2}\renewcommand{\thepage}{\roman{page}}
-
-\author{\textcopyright Author, August, 2020}
-\date{}
+\usepackage{import}
+\import{}{preamble.tex}
 
 \begin{document}
 
@@ -168,6 +114,41 @@ Carryover is both difficult to test for and then to adjust for. Tests for carryo
 Senn [2002] proposes that the most efficient way to deal with carryover is introducing a \textit{wash-out period} to the experiment design. A wash-out period is "a period in a trial during which the effect of a treatment given previously is believed to disappear" \cite{senn2002crossover}. After the wash-out period, we can assume that all measurements taken are no longer affected by the previous treatment, the consequence being that all conclusions become conditional on the absence of a carryover effect.
 
 \chapter{Visualisation of Cross-over Data}
+This chapter will use as an example data published by Senn and Auclair \cite{senn1990graphical}, on a study comparing two drugs: \textit{formoterol} (For) and \textit{salbutamol}. Both drugs are bronchodilators, so the observation measurement used was \textit{peak expiratory flow} (PEF), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 13 pediatric patients, with 7 randomised to the 'For-Sal' sequence and 6 to the 'Sal-For' sequence. A subsample of the data is outlined in table \ref{crossoverData}.
+
+
+\begin{table}
+\centering
+\caption{Subsample of For/Sal Trial Data}
+\centering
+\begin{tabular}[t]{l|l|l|l|r}
+\hline
+\textbf{Sequence} & \textbf{Subject} &
+\textbf{Period} & \textbf{Treat} & \textbf{PEF}\\
+\hline
+For-Sal & 1 & 1 & For & 310\\
+\hline
+For-Sal & 1 & 2 & Sal & 270\\
+\hline
+Sal-For & 2 & 1 & Sal & 370\\
+\hline
+Sal-For & 2 & 2 & For & 385\\
+\hline
+Sal-For & 3 & 1 & Sal & 310\\
+\hline
+Sal-For & 3 & 2 & For & 400\\
+\hline
+For-Sal & 4 & 1 & For & 310\\
+\hline
+For-Sal & 4 & 2 & Sal & 260\\
+\hline
+Sal-For & 5 & 1 & Sal & 380\\
+\hline
+Sal-For & 5 & 2 & For & 410\\
+\hline
+\end{tabular}
+\label{crossoverData}
+\end{table}
 
 \chapter{Analysis of Cross-over Data}
 
