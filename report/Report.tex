@@ -114,41 +114,9 @@ Carryover is both difficult to test for and then to adjust for. Tests for carryo
 Senn [2002] proposes that the most efficient way to deal with carryover is introducing a \textit{wash-out period} to the experiment design. A wash-out period is "a period in a trial during which the effect of a treatment given previously is believed to disappear" \cite{senn2002crossover}. After the wash-out period, we can assume that all measurements taken are no longer affected by the previous treatment, the consequence being that all conclusions become conditional on the absence of a carryover effect.
 
 \chapter{Visualisation of Cross-over Data}
-This chapter will use as an example data published by Senn and Auclair \cite{senn1990graphical}, on a study comparing two drugs: \textit{formoterol} (For) and \textit{salbutamol}. Both drugs are bronchodilators, so the observation measurement used was \textit{peak expiratory flow} (PEF), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 13 pediatric patients, with 7 randomised to the 'For-Sal' sequence and 6 to the 'Sal-For' sequence. A subsample of the data is outlined in table \ref{crossoverData}.
+This chapter will use as an example data published by Senn and Auclair \cite{senn1990graphical}, on a study comparing two drugs: \textit{formoterol} (For) and \textit{salbutamol}. Both drugs are bronchodilators, so the observation measurement used was \textit{peak expiratory flow} (PEF), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 13 pediatric patients, with 7 randomised to the 'For-Sal' sequence and 6 to the 'Sal-For' sequence. A subsample of the data, in a 'longer' format, is outlined in table \ref{crossoverDataLong}. This format is more useful when modelling the data; for plotting purposes we can wrangle the data into a 'wider' format, as shown in table \ref{crossoverDataWide}.
 
-
-\begin{table}
-\centering
-\caption{Subsample of For/Sal Trial Data}
-\centering
-\begin{tabular}[t]{l|l|l|l|r}
-\hline
-\textbf{Sequence} & \textbf{Subject} &
-\textbf{Period} & \textbf{Treat} & \textbf{PEF}\\
-\hline
-For-Sal & 1 & 1 & For & 310\\
-\hline
-For-Sal & 1 & 2 & Sal & 270\\
-\hline
-Sal-For & 2 & 1 & Sal & 370\\
-\hline
-Sal-For & 2 & 2 & For & 385\\
-\hline
-Sal-For & 3 & 1 & Sal & 310\\
-\hline
-Sal-For & 3 & 2 & For & 400\\
-\hline
-For-Sal & 4 & 1 & For & 310\\
-\hline
-For-Sal & 4 & 2 & Sal & 260\\
-\hline
-Sal-For & 5 & 1 & Sal & 380\\
-\hline
-Sal-For & 5 & 2 & For & 410\\
-\hline
-\end{tabular}
-\label{crossoverData}
-\end{table}
+\input{report/tables/crossoverData.tex}
 
 \chapter{Analysis of Cross-over Data}
 
@@ -156,7 +124,7 @@ Sal-For & 5 & 2 & For & 410\\
 	{
 	
 	\bibliography{references}
-	\bibliographystyle{apalike}
+	\bibliographystyle{ieeetr}
 	
 	}
 	
