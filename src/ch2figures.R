@@ -2,7 +2,7 @@ library(tidyverse)
 library(readxl)
 library(ggthemes)
 
-data <- read_xlsx("../data/DataExample_Ch2_JK.xlsx")
+data <- read_xlsx("data/DataExample_Ch2_JK.xlsx")
 data <- data %>%
   arrange(Group, Subject) %>%
   mutate(Sequence = if_else(Group == 1, "AB", "BA")) %>%
@@ -38,4 +38,16 @@ ggplot(data = data.long, mapping = aes(x=Period, y=PEFR)) +
   geom_line(aes(group = Subject_Label), alpha = 0.55) +
   geom_point(aes(colour = Sequence), show.legend = FALSE) +
   facet_wrap(~Sequence) +
+  theme_bw()
+
+# Groups-by-Periods Plot
+means.long <- means %>%
+  rename(`1` = "Period1", `2` = "Period2") %>%
+  pivot_longer(cols = c(`1`, `2`), names_to = "Period", values_to = "PEFR",
+               names_transform = as_factor)
+
+ggplot(data = means.long, mapping = aes(x = Period, y = PEFR, colour = Sequence)) +
+  geom_line(aes(group = Sequence)) +
+  geom_point() +
+  labs(y = "Mean PEFR") +
   theme_bw()

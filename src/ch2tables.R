@@ -2,7 +2,7 @@ library(tidyverse)
 library(readxl)
 library(kableExtra)
 
-pef.data <- read_xlsx("../data/DataExample_Ch2_JK.xlsx")
+pef.data <- read_xlsx("data/DataExample_Ch2_JK.xlsx")
 pef.data <- pef.data %>%
   arrange(Group, Subject) %>%
   mutate(Sequence = if_else(Group == 1, "AB", "BA")) %>%
@@ -19,4 +19,20 @@ table.latex <- pef.data %>%
       format = "latex") %>%
   kable_paper()
 
-writeLines(table.latex, "../report/tables/pefData.tex")
+writeLines(table.latex, "report/tables/pefData.tex")
+
+# Create summary table
+summary.table <- pef.data %>%
+  group_by(Sequence) %>%
+  summarise(Subjects = n(),
+            `Mean PEFR Period 1` = mean(Period1),
+            `SD PEFR Period 1` = sd(Period1),
+            `Mean PEFR Period 2` = mean(Period2),
+            `SD PEFR Period 2` = sd(Period2))
+
+summary.latex <- summary.table %>%
+  kbl(caption = "PEFR Results Summary (L/min)",
+      format = "latex") %>%
+  kable_paper()
+
+writeLines(summary.latex, "report/tables/summaryTable.tex")
