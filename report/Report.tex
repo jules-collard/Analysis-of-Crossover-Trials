@@ -113,21 +113,13 @@ Carryover is both difficult to test for and then to adjust for. Tests for carryo
 \subsection{Wash-out Period}
 Senn [2002] proposes that the most efficient way to deal with carryover is introducing a \textit{wash-out period} to the experiment design. A wash-out period is "a period in a trial during which the effect of a treatment given previously is believed to disappear" \cite{senn2002crossover}. After the wash-out period, we can assume that all measurements taken are no longer affected by the previous treatment, the consequence being that all conclusions become conditional on the absence of a carryover effect.
 
-\chapter{Visualisation of Cross-over Data}
+\chapter{Summary \& Visualisation of Cross-over Data}
 This chapter will follow example data from Jones and Kenward \cite{jones2003design}, on a study testing efficacy of a drug (A) and a placebo (B) on patients with \textit{chronic obstructive pulmonary disease} (COPD). Due to the nature of the condition, the observation measurement used was \textit{peak expiratory flow rate} (PEFR), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 56 patients, where each patient measured their PEFR 3 times per day during the treatment periods, recording the highest value. A sub-sample of the data is outlined in table \ref{pefData}.
 
 \input{report/tables/pefData.tex}
 \section{Summarising Results}
 When the outcome data is continuous, a simple summary table showing the mean and standard deviation of the outcomes \cite{vetter2017descriptive}, grouped by sequence and period (see table \ref{summaryTable}), suffices to give an overview of the data.  If further data were collected on additional covariates, they can be summarised using the traditional \textit{Table 1}.
 \input{report/tables/summaryTable}
-
-The summary table can be visualised using a groups-by-periods plot, as shown in figure \ref{fig:groupsbyperiods}.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/groupsByPeriodsPlot.png}
-    \caption{Groups-by-Periods Plot}
-    \label{fig:groupsbyperiods}
-\end{figure}
 
 \section{Summary Plots}
 Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the introductory plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials.
@@ -161,6 +153,14 @@ A plot which clearly shows the within-patient differences is the subject-profile
     \includegraphics[width=0.85\linewidth]{report/figures/subjectProfilesPlot.png}
     \caption{Subject-Profile Plot}
     \label{fig:subjectprofile}
+\end{figure}
+
+Finally, the summary table \ref{summaryTable} can be visualised using a groups-by-periods plot, as shown in figure \ref{fig:groupsbyperiods}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/groupsByPeriodsPlot.png}
+    \caption{Groups-by-Periods Plot}
+    \label{fig:groupsbyperiods}
 \end{figure}
 
 \chapter{Analysis of Cross-over Data}
