@@ -59,7 +59,7 @@
 \section{The Cross-over Design}
 A cross-over trial is defined as a "trial in which subjects are given sequences of treatments with the object of studying differences between individual treatments" \cite{senn2002crossover}. This differs from the traditional parallel group trial, where subjects typically only receive one treatment throughout the trial.
 
-The most common and simple cross-over design, is the 2x2 cross-over design, whereby there exist two treatments and two treatment groups. In this design, for example comparing two treatments \textit{A} and \textit{B}, subjects receive either \textit{A} or \textit{B} in the first period, and then the other treatment in the second period. When only investigating the effects of one treatment (as opposed to comparing two treatments), the other 'treatment' is a placebo.
+The most common and simple cross-over design, is the 2x2 cross-over design, whereby there exist two treatments and two treatment groups. In this design, for example comparing two treatments \textit{A} and \textit{B}, subjects receive either \textit{A} or \textit{B} in the first period, and then are 'crossed over' to the other treatment in the second period. When only investigating the effects of one treatment (as opposed to comparing two treatments), the other 'treatment' is then a placebo.
 
 Cross-over designs are typically used for testing treatments for ongoing or chronic diseases, where "there is no question of curing the underlying problem which has caused the illness but a hope of moderating its effects through treatment" \cite{senn2002crossover}. Examples of such conditions include asthma, rheumatism, epilepsy and migraines. Due to time constraints and the risk of drop-out or carryover, cross-over designs are more suitable to single-dose trials, as opposed to trials involving multiple doses over a period of time \cite{senn2002crossover}.
 
@@ -101,7 +101,7 @@ Secondly, the data can be interpreted in terms of subject-level \textit{differen
 An oft-overlooked benefit to the crossover trial is improved recruitment and reduced spill-over rates \cite{piantadosi2005clinical}. Since all subjects are guaranteed to receive each treatment at least once, it can be easier to recruit participants. Furthermore, if a treatment is known to be desirable (e.g. exercise), parallel group trials can be subject to spill-over, where subjects in the control group voluntarily take the treatment. Cross-over trials are evidently less at risk of this, since all subjects know they will receive the treatment.
 
 \section{Disadvantages}
-Many of the aforementioned benefits of the crossover design come with drawbacks. For example, the longer trial and multiple treatments could be seen as an inconvenience to patients and analysis of results is often more difficult and complex. Also, the design cannot be used for infectious diseases, where either significant deterioration or improvement in condition can occur during treatment. Patient drop-out is also very harmful to cross-over trials, since observations for all treatments are required for each patient to analyse the results. In comparison, a parallel group trial can still recover some information after a patient drops out \cite{senn2002crossover}.
+Many of the aforementioned benefits of the crossover design come with drawbacks. For example, the longer trial and multiple treatments could be seen as an added inconvenience to patients, and analysis of results is often more difficult and complex (particularly when there are more than two treatments or groups). Also, the design cannot be used for infectious diseases, where either a significant deterioration or improvement in condition can occur during treatment, introducing bias into the subsequent treatment period. Patient drop-out is also very harmful to cross-over trials, since observations for all treatments are required for each patient to analyse the within-patient differences. In comparison, a parallel group trial can still recover some information after a patient drops out \cite{senn2002crossover}.
 
 There is also risk of \textit{period-by-treatment interaction} complicating analysis, where the effect of the treatment is not constant over time \cite{senn2002crossover}. In other words, when the period in which the treatment is administered affects the effectiveness of the treatment.
 
@@ -163,7 +163,54 @@ Finally, the summary table \ref{summaryTable} can be visualised using a groups-b
     \label{fig:groupsbyperiods}
 \end{figure}
 
-\chapter{Analysis of Cross-over Data}
+\chapter{Analysis for Cross-over Trials}
+
+\section{Matched-Pairs \textit{t}-Test}
+The most straightforward analysis for a 2x2 cross-over trial uses a matched-pairs \textit{t}-test, which takes advantage of the paired structure of the data (every observation in period 1 can be matched to the subject's corresponding observation in period 2) \cite{senn2002crossover}. First we will introduce some basic notation:
+\begin{itemize}
+    \item $n$: number of subjects
+    \item $y_{A_k}$, $y_{B_k}$: measured outcomes for subject $k$ ($k=1,\cdots,n$) after treatments $A$ and $B$ respectively.
+    \item $d_k$: cross-over difference (i.e. difference between treatments), defined as $d_k := y_{A_k}-y_{B_k}$.
+\end{itemize}
+And then the mean cross-over difference $\bar{d} := \frac{1}{n}\sum_{i=1}^{n}d_k$ is an estimator for the true treatment effect (or difference) $\tau$. The matched-pairs \textit{t}-test then simply involves testing the hypothesis $H_0: \tau = 0$ against $H_1: \tau \neq 0$, by computing a t-statistic and comparing it against the corresponding critical value \cite{senn2002crossover}:
+\begin{align*}
+    \bar{d} &:= \frac{1}{n}\sum_{i=1}^{n}d_k \\
+    s &= \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(d_k-\bar{d})^2} \\
+    \widehat{se(\bar{d})} &= \frac{s}{\sqrt{n}} \\
+    \implies \frac{\bar{d}}{\widehat{se(\bar{d})}} &\sim t_{n-1}
+\end{align*}
+
+\subsection{Assumptions}
+This method involves two important assumptions:
+\begin{itemize}
+    \item Cross-over differences $d_k$ are independently and randomly distributed about the true treatment effect $\tau$.
+    \item Cross-over differences $d_k$ are distributed approximately normally.
+\end{itemize}
+The most important assumption is the first one, and there are a number of situations which could cause the assumption to be violated:
+\begin{itemize}
+    \item Period effect
+    \begin{itemize}
+        \item There is a trend over time affecting the experiment \textit{as a whole}.
+    \end{itemize}
+    \item Period-by-treatment interaction
+    \begin{itemize}
+        \item Effect of treatment varies with the period in which it is given.
+    \end{itemize}
+    \item Carryover
+    \item Patient-by-treatment interaction
+    \begin{itemize}
+        \item Effect of treatment varies by patient.
+    \end{itemize}
+    \item Patient-by-period interaction
+    \begin{itemize}
+        \item Patients are subject to period effects, which vary from patient to patient.
+    \end{itemize}
+\end{itemize}
+Presence of a period effect artificially inflates the variance of cross-over differences, and under unbalanced allocation between treatment groups it introduces bias in the treatment effect estimates.
+
+\section{Linear Mixed Model}
+
+\section{Adjusting for Baseline Values}
 
 	% Begin Bibliography
 	{
