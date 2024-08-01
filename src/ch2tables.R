@@ -21,8 +21,16 @@ table.latex <- pef.data %>%
 
 # writeLines(table.latex, "report/tables/pefData.tex")
 
-# Create summary table
-summary.table <- pef.data %>%
+# Creating summary table
+
+# Reformat data for summaries by onlty period or sequence
+pef.data.long <- pef.data %>%
+  rename(`1` = "Period1", `2` = "Period2") %>%
+  pivot_longer(cols = c(`1`, `2`), names_to = "Period", values_to = "PEFR",
+               names_transform = list(Period = as_factor))
+
+# Summary by period & sequence
+summary.period.sequence <- pef.data %>%
   group_by(Sequence) %>%
   summarise(Subjects = n(),
             `Mean PEFR Period 1` = round(mean(Period1), 2),
@@ -30,9 +38,35 @@ summary.table <- pef.data %>%
             `Mean PEFR Period 2` = round(mean(Period2), 2),
             `SD PEFR Period 2` = round(sd(Period2), 2))
 
+# Summary by sequence
+summary.sequence <- pef.data.long %>%
+  group_by(Sequence) %>%
+  summarise(`Overall Mean PEFR` = round(mean(PEFR), 2),
+            `Overall SD PEFR` = round(sd(PEFR), 2))
+
+# Summary by period
+summary.period <- pef.data.long %>%
+  group_by(Period) %>%
+  summarise(ov_mean = round(mean(PEFR), 2),
+            ov_sd = round(sd(PEFR), 2)) %>%
+  pivot_wider(names_from = Period,
+              values_from = c(ov_mean, ov_sd)) %>%
+  rename(`Mean PEFR Period 1` = "ov_mean_1",
+         `SD PEFR Period 1` = "ov_sd_1",
+         `Mean PEFR Period 2` = "ov_mean_2",
+         `SD PEFR Period 2` = "ov_sd_2") %>%
+  mutate(Sequence = "Total", Subjects = 56,
+         `Overall Mean PEFR` = NA, `Overall SD PEFR` = NA,
+         .before = `Mean PEFR Period 1`)
+
+# Combine summaries together into table
+summary.table <- inner_join(summary.period.sequence, summary.sequence, by = "Sequence") %>%
+  bind_rows(summary.period) %>%
+  select(Sequence, Subjects, colnames(summary.sequence), colnames(summary.period.sequence))
+
 summary.latex <- summary.table %>%
   kbl(caption = "PEFR Results Summary (L/min)",
       format = "latex") %>%
   kable_paper()
 
-# writeLines(summary.latex, "report/tables/summaryTable.tex")
+writeLines(summary.latex, "report/tables/summaryTable.tex")
