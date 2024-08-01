@@ -118,9 +118,16 @@ This chapter will follow example data from Jones and Kenward \cite{jones2003desi
 
 \input{report/tables/pefData.tex}
 \section{Summarising Results}
-When reporting initial results for a crossover trial, a simple summary table showing the mean and standard deviation of the outcomes, grouped by sequence and period (see TABLEREF), suffices to give an overview of the data.  If further data were collected on additional covariates, they can be summarised using the traditional \textit{Table 1}.
+When reporting initial results for a crossover trial, a simple summary table showing the mean and standard deviation of the outcomes, grouped by sequence and period (see table \ref{summaryTable}), suffices to give an overview of the data.  If further data were collected on additional covariates, they can be summarised using the traditional \textit{Table 1}.
+\input{report/tables/summaryTable}
 
-The summary table can be visualised using a groups-by-periods plot, as shown in figure FIGUREREF.
+The summary table can be visualised using a groups-by-periods plot, as shown in figure \ref{fig:groupsbyperiods}.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/groupsByPeriodsPlot.png}
+    \caption{Groups-by-Periods Plot}
+    \label{fig:groupsbyperiods}
+\end{figure}
 
 \section{Introductory Plots}
 Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the introductory plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials.
