@@ -56,7 +56,8 @@ summary.period <- pef.data.long %>%
          `Mean PEFR Period 2` = "ov_mean_2",
          `SD PEFR Period 2` = "ov_sd_2") %>%
   mutate(Sequence = "Total", Subjects = 56,
-         `Overall Mean PEFR` = NA, `Overall SD PEFR` = NA,
+         `Overall Mean PEFR` = round(mean(pef.data.long$PEFR), 2),
+         `Overall SD PEFR` = round(sd(pef.data.long$PEFR), 2),
          .before = `Mean PEFR Period 1`)
 
 # Combine summaries together into table
