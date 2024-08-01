@@ -70,4 +70,4 @@ summary.latex <- summary.table %>%
       format = "latex") %>%
   kable_paper()
 
-writeLines(summary.latex, "report/tables/summaryTable.tex")
+# writeLines(summary.latex, "report/tables/summaryTable.tex")
