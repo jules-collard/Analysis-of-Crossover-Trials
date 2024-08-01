@@ -118,23 +118,23 @@ This chapter will follow example data from Jones and Kenward \cite{jones2003desi
 
 \input{report/tables/pefData.tex}
 \section{Summarising Results}
-When reporting initial results for a crossover trial, a simple summary table showing the mean and standard deviation of the outcomes, grouped by sequence and period (see table \ref{summaryTable}), suffices to give an overview of the data.  If further data were collected on additional covariates, they can be summarised using the traditional \textit{Table 1}.
+When the outcome data is continuous, a simple summary table showing the mean and standard deviation of the outcomes \cite{vetter2017descriptive}, grouped by sequence and period (see table \ref{summaryTable}), suffices to give an overview of the data.  If further data were collected on additional covariates, they can be summarised using the traditional \textit{Table 1}.
 \input{report/tables/summaryTable}
 
 The summary table can be visualised using a groups-by-periods plot, as shown in figure \ref{fig:groupsbyperiods}.
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/groupsByPeriodsPlot.png}
     \caption{Groups-by-Periods Plot}
     \label{fig:groupsbyperiods}
 \end{figure}
 
-\section{Introductory Plots}
+\section{Summary Plots}
 Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the introductory plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials.
 
 The first plot is a simple scatter plot of observations in each period, separated by group, as demonstrated in figure \ref{fig:period2vsperiod1}. Also included is a straight line with slope 1 and intercept 0; if the treatments were identical we would expect all observations to lie along this line. Using this plot we can verify within-patient correlation, and also notice the spread of points across the line, indicating between-patient variation.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/periodsPlot.png}
     \caption{Period 2 vs Period 1 Plots}
@@ -147,7 +147,7 @@ Additionally, we can overlay these plots, distinguishing the groups using colour
     \item Centroids appearing on opposite sides of the line, with some vertical separation, suggests there exists a direct treatment effect.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/centroidsPlot.png}
     \caption{Period 2 vs Period 1 with Centroids}
@@ -156,7 +156,7 @@ Additionally, we can overlay these plots, distinguishing the groups using colour
 
 A plot which clearly shows the within-patient differences is the subject-profile plot, demonstrated in figure \ref{fig:subjectprofile}. This plot also allows us to visualise both within-patient and between-patient variability.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/subjectProfilesPlot.png}
     \caption{Subject-Profile Plot}
