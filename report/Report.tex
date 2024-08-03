@@ -126,7 +126,7 @@ Before undertaking any analysis, it is important to gain an understanding of the
 
 The first plot is a simple scatter plot of observations in each period, separated by group, as demonstrated in figure \ref{fig:period2vsperiod1}. Also included is a straight line with slope 1 and intercept 0; if the treatments were identical we would expect all observations to lie along this line. Using this plot we can verify within-patient correlation, and also notice the spread of points across the line, indicating between-patient variation.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/periodsPlot.png}
     \caption{Period 2 vs Period 1 Plots}
@@ -139,7 +139,7 @@ Additionally, we can overlay these plots, distinguishing the groups using colour
     \item Centroids appearing on opposite sides of the line, with some vertical separation, suggests there exists a direct treatment effect.
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/centroidsPlot.png}
     \caption{Period 2 vs Period 1 with Centroids}
@@ -148,7 +148,7 @@ Additionally, we can overlay these plots, distinguishing the groups using colour
 
 A plot which clearly shows the within-patient differences is the subject-profile plot, demonstrated in figure \ref{fig:subjectprofile}. This plot also allows us to visualise both within-patient and between-patient variability.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/subjectProfilesPlot.png}
     \caption{Subject-Profile Plot}
@@ -156,7 +156,7 @@ A plot which clearly shows the within-patient differences is the subject-profile
 \end{figure}
 
 Finally, the summary table \ref{summaryTable} can be visualised using a groups-by-periods plot, as shown in figure \ref{fig:groupsbyperiods}.
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/groupsByPeriodsPlot.png}
     \caption{Groups-by-Periods Plot}
@@ -170,7 +170,7 @@ The most straightforward analysis for a 2x2 cross-over trial uses a matched-pair
 \begin{itemize}
     \item $n$: number of subjects
     \item $y_{A_k}$, $y_{B_k}$: measured outcomes for subject $k$ ($k=1,\cdots,n$) after treatments $A$ and $B$ respectively.
-    \item $d_k$: cross-over difference (i.e. difference between treatments), defined as $d_k := y_{A_k}-y_{B_k}$.
+    \item $d_k$: cross-over difference (i.e. difference between treatments) for subject $k$ ($k=1,\cdots,n$), defined as $d_k := y_{A_k}-y_{B_k}$.
 \end{itemize}
 And then the mean cross-over difference $\bar{d} := \frac{1}{n}\sum_{i=1}^{n}d_k$ is an estimator for the true treatment effect (or difference) $\tau$. The matched-pairs \textit{t}-test then simply involves testing the hypothesis $H_0: \tau = 0$ against $H_1: \tau \neq 0$, by computing a t-statistic and comparing it against the corresponding critical value \cite{senn2002crossover}:
 \begin{align*}
@@ -186,31 +186,31 @@ This method involves two important assumptions:
     \item Cross-over differences $d_k$ are independently and randomly distributed about the true treatment effect $\tau$.
     \item Cross-over differences $d_k$ are distributed approximately normally.
 \end{itemize}
-The most important assumption is the first one, and there are a number of situations which could cause the assumption to be violated:
-\begin{itemize}
-    \item Period effect
-    \begin{itemize}
-        \item There is a trend over time affecting the experiment \textit{as a whole}.
-    \end{itemize}
-    \item Period-by-treatment interaction
-    \begin{itemize}
-        \item Effect of treatment varies with the period in which it is given.
-    \end{itemize}
-    \item Carryover
-    \item Patient-by-treatment interaction
-    \begin{itemize}
-        \item Effect of treatment varies by patient.
-    \end{itemize}
-    \item Patient-by-period interaction
-    \begin{itemize}
-        \item Patients are subject to period effects, which vary from patient to patient.
-    \end{itemize}
-\end{itemize}
-Presence of a period effect artificially inflates the variance of cross-over differences, and under unbalanced allocation between treatment groups it introduces bias in the treatment effect estimates.
+The most important assumption is the first one, and there are a number of situations which could cause it to be violated:
+
+\subsubsection{Period effect}
+A period effect is present when there is a trend over time affecting the experiment as a whole. Under unbalanced allocation between treatment groups, this introduces bias to the treatment effect estimates. More generally, this can also cause us to overestimate the influence of random variation, as systematic changes between periods would be incorrectly "ascribed to random variation" \cite{senn2002crossover}.
+
+\subsubsection{Period-by-treatment interaction \& carryover}
+Period-by-treatment interaction occurs when the effect of the treatment varies with the period in which it is given, which could affect the cross-over difference observations. As discussed in chapter 1, presence of a carryover effect introduces significant bias to the cross-over differences.
+
+\subsubsection{Patient-by-treatment interaction}
+Patient-by-treatment interaction occurs when the effect of the treatment varies from patient to patient. This effect increases variability and causes results to be difficult to interpret, and requires a more complex trial design (administering the same treatment multiple times) to investigate further \cite{senn2002crossover}.
+
+\subsubsection{Patient-by-period interaction}
+Further complication occurs if patients are subject to period effects which are different for each patient, known as a patient-by-period interaction. Once again this adds to the variance and difficulty of interpretation.
+
+Patient-by-period and patient-by-treatment interactions do not necessarily threaten the validity of the experiment, but they do increase variance and reduce ease of interpretation. As discussed above, period-by-treatment interactions (including carry-over) are best addressed by careful trial design, but are also the fundamental drawbacks to the cross-over design \cite{senn2002crossover}. Period effects can be adjusted for using more complex models, as demonstrated below.
 
 \section{Linear Mixed Model}
 
+Adding period effects and then random subject effects
+
 \section{Adjusting for Baseline Values}
+
+ANOVA vs ANCOVA in a pre-post setting
+
+Now adjust for baselines
 
 	% Begin Bibliography
 	{
