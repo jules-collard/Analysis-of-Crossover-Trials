@@ -166,7 +166,7 @@ Finally, the summary table \ref{summaryTable} can be visualised using a groups-b
 \chapter{Analysis for Cross-over Trials}
 
 \section{Matched-Pairs \textit{t}-Test}
-The most straightforward analysis for a 2x2 cross-over trial uses a matched-pairs \textit{t}-test, which takes advantage of the paired structure of the data (every observation in period 1 can be matched to the subject's corresponding observation in period 2) \cite{senn2002crossover}. First we will introduce some basic notation:
+The most straightforward analysis for a 2x2 cross-over trial uses a matched-pairs \textit{t}-test, which takes advantage of the paired structure of the data (every observation in period 1 can be matched to the subject's corresponding observation in period 2) \cite{senn2002crossover}. Note that the alternative, a simple two-sample t-test, would give the same result as if the experiment had been carried out as a parallel group trial, as the paired structure of the cross-over design would be ignored. First we will introduce some basic notation:
 \begin{itemize}
     \item $n$: number of subjects
     \item $y_{A_k}$, $y_{B_k}$: measured outcomes for subject $k$ ($k=1,\cdots,n$) after treatments $A$ and $B$ respectively.
@@ -191,6 +191,9 @@ The most important assumption is the first one, and there are a number of situat
 \subsubsection{Period effect}
 A period effect is present when there is a trend over time affecting the experiment as a whole. Under unbalanced allocation between treatment groups, this introduces bias to the treatment effect estimates. More generally, this can also cause us to overestimate the influence of random variation, as systematic changes between periods would be incorrectly "ascribed to random variation" \cite{senn2002crossover}.
 
+\subsubsection{Sequence Effect}
+Results may be affected by the sequence that subjects are assigned to. However, under successful randomisation, we can assume that there is no sequence effect \cite{lim2021considerations} (recalling that in a cross-over design, only the \textit{sequence} of treatments is randomised). Note that this assumption cannot be tested statistically \cite{lim2021considerations}.
+
 \subsubsection{Period-by-treatment interaction \& carryover}
 Period-by-treatment interaction occurs when the effect of the treatment varies with the period in which it is given, which could affect the cross-over difference observations. As discussed in chapter 1, presence of a carryover effect introduces significant bias to the cross-over differences.
 
@@ -200,11 +203,25 @@ Patient-by-treatment interaction occurs when the effect of the treatment varies 
 \subsubsection{Patient-by-period interaction}
 Further complication occurs if patients are subject to period effects which are different for each patient, known as a patient-by-period interaction. Once again this adds to the variance and difficulty of interpretation.
 
-Patient-by-period and patient-by-treatment interactions do not necessarily threaten the validity of the experiment, but they do increase variance and reduce ease of interpretation. As discussed above, period-by-treatment interactions (including carry-over) are best addressed by careful trial design, but are also the fundamental drawbacks to the cross-over design \cite{senn2002crossover}. Period effects can be adjusted for using more complex models, as demonstrated below.
+Patient-by-period and patient-by-treatment interactions do not necessarily threaten the validity of the experiment, but they do increase variance and reduce ease of interpretation. As discussed above, period-by-treatment interactions (including carry-over) are best addressed by careful trial design, but are also the fundamental drawbacks to the cross-over design \cite{senn2002crossover}. If present, they seriously threaten the validity of subsequent analysis. Period and sequence effects, whilst not ideal, can be adjusted for using more complex models, which are demonstrated later in this chapter.
 
-\section{Linear Mixed Model}
+\section{Linear Models}
+The issues with the matched-pairs \textit{t}-test, and the cross-over design as a whole, are better addressed within the framework of a linear model. This allows us to control for period and sequence effects, whilst also taking into account the within-subject differences. It also allows scope to include other variables of interest as covariates, such as sex and age.
 
-Adding period effects and then random subject effects
+The general framework for a cross-over trial model is equation \ref{mixed_model}; some decisions need to be made on how to treat each individual variable to then implement a regression.
+
+\begin{align}
+    Y_{ijk} = \mu + \tau_{jk} + \pi_j + \lambda_{j-1,k} + \gamma_k + s_{ik} + \epsilon_{ijk}
+    \label{mixed_model}
+\end{align}
+where $Y_{ijk}$ is the response of the $i$th subject in the $k$th sequence at the $j$th period. The model then includes the direct treatment effect $\tau_{jk}$, period effect $\pi_j$, carryover effect $\lambda_{j-1,k}$, sequence effect $\gamma_k$ and subject effects $s_{ik}$. The errors $\epsilon_{ijk}$ are i.i.d. with mean 0 \cite{lim2021considerations}.
+
+The direct treatment effect, period effect and sequence effect should all be considered as fixed effects \cite{lim2021considerations}. As mentioned in the preceding discussion about carryover effect, we should address it at the experiment design stage, and hence we will assume no carryover effect (i.e. $\lambda_{j-1,k} = 0$).
+
+If we assume the subject effects $s_{ik}$ to be unknown fixed parameters, the regression will only use information from within-subject comparisons \cite{jones2003design}. Alternatively, when subject totals are judged to contain useful information, the subject effects should be treated as random effects as part of a random intercepts mixed model (see below).
+
+\subsection{Mixed Model for Cross-over Design}
+
 
 \section{Adjusting for Baseline Values}
 
