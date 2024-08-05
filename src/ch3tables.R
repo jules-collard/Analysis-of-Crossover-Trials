@@ -4,6 +4,8 @@ library(xtable)
 library(lme4)
 library(lmerTest)
 library(emmeans)
+library(broom.mixed)
+library(ggpmisc)
 
 data <- read_xlsx("data/CrossOverData.xlsx") %>%
   mutate(across(Sequence:Treat, as_factor))
@@ -17,11 +19,12 @@ anova.table <- xtable(anova.model, label = "anovaTable",
 
 # Table of Estimates
 mixed.model <- lmer(PEF~Treat+Period+Sequence + (1 | Subject), data = data)
-model.table <- xtable(summary(mixed.model)$coefficients,
+model.table <- xtable(broom.mixed::tidy(mixed.model),
                       caption = "Example Estimates for 2x2 Cross-over Trial",
                       label = "modelTable")
 
-writeLines(print(model.table), "report/tables/estimatesTable.tex")
+
+# writeLines(print(model.table), "report/tables/estimatesTable.tex")
 
 # LS Means
 EMM <- emmeans(mixed.model, ~ Treat)
@@ -29,4 +32,19 @@ adj.means <- xtable(EMM %>% as_tibble(),
                     caption = "Example LS Means for 2x2 Cross-over Trial",
                     label = "lsMeansTable")
 
-writeLines(print(adj.means), "report/tables/adjMeansTable.tex")
+# writeLines(print(adj.means), "report/tables/adjMeansTable.tex")
+
+# Assumption Plots
+model.metrics <- mixed.model %>% augment()
+ggplot(data = model.metrics, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_abline(slope = 0, linetype = "dashed") +
+  scale_y_continuous(limits = symmetric_limits) +
+  theme_bw() +
+  labs(x = "Fitted Value", y = "Residual")
+
+ggplot(data = model.metrics, mapping = aes(sample = .resid)) +
+  geom_qq() +
+  geom_qq_line() +
+  labs(x = "Normal Quantiles", y = "Residuals") +
+  theme_bw()
