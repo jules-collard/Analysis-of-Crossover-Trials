@@ -113,7 +113,7 @@ Carryover is both difficult to test for and then to adjust for. Tests for carryo
 \subsection{Wash-out Period}
 Senn [2002] proposes that the most efficient way to deal with carryover is introducing a \textit{wash-out period} to the experiment design. A wash-out period is "a period in a trial during which the effect of a treatment given previously is believed to disappear" \cite{senn2002crossover}. After the wash-out period, we can assume that all measurements taken are no longer affected by the previous treatment, the consequence being that all conclusions become conditional on the absence of a carryover effect.
 
-\chapter{Summary \& Visualisation of Cross-over Data}
+\chapter{Summary \& Visualisation of Cross-over Data} \label{visualisation}
 This chapter will follow example data from Jones and Kenward \cite{jones2003design}, on a study testing efficacy of a drug (A) and a placebo (B) on patients with \textit{chronic obstructive pulmonary disease} (COPD). Due to the nature of the condition, the observation measurement used was \textit{peak expiratory flow rate} (PEFR), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 56 patients, where each patient measured their PEFR 3 times per day during the treatment periods, recording the highest value. A sub-sample of the data is outlined in table \ref{pefData}.
 
 \input{report/tables/pefData.tex}
@@ -208,20 +208,36 @@ Patient-by-period and patient-by-treatment interactions do not necessarily threa
 \section{Linear Models}
 The issues with the matched-pairs \textit{t}-test, and the cross-over design as a whole, are better addressed within the framework of a linear model. This allows us to control for period and sequence effects, whilst also taking into account the within-subject differences. It also allows scope to include other variables of interest as covariates, such as sex and age.
 
-The general framework for a cross-over trial model is equation \ref{mixed_model}; some decisions need to be made on how to treat each individual variable to then implement a regression.
+The general framework for a cross-over trial model is shown in equation \ref{mixed_model}; some decisions need to be made on how to treat each individual variable to then implement a regression.
 
-\begin{align}
+\begin{equation}
     Y_{ijk} = \mu + \tau_{jk} + \pi_j + \lambda_{j-1,k} + \gamma_k + s_{ik} + \epsilon_{ijk}
     \label{mixed_model}
-\end{align}
-where $Y_{ijk}$ is the response of the $i$th subject in the $k$th sequence at the $j$th period. The model then includes the direct treatment effect $\tau_{jk}$, period effect $\pi_j$, carryover effect $\lambda_{j-1,k}$, sequence effect $\gamma_k$ and subject effects $s_{ik}$. The errors $\epsilon_{ijk}$ are i.i.d. with mean 0 \cite{lim2021considerations}.
+\end{equation}
+where $Y_{ijk}$ is the response of the $i$th subject in the $k$th sequence at the $j$th period. The model then includes the direct treatment effect $\tau_{jk}$, period effect $\pi_j$, carryover effect $\lambda_{j-1,k}$, sequence effect $\gamma_k$ and subject effects $s_{ik}$. The errors $\epsilon_{ijk}$ are i.i.d. with mean 0 and variance $\sigma^2_s$ \cite{lim2021considerations}.
 
-The direct treatment effect, period effect and sequence effect should all be considered as fixed effects \cite{lim2021considerations}. As mentioned in the preceding discussion about carryover effect, we should address it at the experiment design stage, and hence we will assume no carryover effect (i.e. $\lambda_{j-1,k} = 0$).
+The direct treatment effect, period effect and sequence effect should all be considered as fixed effects \cite{lim2021considerations}. As mentioned in the preceding discussion about carryover effect, it should be mitigated at the experiment design stage, as its presence seriously threatens the validity of the trial and post-hoc analysis. Furthermore, in the 2x2 cross-over design specifically, the carryover effect is inherent in the sequence \cite{lim2021considerations}. Hence in the regression models below, no carryover term is included, but instead we include a term for the sequence effect.
 
-If we assume the subject effects $s_{ik}$ to be unknown fixed parameters, the regression will only use information from within-subject comparisons \cite{jones2003design}. Alternatively, when subject totals are judged to contain useful information, the subject effects should be treated as random effects as part of a random intercepts mixed model (see below).
+If we assume the subject effects $s_{ik}$ to be unknown fixed parameters, the regression will only use information from within-subject comparisons. Alternatively, when subject totals are judged to contain useful information, the subject effects should be treated as random effects as part of a random intercepts mixed model (see below) \cite{jones2003design}.
+
+The regression model for the former case, treating subject effects as unknown fixed parameters, is shown in equation \ref{fixedmodelregression}, and can be estimated using the standard OLS method.
+
+\begin{equation}
+     Y = \beta_0 + \beta_1 T + \beta_2 P + \beta_3 S + \epsilon
+     \label{fixedmodelregression}
+\end{equation}
+where Y is the outcome variable, T is the treatment administered, P is the period, and S is the sequence. Notice that $\beta_1$ represents the direct treatment effect.
+
+\subsection{ANOVA on Other Effects}
+Before analysing the direct treatment effect, we must first verify that the aforementioned effects (other than the treatment effect) do not appear in the trial data. This can be done by applying analysis of variance (ANOVA) to model \ref{fixedmodelregression}. An example ANOVA table on the COPD trial data introduced in chapter \ref{visualisation} is shown in table REF.
 
 \subsection{Mixed Model for Cross-over Design}
+In a random intercepts mixed model, treating subject effects as random effects, we include a term for the unique effect of each subject \cite{mixedmodelsR}, so that we have subject-specific intercepts \cite{mixedmodelsR}. The corresponding regression is demonstrated in equation \ref{mixedmodelregression}, and can be estimated using the Restricted Maximum Likelihood (REML) method \cite{jones2003design}.
 
+\begin{equation}
+   Y = \beta_0 + \beta_1 T + \beta_2 P + \beta_3 S + \beta_{subject} + \epsilon
+   \label{mixedmodelregression}
+\end{equation}
 
 \section{Adjusting for Baseline Values}
 
