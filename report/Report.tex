@@ -223,13 +223,15 @@ If we assume the subject effects $s_{ik}$ to be unknown fixed parameters, the re
 The regression model for the former case, treating subject effects as unknown fixed parameters, is shown in equation \ref{fixedmodelregression}, and can be estimated using the standard OLS method.
 
 \begin{equation}
-     Y = \beta_0 + \beta_1 T + \beta_2 P + \beta_3 S + \epsilon
+     Y = \beta_0 + \beta_1 T + \beta_2 P + \beta_3 Se + \beta_4 Su + \epsilon
      \label{fixedmodelregression}
 \end{equation}
-where Y is the outcome variable, T is the treatment administered, P is the period, and S is the sequence. Notice that $\beta_1$ represents the direct treatment effect.
+where $Y$ is the outcome variable, $T$ is the treatment administered, $P$ is the period, $Se$ is the sequence, and $Su$ is the subject. Notice that $\beta_1$ represents the direct treatment effect.
 
 \subsection{ANOVA on Other Effects}
-Before analysing the direct treatment effect, we must first verify that the aforementioned effects (other than the treatment effect) do not appear in the trial data. This can be done by applying analysis of variance (ANOVA) to model \ref{fixedmodelregression}. An example ANOVA table on the COPD trial data introduced in chapter \ref{visualisation} is shown in table REF.
+Before analysing the direct treatment effect, we must first verify that the aforementioned effects (other than the treatment effect) do not appear in the trial data. This can be done by applying analysis of variance (ANOVA) to model \ref{fixedmodelregression}. An example ANOVA table on the COPD trial data introduced in chapter \ref{visualisation} is shown in table \ref{anovaTable}.
+
+\input{report/tables/anovaTable.tex}
 
 \subsection{Mixed Model for Cross-over Design}
 In a random intercepts mixed model, treating subject effects as random effects, we include a term for the unique effect of each subject \cite{mixedmodelsR}, so that we have subject-specific intercepts \cite{mixedmodelsR}. The corresponding regression is demonstrated in equation \ref{mixedmodelregression}, and can be estimated using the Restricted Maximum Likelihood (REML) method \cite{jones2003design}.
