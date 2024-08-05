@@ -243,6 +243,8 @@ When between-subject differences are judged to be relevant, a mixed model (more 
    \label{mixedmodelregression}
 \end{equation}
 
+Additional subject-level covariates, such as sex and age, can be added as covariates in the same way as for a simple linear regression.
+
 \subsection{Adjusting for Baseline Values}
 In pre-post designs, analysis of covariance (ANCOVA), whereby the pre-test (baseline) measurement is included as a covariate, is the most efficient method of analysis \cite{wan2021statistical}. For 2x2 cross-over trials, we can further improve model efficiency by taking baseline measurements into account (when available). This requires that baseline measurements be taken for each subject prior to each treatment period, so that a total of 4 measurements per subject are taken over the course of the trial.
 
@@ -261,7 +263,22 @@ Mehrotra \cite{mehrotra2014} concludes that the most efficient method to interpr
 \end{equation}
 Where $X_{diff} := X_1 - X_2$, with $X_1$ and $X_2$ being the baseline measurements before treatment periods 1 and 2 respectively.
 
+\subsection{Assumptions}
+Before analysing model results, it is important to verify that some key assumptions hold, to ensure validity of the fitted model. The following assumptions must hold for either the simple regression or the mixed model to be valid for a 2x2 cross-over trial:
+\begin{itemize}
+    \item Linearity
+    \item Homoscedasticity
+    \item Normality of residuals
+\end{itemize}
+Linearity is not a concern as the independent variable (treatment) only takes 2 values. Homoscedasticity and normality of residuals are best verified graphically; see chapter \ref{example} for examples.
+
 \subsection{Analysing Results}
+Whichever model is chosen, the estimated coefficients and their corresponding p-values should be reported, as in table \ref{modelTable}. We can then use the p-values to determine the existence of a treatment effect (or difference between treatments). It is also useful to report the least squares (LS) means (see \ref{lsMeansTable}) for each treatment, which provide an insightful summary of the differences between treatments, and hence the magnitude of the treatment effect (if any).
+
+\input{report/tables/estimatesTable.tex}
+\input{report/tables/adjMeansTable.tex}
+
+\chapter{Worked Example} \label{example}
 
 	% Begin Bibliography
 	{
