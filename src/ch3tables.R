@@ -24,9 +24,8 @@ model.table <- xtable(summary(mixed.model)$coefficients,
                       caption = "Example Estimates for Mixed Model",
                       label = "modelTable")
 
-
-# writeLines(print(model.table, , include.rownames = FALSE),
-#            "report/tables/estimatesTable.tex")
+writeLines(print(model.table),
+           "report/tables/estimatesTable.tex")
 
 # LS Means
 EMM <- emmeans(mixed.model, ~ Treat)
