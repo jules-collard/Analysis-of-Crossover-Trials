@@ -124,7 +124,16 @@ When the outcome data is continuous, a simple summary table showing the mean and
 \section{Summary Plots}
 Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the introductory plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials.
 
-The first plot is a simple scatter plot of observations in each period, separated by group, as demonstrated in figure \ref{fig:period2vsperiod1}. Also included is a straight line with slope 1 and intercept 0; if the treatments were identical we would expect all observations to lie along this line. Using this plot we can verify within-patient correlation, and also notice the spread of points across the line, indicating between-patient variation.
+An overview of the trial data can be obtained using a simple boxplot, separated by sequence, as shown in figure \ref{fig:boxplot}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/boxplot.png}
+    \caption{Boxplot}
+    \label{fig:boxplot}
+\end{figure}
+
+To begin to understand potential treatment effects, we can use a simple scatter plot of observations in each period, separated by group, as demonstrated in figure \ref{fig:period2vsperiod1}. Also included is a straight line with slope 1 and intercept 0; if the treatments were identical we would expect all observations to lie along this line. Using this plot we can verify within-patient correlation, and also notice the spread of points across the line, indicating between-patient variation.
 
 \begin{figure}[ht]
     \centering
@@ -133,7 +142,7 @@ The first plot is a simple scatter plot of observations in each period, separate
     \label{fig:period2vsperiod1}
 \end{figure}
 
-Additionally, we can overlay these plots, distinguishing the groups using colour (or shape), and also including the centroids for each group, as demonstrated in figure \ref{fig:centroids}. This allows us to make some preliminary conclusions:
+Additionally, we can overlay these two plots, distinguishing the groups using colour, and also including the centroids for each group, as demonstrated in figure \ref{fig:centroids}. This allows us to make some preliminary conclusions:
 \begin{itemize}
     \item Both groups appearing symmetrical about the diagonal line suggests absence of a period effect.
     \item Centroids appearing on opposite sides of the line, with some vertical separation, suggests there exists a direct treatment effect.
@@ -146,13 +155,19 @@ Additionally, we can overlay these plots, distinguishing the groups using colour
     \label{fig:centroids}
 \end{figure}
 
-A plot which clearly shows the within-patient differences is the subject-profile plot, demonstrated in figure \ref{fig:subjectprofile}. This plot also allows us to visualise both within-patient and between-patient variability.
+A plot which clearly shows the within-patient differences is the subject-profile plot, demonstrated in figure \ref{fig:subjectprofile}. This plot also allows us to visualise both within-patient and between-patient variability. It can also be combined with the boxplot to provide a comprehensive overview of the data, as shown in figure \ref{fig:pairedboxplot}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/subjectProfilesPlot.png}
     \caption{Subject-Profile Plot}
     \label{fig:subjectprofile}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/pairedboxplot.pdf}
+    \caption{Paired Boxplot}
+    \label{fig:pairedboxplot}
 \end{figure}
 
 Finally, the summary table \ref{summaryTable} can be visualised using a groups-by-periods plot, as shown in figure \ref{fig:groupsbyperiods}.
