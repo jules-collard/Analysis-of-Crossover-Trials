@@ -15,16 +15,18 @@ anova.model <- aov(PEF ~ Treat+Period+Sequence+Subject, data = data)
 anova.table <- xtable(anova.model, label = "anovaTable",
                       caption = "Example ANOVA Table for 2x2 Cross-over Trial")
 
-# writeLines(print(anova.table), "report/tables/anovaTable.tex")
+writeLines(print(anova.table, include.rownames = FALSE),
+           "report/tables/anovaTable.tex")
 
 # Table of Estimates
 mixed.model <- lmer(PEF~Treat+Period+Sequence + (1 | Subject), data = data)
 model.table <- xtable(broom.mixed::tidy(mixed.model),
-                      caption = "Example Estimates for 2x2 Cross-over Trial",
+                      caption = "Example Estimates for Mixed Model",
                       label = "modelTable")
 
 
-# writeLines(print(model.table), "report/tables/estimatesTable.tex")
+writeLines(print(model.table, , include.rownames = FALSE),
+           "report/tables/estimatesTable.tex")
 
 # LS Means
 EMM <- emmeans(mixed.model, ~ Treat)
@@ -32,7 +34,8 @@ adj.means <- xtable(EMM %>% as_tibble(),
                     caption = "Example LS Means for 2x2 Cross-over Trial",
                     label = "lsMeansTable")
 
-# writeLines(print(adj.means), "report/tables/adjMeansTable.tex")
+writeLines(print(adj.means, include.rownames = FALSE),
+           "report/tables/adjMeansTable.tex")
 
 # Assumption Plots
 model.metrics <- mixed.model %>% augment()

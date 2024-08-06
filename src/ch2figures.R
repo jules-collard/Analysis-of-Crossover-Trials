@@ -1,6 +1,7 @@
 library(tidyverse)
 library(readxl)
 library(ggthemes)
+library(ggpubr)
 
 data <- read_xlsx("data/DataExample_Ch2_JK.xlsx")
 data <- data %>%
@@ -40,6 +41,12 @@ ggplot(data = data.long, mapping = aes(x=Period, y=PEFR)) +
   facet_wrap(~Sequence) +
   theme_bw()
 
+# Boxplot
+ggplot(data = data.long, mapping = aes(x=Period, y = PEFR)) +
+  geom_boxplot() +
+  facet_wrap(~Sequence) +
+  theme_bw()
+
 # Groups-by-Periods Plot
 means.long <- means %>%
   rename(`1` = "Period1", `2` = "Period2") %>%
@@ -50,4 +57,12 @@ ggplot(data = means.long, mapping = aes(x = Period, y = PEFR, colour = Sequence)
   geom_line(aes(group = Sequence)) +
   geom_point() +
   labs(y = "Mean PEFR") +
+  theme_bw()
+
+# Paired boxplot
+ggplot(data = data.long, mapping = aes(x=Period, y=PEFR)) +
+  facet_wrap(~Sequence) +
+  geom_boxplot(outliers = FALSE) +
+  geom_line(aes(group = Subject_Label), alpha = 0.35) +
+  geom_point(alpha=0.6) +
   theme_bw()
