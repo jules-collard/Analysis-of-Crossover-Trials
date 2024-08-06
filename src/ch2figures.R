@@ -64,5 +64,5 @@ ggplot(data = data.long, mapping = aes(x=Period, y=PEFR)) +
   facet_wrap(~Sequence) +
   geom_boxplot(outliers = FALSE) +
   geom_line(aes(group = Subject_Label), alpha = 0.35) +
-  geom_point(alpha=0.6) +
+  geom_point(alpha=0.6, mapping = aes(col = Sequence), show.legend = FALSE) +
   theme_bw()
