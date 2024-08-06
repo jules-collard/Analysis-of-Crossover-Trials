@@ -10,7 +10,7 @@
 			\vspace*{0.5cm}
 
 			\LARGE
-			\textbf{Analysis of 2x2 Cross-Over Trials}
+			\textbf{Design and Analysis of 2x2 Cross-Over Trials}
 			
 			\vspace{1cm}
 			
@@ -30,7 +30,7 @@
 			Montr\'eal, Qu\'ebec, Canada
 			
 			\vspace{5mm}
-			August 16, 2024
+			August 9, 2024
 			\small
 			\vspace{0.5cm}
 			{\color{red} \hrule height 0.75mm}
@@ -163,7 +163,7 @@ Finally, the summary table \ref{summaryTable} can be visualised using a groups-b
     \label{fig:groupsbyperiods}
 \end{figure}
 
-\chapter{Analysis for Cross-over Trials}
+\chapter{Analysis of 2x2 Cross-over Trials}
 
 \section{Matched-Pairs \textit{t}-Test}
 The most straightforward analysis for a 2x2 cross-over trial uses a matched-pairs \textit{t}-test, which takes advantage of the paired structure of the data (every observation in period 1 can be matched to the subject's corresponding observation in period 2) \cite{senn2002crossover}. Note that the alternative, a simple two-sample t-test, would give the same result as if the experiment had been carried out as a parallel group trial, as the paired structure of the cross-over design would be ignored. First we will introduce some basic notation:
@@ -263,17 +263,29 @@ Mehrotra \cite{mehrotra2014} concludes that the most efficient method to interpr
 \end{equation}
 Where $X_{diff} := X_1 - X_2$, with $X_1$ and $X_2$ being the baseline measurements before treatment periods 1 and 2 respectively.
 
-\subsection{Assumptions}
+\subsection{Verifying Assumptions}
 Before analysing model results, it is important to verify that some key assumptions hold, to ensure validity of the fitted model. The following assumptions must hold for either the simple regression or the mixed model to be valid for a 2x2 cross-over trial:
 \begin{itemize}
     \item Linearity
     \item Homoscedasticity
     \item Normality of residuals
 \end{itemize}
-Linearity is not a concern as the independent variable (treatment) only takes 2 values. Homoscedasticity and normality of residuals are best verified graphically; see chapter \ref{example} for examples.
+Linearity is not a concern as the independent variable (treatment) only takes 2 values. Homoscedasticity and normality of residuals are best verified graphically using a scatter plot of residuals against fitted values and a Q-Q plot, respectively.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/homoscedasticityPlot.png}
+    \caption{Plot to verify homoscedasticity}
+    \label{fig:homoscedasticity}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/qqplot.png}
+    \caption{Q-Q Plot to verify normality of residuals}
+    \label{fig:qqplot}
+\end{figure}
 
 \subsection{Analysing Results}
-Whichever model is chosen, the estimated coefficients and their corresponding p-values should be reported, as in table \ref{modelTable}. We can then use the p-values to determine the existence of a treatment effect (or difference between treatments). It is also useful to report the least squares (LS) means (see \ref{lsMeansTable}) for each treatment, which provide an insightful summary of the differences between treatments, and hence the magnitude of the treatment effect (if any).
+Whichever model is chosen, the estimated coefficients and their corresponding p-values should be reported, as in table \ref{modelTable}. We can then use the p-values to determine the existence of a treatment effect (or difference between treatments). It is also useful to report the least squares (LS) means (see table \ref{lsMeansTable}) for each treatment, which provide an insightful summary of the differences between treatments, and hence the magnitude of the treatment effect (if any).
 
 \input{report/tables/estimatesTable.tex}
 \input{report/tables/adjMeansTable.tex}
