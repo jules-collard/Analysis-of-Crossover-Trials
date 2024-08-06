@@ -6,15 +6,18 @@ library(lmerTest)
 library(emmeans)
 library(broom.mixed)
 library(ggpmisc)
+library(rstatix)
 
 data <- read_xlsx("data/CrossOverData.xlsx") %>%
   mutate(across(Sequence:Treat, as_factor))
 
 # ANOVA Table
 anova.model <- aov(PEF ~ Treat+Period+Sequence+Subject, data = data)
+summary(anova.model)
 anova.table <- xtable(anova.model, label = "anovaTable",
                       caption = "Example ANOVA Table for 2x2 Cross-over Trial")
 
+# test <- aov(PEF ~ Treat+Period+Sequence+Subject+Error(Subject/(Treat)), data = data)
 # writeLines(print(anova.table),
 #            "report/tables/anovaTable.tex")
 

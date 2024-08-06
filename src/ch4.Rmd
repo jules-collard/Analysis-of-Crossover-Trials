@@ -1,0 +1,222 @@
+---
+title: 'Chapter 4: Worked Example'
+author: "Jules Lanari-Collard"
+date: "2024-08-09"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
+                      strip.white = TRUE)
+
+library(tidyverse)
+library(readxl)
+library(kableExtra)
+library(xtable)
+library(lme4)
+library(lmerTest)
+library(broom.mixed)
+library(ggpmisc)
+library(rstatix)
+```
+
+
+
+
+# Adjusting for Baseline Measurements
+
+```{r data-import, include=FALSE}
+data <- read_xlsx("../data/CrossOverData2.xlsx") %>%
+  mutate(across(Subject:treat, as_factor))
+
+data.long <- data %>%
+  pivot_longer(cols = c(Pre,Post),
+               names_to = "Measurement",
+               values_to = "value",
+               names_transform = as_factor)
+
+data.wide <- data %>%
+  pivot_wider(id_cols = c(Subject, Sequence),
+              names_from = Period, values_from = c(Pre, Post)) %>%
+  relocate(Post_1, .after = "Pre_1")
+
+data.baselines <- data.wide %>%
+  mutate(baseline_diff = Pre_1 - Pre_2) %>%
+  rename(`1` = "Post_1", `2` = "Post_2") %>%
+  pivot_longer(cols = c(`1`,`2`), names_to = "Period", values_to = "Post",
+               names_transform = as_factor) %>%
+  select(Subject, Period, baseline_diff) %>% 
+  inner_join(data, join_by(Subject == Subject, Period == Period)) %>%
+  relocate(Sequence, .after = "Subject") %>%
+  relocate(baseline_diff, .after = "Post")
+
+medians <- data.wide %>%
+  group_by(Sequence) %>%
+  summarise(Period1 = median(Post_1),
+            Period2 = median(Post_2))
+
+medians.long <- medians %>%
+  rename(`1` = "Period1", `2` = "Period2") %>%
+  pivot_longer(cols = c(`1`, `2`), names_to = "Period", values_to = "Value",
+               names_transform = as_factor)
+```
+
+Now we consider the case where we have baseline measurements. A sample of the data is shown in table \ref{tab:data-with-pre}; now there is an extra column with the baseline measurement before each period (Pre).
+```{r data-with-pre, echo=FALSE}
+data %>%
+  arrange(Subject) %>%
+  head(5) %>%
+  kbl(caption = "Data with Baseline Measurements",
+      booktabs = TRUE) %>%
+  kable_paper()
+```
+```{r, include=FALSE}
+# Summary by period & sequence
+summary.period.sequence <- data.wide %>%
+  group_by(Sequence) %>%
+  summarise(Subjects = n(),
+            meanPre1 = mean(Pre_1),
+            sdPre1 = sd(Pre_1),
+            meanPost1 = mean(Post_1),
+            sdPost1 = sd(Post_1),
+            meanPre2 = mean(Pre_2),
+            sdPre2 = sd(Pre_2),
+            meanPost2 = mean(Post_2),
+            sdPost2 = sd(Post_2))
+
+# Summary by sequence
+summary.sequence <- data.long %>%
+  group_by(Sequence, Measurement) %>%
+  summarise(meanOverall = mean(value),
+            sdOverall = sd(value)) %>%
+  pivot_wider(names_from = Measurement, values_from = c(meanOverall, sdOverall),
+              names_sep = "") %>%
+  select(Sequence, meanOverallPre, sdOverallPre, meanOverallPost, sdOverallPost)
+
+# Summary by period
+summary.period <- data %>%
+  group_by(Period) %>%
+  summarise(meanPre = mean(Pre),
+            sdPre = sd(Pre),
+            meanPost = mean(Post),
+            sdPost = sd(Post)) %>%
+  pivot_wider(names_from = Period, values_from = meanPre:sdPost,
+              names_sep = "") %>%
+  mutate(Sequence = "Total", Subjects = n_distinct(data$Subject),
+         meanOverallPre = mean(data$Pre),
+         sdOverallPre = sd(data$Pre),
+         meanOverallPost = mean(data$Post),
+         sdOverallPost = sd(data$Post),
+         .before = meanPre1)
+
+table1 <- inner_join(summary.sequence, summary.period.sequence,
+                     by = "Sequence") %>%
+  bind_rows(summary.period) %>%
+  relocate(Subjects, .after = Sequence)
+```
+Our summary table can be expanded to include the baseline measurements, as shown in table \ref{tab:table1}.
+```{r table1, echo=FALSE}
+table1 %>%
+  kbl(caption = "Summary Table with Baseline Values (Pre)",
+               booktabs = TRUE,
+      col.names = c("Sequence", "Subject", rep(c("Mean","SD"), 6)),
+      digits = 2) %>%
+  add_header_above(c(" "=2,
+                     "Pre"=2, "Post"=2,
+                     "Pre"=2, "Post"=2,
+                     "Pre"=2, "Post"=2)) %>%
+  add_header_above(c(" "=2, "Overall"=4, "Period 1"=4, "Period 2"=4)) %>%
+  row_spec(2, hline_after = TRUE) %>%
+  column_spec(c(2, 6), border_right = TRUE)
+```
+
+
+We can also extend the boxplot to incorporate the baseline measurements (see figure \ref{fig:boxplot-with-baseline}.
+```{r boxplot-with-baseline, echo=FALSE}
+ggplot(data = data.long, mapping = aes(x = Period, y = value, col = Measurement)) +
+  facet_wrap(~Sequence) +
+  geom_boxplot() +
+  theme_bw()
+```
+```{r boxplot}
+ggplot(data = data, mapping = aes(x = Period, y = Post)) +
+  facet_wrap(~Sequence) +
+  theme_bw() +
+  geom_boxplot()
+```
+
+```{r period1-vs-period2}
+ggplot(data = data.wide, mapping = aes(x = Post_1, y = Post_2, col = Sequence)) +
+  facet_wrap(~Sequence) +
+  geom_point(show.legend = FALSE) +
+  geom_abline(slope=1,intercept=0) +
+  labs(x="Period 1", y="Period 2") +
+  theme_bw()
+```
+
+```{r centroids}
+ggplot(data = data.wide, mapping = aes(x = Post_1, y = Post_2, col = Sequence)) +
+  geom_point(show.legend = FALSE) +
+  geom_point(data = medians,
+             mapping = aes(x = Period1, y = Period2),
+             shape = "square", size = 5) +
+  geom_abline(slope=1,intercept=0) +
+  labs(x="Period 1", y="Period 2") +
+  theme_bw()
+```
+
+```{r subject-profiles}
+ggplot(data = data.long %>% filter(Measurement == "Post"),
+       mapping = aes(x = Period, y = value)) +
+  facet_wrap(~Sequence) +
+  geom_line(aes(group = Subject), alpha = 0.55) +
+  geom_point(aes(col = Sequence), show.legend = FALSE) +
+  theme_bw()
+```
+
+```{r groups-by-periods}
+ggplot(data = medians.long, mapping = aes(x = Period, y = Value, colour = Sequence)) +
+  geom_line(aes(group = Sequence)) +
+  geom_point() +
+  labs(y = "Median Value") +
+  theme_bw()
+```
+
+## Modelling with Baseline Measurements
+First we construct the ANOVA table, including the baseline by period interaction.
+```{r anova}
+aov(Post ~ treat + Period * baseline_diff + Sequence + Subject,
+                             data = data.baselines) %>%
+  summary() %>%
+  xtable() %>%
+  xtable2kable() %>%
+  kable_paper()
+```
+
+```{r mixed-model}
+model <- lmer(Post ~ treat + Period + Sequence + (1|Subject),
+              data = data.baselines)
+
+summary(model)$coefficients %>% kbl()
+```
+
+
+
+```{r}
+model.metrics <- model %>% augment()
+ggplot(data = model.metrics, mapping = aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_abline(slope = 0, linetype = "dashed") +
+  scale_y_continuous(limits = symmetric_limits) +
+  theme_bw() +
+  labs(x = "Fitted Value", y = "Residual")
+```
+
+```{r}
+ggplot(data = model.metrics, mapping = aes(sample = .resid)) +
+  geom_qq() +
+  geom_qq_line() +
+  labs(x = "Normal Quantiles", y = "Residuals") +
+  theme_bw()
+```
+

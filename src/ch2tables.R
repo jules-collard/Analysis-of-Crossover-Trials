@@ -23,11 +23,14 @@ table.latex <- pef.data %>%
 
 # Creating summary table
 
-# Reformat data for summaries by onlty period or sequence
+# Reformat data for summaries by only period or sequence
 pef.data.long <- pef.data %>%
   rename(`1` = "Period1", `2` = "Period2") %>%
   pivot_longer(cols = c(`1`, `2`), names_to = "Period", values_to = "PEFR",
-               names_transform = list(Period = as_factor))
+               names_transform = list(Period = as_factor)) %>%
+  mutate(Treatment = if_else((Sequence == "AB" & Period == 1) |
+                               (Sequence == "BA" & Period == 2), "A", "B")) %>%
+  mutate(across(Treatment, as_factor))
 
 # Summary by period & sequence
 summary.period.sequence <- pef.data %>%
