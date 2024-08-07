@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.8.6)  6 AUG 2024 18:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.8.6)  6 AUG 2024 21:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -553,101 +553,103 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 129.
 (/Users/jules/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 141.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 141.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 141.
-
-Overfull \hbox (53.21373pt too wide) in paragraph at lines 165--179
- [][] 
- []
-
-
-LaTeX Warning: Reference `fig:boxplot-with-baseline' on page 1 undefined on input line 182.
-
-<ch4_files/figure-latex/boxplot-with-baseline-1.pdf, id=6, 469.755pt x 325.215pt>
-File: ch4_files/figure-latex/boxplot-with-baseline-1.pdf Graphic file (type pdf)
-<use ch4_files/figure-latex/boxplot-with-baseline-1.pdf>
-Package pdftex.def Info: ch4_files/figure-latex/boxplot-with-baseline-1.pdf  used on input line 183.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Overfull \hbox (378.10152pt too wide) in paragraph at lines 181--184
-[]\T1/lmr/m/n/10 We can also ex-tend the box-plot to in-cor-po-rate the base-line mea-sure-ments (see fig-ure []. [] 
- []
-
-
-
-[1
-
-{/Users/jules/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/jules/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 186.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 133.
 (/Users/jules/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 187.
-<ch4_files/figure-latex/boxplot-1.pdf, id=19, 469.755pt x 325.215pt>
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 134.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 154.
+(/Users/jules/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+<ch4_files/figure-latex/boxplot-1.pdf, id=4, 469.755pt x 325.215pt>
 File: ch4_files/figure-latex/boxplot-1.pdf Graphic file (type pdf)
 <use ch4_files/figure-latex/boxplot-1.pdf>
-Package pdftex.def Info: ch4_files/figure-latex/boxplot-1.pdf  used on input line 194.
+Package pdftex.def Info: ch4_files/figure-latex/boxplot-1.pdf  used on input line 171.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
-[2 <./ch4_files/figure-latex/boxplot-with-baseline-1.pdf>]
-<ch4_files/figure-latex/period1-vs-period2-1.pdf, id=32, 469.755pt x 325.215pt>
+[1
+
+{/Users/jules/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/jules/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/jules/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+<ch4_files/figure-latex/period1-vs-period2-1.pdf, id=19, 469.755pt x 325.215pt>
 File: ch4_files/figure-latex/period1-vs-period2-1.pdf Graphic file (type pdf)
 <use ch4_files/figure-latex/period1-vs-period2-1.pdf>
-Package pdftex.def Info: ch4_files/figure-latex/period1-vs-period2-1.pdf  used on input line 207.
+Package pdftex.def Info: ch4_files/figure-latex/period1-vs-period2-1.pdf  used on input line 184.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
-[3 <./ch4_files/figure-latex/boxplot-1.pdf>]
-<ch4_files/figure-latex/centroids-1.pdf, id=42, 469.755pt x 325.215pt>
+[2 <./ch4_files/figure-latex/boxplot-1.pdf>]
+<ch4_files/figure-latex/centroids-1.pdf, id=29, 469.755pt x 325.215pt>
 File: ch4_files/figure-latex/centroids-1.pdf Graphic file (type pdf)
 <use ch4_files/figure-latex/centroids-1.pdf>
-Package pdftex.def Info: ch4_files/figure-latex/centroids-1.pdf  used on input line 222.
+Package pdftex.def Info: ch4_files/figure-latex/centroids-1.pdf  used on input line 199.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
-[4 <./ch4_files/figure-latex/period1-vs-period2-1.pdf>]
-<ch4_files/figure-latex/subject-profiles-1.pdf, id=52, 469.755pt x 325.215pt>
+[3 <./ch4_files/figure-latex/period1-vs-period2-1.pdf>]
+<ch4_files/figure-latex/centroids-median-1.pdf, id=39, 469.755pt x 325.215pt>
+File: ch4_files/figure-latex/centroids-median-1.pdf Graphic file (type pdf)
+<use ch4_files/figure-latex/centroids-median-1.pdf>
+Package pdftex.def Info: ch4_files/figure-latex/centroids-median-1.pdf  used on input line 214.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[4 <./ch4_files/figure-latex/centroids-1.pdf>]
+<ch4_files/figure-latex/subject-profiles-1.pdf, id=49, 469.755pt x 325.215pt>
 File: ch4_files/figure-latex/subject-profiles-1.pdf Graphic file (type pdf)
 <use ch4_files/figure-latex/subject-profiles-1.pdf>
-Package pdftex.def Info: ch4_files/figure-latex/subject-profiles-1.pdf  used on input line 235.
+Package pdftex.def Info: ch4_files/figure-latex/subject-profiles-1.pdf  used on input line 227.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
-[5 <./ch4_files/figure-latex/centroids-1.pdf>]
-<ch4_files/figure-latex/groups-by-periods-1.pdf, id=62, 469.755pt x 325.215pt>
+[5 <./ch4_files/figure-latex/centroids-median-1.pdf>]
+<ch4_files/figure-latex/groups-by-periods-1.pdf, id=59, 469.755pt x 325.215pt>
 File: ch4_files/figure-latex/groups-by-periods-1.pdf Graphic file (type pdf)
 <use ch4_files/figure-latex/groups-by-periods-1.pdf>
-Package pdftex.def Info: ch4_files/figure-latex/groups-by-periods-1.pdf  used on input line 247.
+Package pdftex.def Info: ch4_files/figure-latex/groups-by-periods-1.pdf  used on input line 239.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
 [6 <./ch4_files/figure-latex/subject-profiles-1.pdf>]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 254.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 254.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 254.
 
-[7{/Users/jules/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc} <./ch4_files/figure-latex/groups-by-periods-1.pdf>]
-<ch4_files/figure-latex/unnamed-chunk-2-1.pdf, id=87, 469.755pt x 325.215pt>
+LaTeX Warning: Reference `fig:boxplot-with-baseline' on page 7 undefined on input line 292.
+
+<ch4_files/figure-latex/boxplot-with-baseline-1.pdf, id=74, 469.755pt x 325.215pt>
+File: ch4_files/figure-latex/boxplot-with-baseline-1.pdf Graphic file (type pdf)
+<use ch4_files/figure-latex/boxplot-with-baseline-1.pdf>
+Package pdftex.def Info: ch4_files/figure-latex/boxplot-with-baseline-1.pdf  used on input line 294.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[7 <./ch4_files/figure-latex/groups-by-periods-1.pdf>]
+
+[8 <./ch4_files/figure-latex/boxplot-with-baseline-1.pdf>]
+<ch4_files/figure-latex/unnamed-chunk-2-1.pdf, id=100, 469.755pt x 325.215pt>
 File: ch4_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 <use ch4_files/figure-latex/unnamed-chunk-2-1.pdf>
-Package pdftex.def Info: ch4_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 332.
+Package pdftex.def Info: ch4_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 368.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
-[8]
-<ch4_files/figure-latex/unnamed-chunk-3-1.pdf, id=92, 469.755pt x 325.215pt>
+[9{/Users/jules/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
+<ch4_files/figure-latex/unnamed-chunk-3-1.pdf, id=106, 469.755pt x 325.215pt>
 File: ch4_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 <use ch4_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: ch4_files/figure-latex/unnamed-chunk-3-1.pdf  used on input line 344.
+Package pdftex.def Info: ch4_files/figure-latex/unnamed-chunk-3-1.pdf  used on input line 380.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
-[9 <./ch4_files/figure-latex/unnamed-chunk-2-1.pdf>]
+[10 <./ch4_files/figure-latex/unnamed-chunk-2-1.pdf>]
 
-[10 <./ch4_files/figure-latex/unnamed-chunk-3-1.pdf>] (./ch4.aux)
+[11 <./ch4_files/figure-latex/unnamed-chunk-3-1.pdf>] (./ch4.aux)
  ***********
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-07-20>
@@ -657,18 +659,18 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 13332 strings out of 475539
- 207802 string characters out of 5776752
- 1941957 words of memory out of 5000000
- 35723 multiletter control sequences out of 15000+600000
- 604860 words of font info for 78 fonts, out of 8000000 for 9000
+ 13387 strings out of 475539
+ 208978 string characters out of 5776752
+ 1942957 words of memory out of 5000000
+ 35769 multiletter control sequences out of 15000+600000
+ 605165 words of font info for 79 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,10n,93p,487b,585s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,10n,93p,497b,464s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/jules/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/jules/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/jules/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/jules/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/jules/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/jules/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/jules/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/jules/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on ch4.pdf (10 pages, 243579 bytes).
+Output written on ch4.pdf (11 pages, 251034 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
- 115 compressed objects within 2 object streams
- 15 named destinations out of 1000 (max. 500000)
- 57 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 188 PDF objects out of 1000 (max. 8388607)
+ 138 compressed objects within 2 object streams
+ 19 named destinations out of 1000 (max. 500000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 

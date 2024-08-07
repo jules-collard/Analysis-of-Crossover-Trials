@@ -18,14 +18,101 @@ library(lmerTest)
 library(broom.mixed)
 library(ggpmisc)
 library(rstatix)
+
+data <- read_xlsx("../data/CrossOverData2.xlsx") %>%
+  mutate(across(Subject:treat, as_factor))
+```
+# Standard Crossover Design
+
+```{r data-import}
+data <- read_xlsx("../data/CrossOverData2.xlsx") %>%
+  mutate(across(Subject:treat, as_factor)) %>%
+  select(-Pre)
+
+data.wide <- data %>%
+  pivot_wider(id_cols = c(Subject, Sequence),
+              names_from = Period, values_from = Post,
+              names_prefix = "Period")
+
+means <- data.wide %>%
+  group_by(Sequence) %>%
+  summarise(Period1 = mean(Period1),
+            Period2 = mean(Period2))
+
+medians <- data.wide %>%
+  group_by(Sequence) %>%
+  summarise(Period1 = median(Period1),
+            Period2 = median(Period2))
+
+medians.long <- medians %>%
+  rename(`1` = "Period1", `2` = "Period2") %>%
+  pivot_longer(cols = c(`1`, `2`), names_to = "Period", values_to = "Value",
+               names_transform = as_factor)
+```
+
+## Summarising the Data
+```{r boxplot}
+ggplot(data = data, mapping = aes(x = Period, y = Post)) +
+  facet_wrap(~Sequence) +
+  theme_bw() +
+  geom_boxplot()
+```
+
+```{r period1-vs-period2}
+ggplot(data = data.wide, mapping = aes(x = Period1, y = Period2, col = Sequence)) +
+  facet_wrap(~Sequence) +
+  geom_point(show.legend = FALSE) +
+  geom_abline(slope=1,intercept=0) +
+  labs(x="Period 1", y="Period 2") +
+  theme_bw()
+```
+
+```{r centroids}
+ggplot(data = data.wide, mapping = aes(x = Period1, y = Period2, col = Sequence)) +
+  geom_point(show.legend = FALSE) +
+  geom_point(data = means,
+             mapping = aes(x = Period1, y = Period2),
+             shape = "square", size = 5) +
+  geom_abline(slope=1,intercept=0) +
+  labs(x="Period 1", y="Period 2") +
+  theme_bw()
+```
+```{r centroids-median}
+ggplot(data = data.wide, mapping = aes(x = Period1, y = Period2, col = Sequence)) +
+  geom_point(show.legend = FALSE) +
+  geom_point(data = medians,
+             mapping = aes(x = Period1, y = Period2),
+             shape = "square", size = 5) +
+  geom_abline(slope=1,intercept=0) +
+  labs(x="Period 1", y="Period 2") +
+  theme_bw()
 ```
 
 
+```{r subject-profiles}
+ggplot(data = data,
+       mapping = aes(x = Period, y = Post)) +
+  facet_wrap(~Sequence) +
+  geom_line(aes(group = Subject), alpha = 0.55) +
+  geom_point(aes(col = Sequence), show.legend = FALSE) +
+  theme_bw()
+```
+
+```{r groups-by-periods}
+ggplot(data = medians.long, mapping = aes(x = Period, y = Value, colour = Sequence)) +
+  geom_line(aes(group = Sequence)) +
+  geom_point() +
+  labs(y = "Median Value") +
+  theme_bw()
+```
+
+## Modelling for Treatment Effect
 
 
-# Adjusting for Baseline Measurements
 
-```{r data-import, include=FALSE}
+# Using Baseline Measurements
+
+```{r data-import-baseline, include=FALSE}
 data <- read_xlsx("../data/CrossOverData2.xlsx") %>%
   mutate(across(Subject:treat, as_factor))
 
@@ -70,6 +157,7 @@ data %>%
       booktabs = TRUE) %>%
   kable_paper()
 ```
+
 ```{r, include=FALSE}
 # Summary by period & sequence
 summary.period.sequence <- data.wide %>%
@@ -114,7 +202,9 @@ table1 <- inner_join(summary.sequence, summary.period.sequence,
   bind_rows(summary.period) %>%
   relocate(Subjects, .after = Sequence)
 ```
+
 Our summary table can be expanded to include the baseline measurements, as shown in table \ref{tab:table1}.
+
 ```{r table1, echo=FALSE}
 table1 %>%
   kbl(caption = "Summary Table with Baseline Values (Pre)",
@@ -127,63 +217,24 @@ table1 %>%
                      "Pre"=2, "Post"=2)) %>%
   add_header_above(c(" "=2, "Overall"=4, "Period 1"=4, "Period 2"=4)) %>%
   row_spec(2, hline_after = TRUE) %>%
-  column_spec(c(2, 6), border_right = TRUE)
+  column_spec(c(2, 6), border_right = TRUE) %>%
+  kable_styling(latex_options = "scale_down")
 ```
 
 
 We can also extend the boxplot to incorporate the baseline measurements (see figure \ref{fig:boxplot-with-baseline}.
+
 ```{r boxplot-with-baseline, echo=FALSE}
 ggplot(data = data.long, mapping = aes(x = Period, y = value, col = Measurement)) +
   facet_wrap(~Sequence) +
   geom_boxplot() +
   theme_bw()
 ```
-```{r boxplot}
-ggplot(data = data, mapping = aes(x = Period, y = Post)) +
-  facet_wrap(~Sequence) +
-  theme_bw() +
-  geom_boxplot()
-```
 
-```{r period1-vs-period2}
-ggplot(data = data.wide, mapping = aes(x = Post_1, y = Post_2, col = Sequence)) +
-  facet_wrap(~Sequence) +
-  geom_point(show.legend = FALSE) +
-  geom_abline(slope=1,intercept=0) +
-  labs(x="Period 1", y="Period 2") +
-  theme_bw()
-```
-
-```{r centroids}
-ggplot(data = data.wide, mapping = aes(x = Post_1, y = Post_2, col = Sequence)) +
-  geom_point(show.legend = FALSE) +
-  geom_point(data = medians,
-             mapping = aes(x = Period1, y = Period2),
-             shape = "square", size = 5) +
-  geom_abline(slope=1,intercept=0) +
-  labs(x="Period 1", y="Period 2") +
-  theme_bw()
-```
-
-```{r subject-profiles}
-ggplot(data = data.long %>% filter(Measurement == "Post"),
-       mapping = aes(x = Period, y = value)) +
-  facet_wrap(~Sequence) +
-  geom_line(aes(group = Subject), alpha = 0.55) +
-  geom_point(aes(col = Sequence), show.legend = FALSE) +
-  theme_bw()
-```
-
-```{r groups-by-periods}
-ggplot(data = medians.long, mapping = aes(x = Period, y = Value, colour = Sequence)) +
-  geom_line(aes(group = Sequence)) +
-  geom_point() +
-  labs(y = "Median Value") +
-  theme_bw()
-```
 
 ## Modelling with Baseline Measurements
-First we construct the ANOVA table, including the baseline by period interaction.
+
+First we construct the ANOVA table, this time including the baseline by period interaction.
 ```{r anova}
 aov(Post ~ treat + Period * baseline_diff + Sequence + Subject,
                              data = data.baselines) %>%
@@ -197,7 +248,7 @@ aov(Post ~ treat + Period * baseline_diff + Sequence + Subject,
 model <- lmer(Post ~ treat + Period + Sequence + (1|Subject),
               data = data.baselines)
 
-summary(model)$coefficients %>% kbl()
+summary(model)$coefficients %>% kbl() %>% kable_paper()
 ```
 
 
