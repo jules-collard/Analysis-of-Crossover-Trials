@@ -3,7 +3,7 @@ title: 'Chapter 4: Worked Example'
 author: "Jules Lanari-Collard"
 date: "2024-08-09"
 bibliography: ../report/references.bib
-output: pdf_document
+output: latex_fragment
 ---
 
 This chapter uses data from a cross-over study by Dai, Lov, Martin-Arrowsmith et al. \cite{dai2022insect}. The trial measured various outcomes after ingesting a protein-based beverage, comparing between beef- or insect-derived proteins. 20 subjects were randomised into either the cricket-beef (C-B) sequence or the beef-cricket (B-C) sequence. For the following examples, we focus on data collected on insulin levels 300 minutes after ingestion.
