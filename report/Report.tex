@@ -123,10 +123,10 @@ This chapter will follow example data from Jones and Kenward \cite{jones2003desi
 When the outcome data is continuous, a simple summary table showing the mean and standard deviation of the outcomes \cite{vetter2017descriptive}, grouped by sequence and period (see table \ref{summaryTable}), suffices to give an overview of the data.  If further data were collected on additional covariates, they can be summarised using the traditional \textit{Table 1}.
 \input{report/tables/summaryTable}
 
-\section{Summary Plots}
+\section{Visualisations}
 Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the introductory plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials.
 
-An overview of the trial data can be obtained using a simple boxplot, separated by sequence, as shown in figure \ref{fig:boxplot}.
+An overview of the trial data can be obtained using a simple boxplot, separated by sequence, as shown in figure \ref{fig:boxplot}. A subject-profile plot (see figure \ref{fig:subjectprofile}) provides a subject-level summary of the data. These can even be combined to give a comprehensive summary of the data, as shown in figure \ref{fig:pairedboxplot}.
 
 \begin{figure}[ht]
     \centering
@@ -134,31 +134,6 @@ An overview of the trial data can be obtained using a simple boxplot, separated 
     \caption{Boxplot}
     \label{fig:boxplot}
 \end{figure}
-
-To begin to understand potential treatment effects, we can use a simple scatter plot of observations in each period, separated by group, as demonstrated in figure \ref{fig:period2vsperiod1}. Also included is a straight line with slope 1 and intercept 0; if the treatments were identical we would expect all observations to lie along this line. Using this plot we can verify within-patient correlation, and also notice the spread of points across the line, indicating between-patient variation.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/periodsPlot.png}
-    \caption{Period 2 vs Period 1 Plots}
-    \label{fig:period2vsperiod1}
-\end{figure}
-
-Additionally, we can overlay these two plots, distinguishing the groups using colour, and also including the centroids for each group, as demonstrated in figure \ref{fig:centroids}. This allows us to make some preliminary conclusions:
-\begin{itemize}
-    \item Both groups appearing symmetrical about the diagonal line suggests absence of a period effect.
-    \item Centroids appearing on opposite sides of the line, with some vertical separation, suggests there exists a direct treatment effect.
-\end{itemize}
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/centroidsPlot.png}
-    \caption{Period 2 vs Period 1 with Centroids}
-    \label{fig:centroids}
-\end{figure}
-
-A plot which clearly shows the within-patient differences is the subject-profile plot, demonstrated in figure \ref{fig:subjectprofile}. This plot also allows us to visualise both within-patient and between-patient variability. It can also be combined with the boxplot to provide a comprehensive overview of the data, as shown in figure \ref{fig:pairedboxplot}.
-
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/subjectProfilesPlot.png}
@@ -170,6 +145,28 @@ A plot which clearly shows the within-patient differences is the subject-profile
     \includegraphics[width=0.85\linewidth]{report/figures/pairedboxplot.png}
     \caption{Paired Boxplot}
     \label{fig:pairedboxplot}
+\end{figure}
+
+To begin to understand potential treatment effects, we can use a simple scatter plot of observations in each period, separated by group, as demonstrated in figure \ref{fig:period2vsperiod1}. Also included is a straight line with slope 1 and intercept 0; if the treatments were identical we would expect all observations to lie along this line. Using this plot we can verify within-patient correlation, and also notice the spread of points across the line, indicating between-patient variation.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/periodsPlot.png}
+    \caption{Period 2 vs Period 1 Plots}
+    \label{fig:period2vsperiod1}
+\end{figure}
+
+Additionally, we can overlay these two plots, distinguishing the groups by colour and including the centroids for each group, as demonstrated in figure \ref{fig:centroids}. This allows us to make some preliminary conclusions:
+\begin{itemize}
+    \item Both groups appearing symmetrical about the diagonal line suggests absence of a period effect.
+    \item Centroids appearing on opposite sides of the line, with some vertical separation, suggests there exists a direct treatment effect.
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/centroidsPlot.png}
+    \caption{Period 2 vs Period 1 with Centroids}
+    \label{fig:centroids}
 \end{figure}
 
 Finally, the summary table \ref{summaryTable} can be visualised using a groups-by-periods plot, as shown in figure \ref{fig:groupsbyperiods}.
@@ -252,6 +249,9 @@ Before analysing the direct treatment effect, we must first verify that the afor
 \input{report/tables/anovaTable.tex}
 
 Notice that in this example, neither the sequence (i.e. carryover) or period effects are statistically significant, indicating we can reliably estimate the treatment effect \cite{lim2021considerations}.
+
+\subsubsection{In Practice}
+
 
 \subsection{Mixed Model for Cross-over Design}
 When between-subject differences are judged to be relevant, a mixed model (more specifically a random intercepts model) is superior to the simple linear regression model \ref{fixedmodelregression} for 2x2 cross-over trials \cite{jones2003design}. In a random intercepts mixed model, treating subject effects as random effects, we include a term for the unique effect of each subject, so that we have subject-specific intercepts \cite{mixedmodelsR}. The corresponding regression is demonstrated in equation \ref{mixedmodelregression}, and can be estimated using the Restricted Maximum Likelihood (REML) method \cite{jones2003design}.
