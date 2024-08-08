@@ -59,21 +59,23 @@
 \section{The Cross-over Design}
 A cross-over trial is defined as a "trial in which subjects are given sequences of treatments with the object of studying differences between individual treatments" \cite{senn2002crossover}. This differs from the traditional parallel group trial, where subjects typically only receive one treatment throughout the trial.
 
-The most common and simple cross-over design, is the 2x2 cross-over design, whereby there exist two treatments and two treatment groups. In this design, for example comparing two treatments \textit{A} and \textit{B}, subjects receive either \textit{A} or \textit{B} in the first period, and then are 'crossed over' to the other treatment in the second period. When only investigating the effects of one treatment (as opposed to comparing two treatments), the other 'treatment' is then a placebo.
+The most common and simple cross-over design is the 2x2 cross-over design, whereby there are two treatments and two treatment groups. In this design, for example comparing two treatments \textit{A} and \textit{B}, subjects receive either \textit{A} or \textit{B} in the first period, and then are 'crossed over' to the other treatment in the second period. When investigating the effects of only one treatment (as opposed to comparing two treatments), the other 'treatment' is then a placebo or control.
 
 Cross-over designs are typically used for testing treatments for ongoing or chronic diseases, where "there is no question of curing the underlying problem which has caused the illness but a hope of moderating its effects through treatment" \cite{senn2002crossover}. Examples of such conditions include asthma, rheumatism, epilepsy and migraines. Due to time constraints and the risk of drop-out or carryover, cross-over designs are more suitable to single-dose trials, as opposed to trials involving multiple doses over a period of time \cite{senn2002crossover}.
 
 \subsection{Consequences}
-A unique characteristic of the cross-over design is that only the \textit{order} of treatment is randomised, which has the following consequences \cite{piantadosi2005clinical}:
+A unique characteristic of the cross-over design is that only the \textit{order} of treatments is randomised, which has the following consequences \cite{piantadosi2005clinical}:
 \begin{itemize}
     \item The validity of treatment comparison does not depend on randomisation.
     \item Randomisation does not guarantee an unbiased comparison of treatments.
     \item Treatment groups differ with respect to their recent exposure to potentially effective treatments.
 \end{itemize}
-In conclusion, the primary issue is that the comparability of treatments is not guaranteed by the structure of the trial alone, but instead depends on the treatments themselves \cite{piantadosi2005clinical}.
+In conclusion, the primary issue with the cross-over design is that the comparability of treatments is not guaranteed by the structure of the trial alone, but instead depends on the treatments themselves \cite{piantadosi2005clinical}.
 
 \section{Advantages}
-The principal advantage of a cross-over design is that it can lead to significant savings in resources \cite{senn2002crossover}. Firstly, when compared to a parallel group trial, a cross-over design only requires half as many subjects to obtain the same number of observations per treatment.
+The principal advantage of a cross-over design is that it can lead to significant savings in resources \cite{senn2002crossover}.
+
+Firstly, when compared to a parallel group trial, a cross-over design only requires half as many subjects to obtain the same number of observations per treatment. 
 
 Secondly, the data can be interpreted in terms of subject-level \textit{difference to control}, eliminating between-patient variation \cite{senn2002crossover}, which is usually greater than within-patient variation \cite{piantadosi2005clinical}. This reduces the number of observations (and hence subjects) required for the same precision in estimation. Furthermore, within-subject responses to treatments are usually positively correlated \cite{piantadosi2005clinical}, reducing the variance of the estimated treatment difference (from control) and increasing efficiency, as demonstrated below:
 
@@ -98,7 +100,7 @@ Secondly, the data can be interpreted in terms of subject-level \textit{differen
     Given that $\rho_{AB} = 0$ in parallel group trials, positive correlation of within-subject responses will make a crossover trial more efficient \cite{piantadosi2005clinical}.
 \end{quote}
 
-An oft-overlooked benefit to the crossover trial is improved recruitment and reduced spill-over rates \cite{piantadosi2005clinical}. Since all subjects are guaranteed to receive each treatment at least once, it can be easier to recruit participants. Furthermore, if a treatment is known to be desirable (e.g. exercise), parallel group trials can be subject to spill-over, where subjects in the control group voluntarily take the treatment. Cross-over trials are evidently less at risk of this, since all subjects know they will receive the treatment.
+An oft-overlooked benefit to the crossover trial is improved recruitment and reduced spill-over rates \cite{piantadosi2005clinical}. Since all subjects are guaranteed to receive each treatment at least once, it can be easier to recruit participants. Spill-over is a significant risk for parallel group trials, where if a treatment is known to be desirable (e.g. exercise), subjects in the control group voluntarily take the treatment. Cross-over trials are evidently less at risk of this, since all subjects know they will receive the treatment.
 
 \section{Disadvantages}
 Many of the aforementioned benefits of the crossover design come with drawbacks. For example, the longer trial and multiple treatments could be seen as an added inconvenience to patients, and analysis of results is often more difficult and complex (particularly when there are more than two treatments or groups). Also, the design cannot be used for infectious diseases, where either a significant deterioration or improvement in condition can occur during treatment, introducing bias into the subsequent treatment period. Patient drop-out is also very harmful to cross-over trials, since observations for all treatments are required for each patient to analyse the within-patient differences. In comparison, a parallel group trial can still recover some information after a patient drops out \cite{senn2002crossover}.
@@ -221,7 +223,7 @@ Further complication occurs if patients are subject to period effects which are 
 Patient-by-period and patient-by-treatment interactions do not necessarily threaten the validity of the experiment, but they do increase variance and reduce ease of interpretation. As discussed above, period-by-treatment interactions (including carry-over) are best addressed by careful trial design, but are also the fundamental drawbacks to the cross-over design \cite{senn2002crossover}. If present, they seriously threaten the validity of subsequent analysis. Period and sequence effects, whilst not ideal, can be adjusted for using more complex models, which are demonstrated later in this chapter.
 
 \section{Linear Models}
-The issues with the matched-pairs \textit{t}-test, and the cross-over design as a whole, are better addressed within the framework of a linear model. This allows us to control for period and sequence effects, whilst also taking into account the within-subject differences. It also allows scope to include other variables of interest as covariates, such as sex and age.
+The issues with the matched-pairs \textit{t}-test, and the cross-over design as a whole, are better addressed within the framework of a linear model. This allows us to control for period and sequence effects, whilst also taking into account the within-subject differences. It also allows scope to include other variables of interest such as covariates, such as sex and age.
 
 The general framework for a cross-over trial model is shown in equation \ref{mixed_model}; some decisions need to be made on how to treat each individual variable to then implement a regression.
 
