@@ -121,8 +121,7 @@ data.baselines %>% arrange(Subject) %>%
       caption="Subsample of Protein Data ('Long' Format with Baseline Differences)",
       label="preDiffSubsample",
       booktabs=TRUE,
-      digits = 1) %>%
-  column_spec(4, border_right = TRUE)
+      digits = 1)
 sink()
 
 # Mixed Model
@@ -134,6 +133,7 @@ sink("report/tables/ch3/proteinDataEstimates.tex", type="output")
 summary(mixed.model.baselines)$coefficients %>%
   kbl(format="latex",
       caption="Mixed Model Estimates with Baseline Interaction",
+      col.names = c("", "Estimate", "Std. Error", "df", "t", "p-value"),
       label="proteinDataEstimates",
       booktabs=TRUE,
       digits=2) %>%
@@ -144,7 +144,8 @@ sink()
 emm <- emmeans(mixed.model.baselines, pairwise ~ Sequence)
 sink("report/tables/ch3/proteinDataMeans.tex", type="output")
 emm %>% rbind(emm$contrasts) %>%
-  kbl(caption="LS Means for Mixed Model on Protein Data",
+  kbl(format="latex",
+      caption="LS Means for Mixed Model on Protein Data",
       label="proteinDataLSMeans",
       col.names = c("Sequence", "Difference", "Adj. Mean", "SE", "df",
                     "Lower CI", "Upper CI"),
