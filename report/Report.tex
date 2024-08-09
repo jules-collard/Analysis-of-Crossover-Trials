@@ -367,7 +367,7 @@ As in section \ref{mixed-model-subsection}, a random intercepts mixed model, tre
 \end{quote}
 
 \subsubsection{In Practice}
-As in section \ref{mixed-model-subsection}, first the data must be pivoted into long format, this time also with a column for within-subject baseline differences, as in table \ref{preDiffSubsample} (see appendix for more detailed code).
+As in section \ref{mixed-model-subsection}, first the data must be pivoted into long format, this time also with a column for within-subject baseline differences, as in table \ref{tab:preDiffSubsample} (see appendix for more detailed code).
 \input{report/tables/ch3/preDiffSubsample}
 
 Now we implement the model using \mintinline{R}{lme4::lmer()}:
@@ -375,10 +375,9 @@ Now we implement the model using \mintinline{R}{lme4::lmer()}:
     mixed.model.baselines <- lmer(Post ~ Treatment + Period * Pre_diff + Sequence + (1|Subject),
     data = data.baselines)
 \end{minted}
-At this point, the assumptions should be verified as in section \ref{verifying-assumptions-subsection}. The resulting estimates for the protein trial data are shown in table \ref{proteinDataEstimates}, with the adjusted means shown in table \ref{proteinDataLSMeans}.
+At this point, the assumptions should be verified as in section \ref{verifying-assumptions-subsection}. The resulting estimates for the protein trial data are shown in table \ref{tab:proteinDataEstimates}, with the adjusted means shown in table \ref{tab:proteinDataLSMeans}. We notice that there is no statistically significant difference between the cricket- and beef-derived proteins, in terms of ensuing insulin levels.
 \input{report/tables/ch3/proteinDataEstimates}
 \input{report/tables/ch3/proteinDataMeans}
-We notice that there is no statistically significant difference between the cricket- and beef-derived proteins, in terms of ensuing insulin levels.
 
 	% Begin Bibliography
 	{
