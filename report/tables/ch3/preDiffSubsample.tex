@@ -1,0 +1,23 @@
+
+> data.baselines %>% arrange(Subject) %>%
++   head(5) %>%
++   kbl(format="latex",
++       caption="Subsample of Protein Data ('Long' Format with Basel ..." ... [TRUNCATED] 
+\begin{table}
+
+\caption{\label{tab:preDiffSubsample}Subsample of Protein Data ('Long' Format with Baseline Differences)}
+\centering
+\begin{tabular}[t]{lll>{}l|rrr}
+\toprule
+Subject & Sequence & Period & Treatment & Pre & Post & Pre\_diff\\
+\midrule
+1 & C-B & 1 & CRICKET & 20.3 & 18.3 & 5.7\\
+1 & C-B & 2 & BEEF & 14.6 & 14.1 & 5.7\\
+2 & C-B & 1 & CRICKET & 11.1 & 14.7 & 0.0\\
+2 & C-B & 2 & BEEF & 11.1 & 24.7 & 0.0\\
+4 & C-B & 1 & CRICKET & 38.3 & 45.9 & -13.3\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+> sink()

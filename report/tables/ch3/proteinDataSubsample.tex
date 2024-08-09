@@ -1,6 +1,12 @@
+
+> data.wide %>% arrange(Subject) %>%
++   head(5) %>%
++   kbl(format="latex",
++       caption="Subsample of Protein Data",
++       label="proteinDataSu ..." ... [TRUNCATED] 
 \begin{table}
 
-\caption{Subsample of Protein Data}
+\caption{\label{tab:proteinDataSubsample}Subsample of Protein Data}
 \centering
 \begin{tabular}[t]{l>{}l|rrrr}
 \toprule
@@ -16,3 +22,5 @@ Subject & Sequence & Pre & Post & Pre & Post\\
 \bottomrule
 \end{tabular}
 \end{table}
+
+> sink()
