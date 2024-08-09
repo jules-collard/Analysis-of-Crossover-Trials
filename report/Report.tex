@@ -361,7 +361,7 @@ As in section \ref{mixed-model-subsection}, first the data must be pivoted into 
 
 \end{minted}
 Now we implement the model using \mintinline{R}{lme4::lmer()}:
-\begin{minted}
+\begin{minted}{R}
     mixed.model.baselines <- lmer(Post ~ Treatment + Period * Pre_diff + Sequence + (1|Subject),
     data = data.baselines)
 \end{minted}
