@@ -371,9 +371,10 @@ As in section \ref{mixed-model-subsection}, first the data must be pivoted into 
 \input{report/tables/ch3/preDiffSubsample}
 
 Now we implement the model using \mintinline{R}{lme4::lmer()}:
-\begin{minted}{R}
-    mixed.model.baselines <- lmer(Post ~ Treatment + Period * Pre_diff + Sequence + (1|Subject),
-    data = data.baselines)
+\begin{minted}[samepage]{R}
+    mixed.model.baselines <-
+        lmer(Post ~ Treatment + Period * Pre_diff + Sequence + (1|Subject),
+            data = data.baselines)
 \end{minted}
 At this point, the assumptions should be verified as in section \ref{verifying-assumptions-subsection}. The resulting estimates for the protein trial data are shown in table \ref{tab:proteinDataEstimates}, with the adjusted means shown in table \ref{tab:proteinDataLSMeans}. We notice that there is no statistically significant difference between the cricket- and beef-derived proteins, in terms of ensuing insulin levels.
 \input{report/tables/ch3/proteinDataEstimates}
