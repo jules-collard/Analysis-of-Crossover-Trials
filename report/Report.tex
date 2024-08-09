@@ -113,17 +113,17 @@ The most common example of a period-by-treatment interaction is carryover, defin
 Carryover is both difficult to test for and then to adjust for. Tests for carryover effects are difficult to interpret independently of the treatment effect, and including carryover parameters in the model introduces additional uncertainty and requires additional (usually unreasonable) assumptions \cite{senn2002crossover}.
 
 \subsection{Wash-out Period}
-Senn [2002] proposes that the most efficient way to deal with carryover is introducing a \textit{wash-out period} to the experiment design. A wash-out period is "a period in a trial during which the effect of a treatment given previously is believed to disappear" \cite{senn2002crossover}. Effectively, time is allowed after the first treatment to allow any lingering effects to 'wash out'. After the wash-out period, we can assume that all measurements taken are no longer affected by the previous treatment, the consequence being that all conclusions become conditional on the absence of a carryover effect.
+Senn \cite{senn2002crossover} proposes that the most efficient way to deal with carryover is introducing a \textit{wash-out period} to the experiment design. A wash-out period is "a period in a trial during which the effect of a treatment given previously is believed to disappear" \cite{senn2002crossover}. Effectively, time is allowed after the first treatment to allow any lingering effects to 'wash out'. After the wash-out period, we can assume that all measurements taken are no longer affected by the previous treatment, the consequence being that all conclusions become conditional on the absence of a carryover effect.
 
 \chapter{Summary \& Visualisation of Cross-over Data} \label{visualisation}
 This chapter will follow example data from Jones and Kenward \cite{jones2003design}, on a study testing efficacy of a drug (A) and a placebo (B) on patients with \textit{chronic obstructive pulmonary disease} (COPD). Due to the nature of the condition, the observation measurement used was \textit{peak expiratory flow rate} (PEFR), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 56 patients, where each patient measured their PEFR 3 times per day during the treatment periods, recording the highest value. A sub-sample of the data is outlined in table \ref{pefData}.
 
 \input{report/tables/pefData.tex}
-\section{Summarising Results}
+\section{Summary Tables}
 When the outcome data is continuous, a simple summary table showing the mean and standard deviation of the outcomes \cite{vetter2017descriptive}, grouped by sequence and period (see table \ref{summaryTable}), suffices to give an overview of the data.  If further data were collected on additional covariates, they can be summarised using the traditional \textit{Table 1}.
 \input{report/tables/summaryTable}
 
-\section{Visualisations}
+\section{Summary Plots}
 Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the introductory plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials.
 
 An overview of the trial data can be obtained using a simple boxplot, separated by sequence, as shown in figure \ref{fig:boxplot}. A subject-profile plot (see figure \ref{fig:subjectprofile}) provides a subject-level summary of the data. These can even be combined to give a comprehensive summary of the data, as shown in figure \ref{fig:pairedboxplot}.
@@ -258,7 +258,7 @@ The ANOVA table \ref{anovaTable} can be easily generated using the built-in \min
 \end{minted}
 For these data, neither the sequence or period effects are significant, so we can move on to the analysis.
 
-\subsection{Mixed Model for Cross-over Design}
+\subsection{Mixed Model for Cross-over Design}\label{mixed-model-subsection}
 When between-subject differences are judged to be relevant, a mixed model (more specifically a random intercepts model) is superior to the simple linear regression model \ref{fixedmodelregression} for 2x2 cross-over trials \cite{jones2003design}. In a random intercepts mixed model, treating subject effects as random effects, we include a term for the unique effect of each subject, so that we have subject-specific intercepts \cite{mixedmodelsR}. The corresponding regression is demonstrated in equation \ref{mixedmodelregression}, and can be estimated using the Restricted Maximum Likelihood (REML) method \cite{jones2003design}.
 
 \begin{equation}
@@ -280,7 +280,7 @@ For the random-intercept model specifically, we include the term \mintinline{R}{
                         data = data)
 \end{minted}
 
-\subsection{Verifying Assumptions}
+\subsection{Verifying Assumptions}\label{verifying-assumptions-subsection}
 Before analysing model results, it is important to verify that some key assumptions hold, to ensure validity of the fitted model. The following assumptions must hold for either the simple regression or the mixed model to be valid for a 2x2 cross-over trial:
 \begin{itemize}
     \item Linearity
@@ -333,13 +333,18 @@ The package \mintinline{R}{emmeans} can calculate adjusted means for mixed model
 \section{Adjusting for Baseline Values}
 In pre-post designs, analysis of covariance (ANCOVA), whereby the pre-test (baseline) measurement is included as a covariate, is the most efficient method of analysis \cite{wan2021statistical}. For 2x2 cross-over trials, we can further improve model efficiency by taking baseline measurements into account (when available). This requires that baseline measurements be taken for each subject prior to each treatment period, so that a total of 4 measurements per subject are taken over the course of the trial.
 
-Mehrotra \cite{mehrotra2014} concludes that the most efficient method to interpret baseline measurements is to include within-subject difference in baselines as a covariate, interacting with period. This is shown as part of the simple linear regression in equation \ref{baselinemodel}, and as part of the mixed model in equation \ref{baselinemixedmodel}.
+\subsection{Example Data}
+This chapter uses data from a cross-over study by Dai, Lov, Martin-Arrowsmith et al. \cite{dai2022insect}. The trial measured various outcomes after ingesting a protein-based beverage, comparing between beverages with beef- or insect-derived proteins. 20 subjects were randomised into either a cricket-beef (C-B) sequence or a beef-cricket (B-C) sequence. For this example, we use the data collected on the subjects' insulin levels. For each treatment period, insulin levels were measured just before ingestion (Pre), and 300 minutes after ingestion (Post), resulting in 4 measurements per subject. A subsample of the data is shown in INSERT TABLE. 
 
-\begin{equation}
-    Y = \beta_0 + \beta_1 T + \beta_2 P \cdot X_{diff} + \beta_3 P +
-    \beta_4 X_{diff} + \beta_5 Se + \beta_6 Su + \epsilon
-    \label{baselinemodel}
-\end{equation}
+\subsection{Tables and Plots}
+We can expand the summary table to include the pre-treatment measurements as well, as shown in INSERT TABLE.
+
+The boxplot can also be extended to show the pre-treatment measurements, as shown in INSERT FIGURE.
+
+\subsection{Mixed Model with Baselines}
+After comparison of many different models, Mehrotra \cite{mehrotra2014} concludes that the most efficient method to interpret baseline measurements is to include \textit{within-subject difference in baselines} as a covariate, interacting with the period effect.
+
+As in section \ref{mixed-model-subsection}, a random intercepts mixed model, treating subject effects as random, remains a suitable method to account for both between- and within-subject differences. The new regression equation, including within-subject differences in baseline as a covariate, is shown in equation \ref{baselinemixedmodel}.
 
 \begin{equation}
     Y = \beta_0 + \beta_1 T + \beta_2 P \cdot X_{diff} + \beta_3 P +
@@ -349,6 +354,20 @@ Mehrotra \cite{mehrotra2014} concludes that the most efficient method to interpr
 \begin{quote}
     Where $X_{diff} := X_1 - X_2$, with $X_1$ and $X_2$ being the baseline measurements before treatment periods 1 and 2 respectively.
 \end{quote}
+
+\subsubsection{In Practice}
+As in section \ref{mixed-model-subsection}, first the data must be pivoted into long format, this time also with a column for within-subject baseline differences:
+\begin{minted}{R}
+
+\end{minted}
+Now we implement the model using \mintinline{R}{lme4::lmer()}:
+\begin{minted}
+    mixed.model.baselines <- lmer(Post ~ Treatment + Period * Pre_diff + Sequence + (1|Subject),
+    data = data.baselines)
+\end{minted}
+At this point, the assumptions should be verified, as demonstrated in section \ref{verifying-assumptions-subsection}. The resulting estimates for the protein trial data are shown in INSERT TABLE, with the adjusted means shown in INSERT TABLE.
+
+We notice that there is no statistically significant difference between the cricket- and beef-derived proteins, in terms of ensuing insulin levels.
 
 	% Begin Bibliography
 	{
