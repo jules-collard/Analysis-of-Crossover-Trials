@@ -1,7 +1,5 @@
 library(tidyverse)
 library(readxl)
-library(ggthemes)
-library(ggpubr)
 
 data <- read_xlsx("data/DataExample_Ch2_JK.xlsx")
 data <- data %>%
@@ -20,6 +18,7 @@ ggplot(data = data, mapping = aes(x=Period1, y=Period2, colour=Sequence)) +
   facet_wrap(~Sequence) +
   labs(x = "Period 1", y = "Period 2") +
   theme_bw()
+ggsave("report/figures/ch2/periodsPlot.png")
 
 # Period 1 vs Period 2 with Centroids Plot
 ggplot(data = data, mapping = aes(x=Period1, y=Period2, colour=Sequence)) +
@@ -28,6 +27,7 @@ ggplot(data = data, mapping = aes(x=Period1, y=Period2, colour=Sequence)) +
   geom_abline(slope=1,intercept=0) +
   labs(x = "Period 1", y = "Period 2") +
   theme_bw()
+ggsave("report/figures/ch2/centroidsPlot.png")
 
 # Subject-Profiles Plot
 data.long <- data %>%
@@ -40,12 +40,14 @@ ggplot(data = data.long, mapping = aes(x=Period, y=PEFR)) +
   geom_point(aes(colour = Sequence), show.legend = FALSE) +
   facet_wrap(~Sequence) +
   theme_bw()
+ggsave("report/figures/ch2/subjectProfilesPlot.png")
 
 # Boxplot
 ggplot(data = data.long, mapping = aes(x=Period, y = PEFR)) +
   geom_boxplot() +
   facet_wrap(~Sequence) +
   theme_bw()
+ggsave("report/figures/ch2/boxplot.png")
 
 # Groups-by-Periods Plot
 means.long <- means %>%
@@ -58,6 +60,7 @@ ggplot(data = means.long, mapping = aes(x = Period, y = PEFR, colour = Sequence)
   geom_point() +
   labs(y = "Mean PEFR") +
   theme_bw()
+ggsave("report/figures/ch2/groupsByPeriodsPlot.png")
 
 # Paired boxplot
 ggplot(data = data.long, mapping = aes(x=Period, y=PEFR)) +
@@ -66,3 +69,4 @@ ggplot(data = data.long, mapping = aes(x=Period, y=PEFR)) +
   geom_line(aes(group = Subject_Label), alpha = 0.35) +
   geom_point(alpha=0.6, mapping = aes(col = Sequence), show.legend = FALSE) +
   theme_bw()
+ggsave("report/figures/ch2/pairedBoxplot.png")
