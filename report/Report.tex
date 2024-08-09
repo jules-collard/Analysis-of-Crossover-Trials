@@ -301,12 +301,14 @@ Whichever model is chosen, the estimated coefficients and their corresponding p-
 \subsubsection{In Practice}
 The \mintinline{R}{broom.mixed::tidy()} function can be used to obtain the model coefficients, std. errors, p-values etc. shown in table \ref{tab:pefrDataEstimates}:
 \begin{minted}{R}
-    mixed.model %>% tidy() # Table 3.1
+    library(broom.mixed)
+    tidy(mixed.model) # Table 3.1
 \end{minted}
-The package \mintinline{R}{emmeans} can calculate adjusted means for mixed models; we specify \mintinline{R}{~ Sequence} as an argument to separate the adjusted means by sequence.
+The package \mintinline{R}{emmeans} can calculate adjusted means for mixed models; we specify \mintinline{R}{~ Treat} as an argument to separate the adjusted means by treatment.
 \begin{minted}{R}
     library(emmeans)
-    emmeans(mixed.model, pairwise ~ Sequence) # Table 3.2
+    emm <- emmeans(mixed.model, pairwise ~ Treat)
+    emm %>% rbind(emm$contrasts) # Table 3.2
 \end{minted}
 
 \section{Adjusting for Baseline Values}
