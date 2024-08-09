@@ -23,7 +23,7 @@ data.long <- data %>%
                names_transform = as_factor)
 
 # Data Example Table
-sink("report/tables/ch3/proteinDataSubsample.tex")
+sink("report/tables/ch3/proteinDataSubsample.tex", type="output")
 data.wide %>% arrange(Subject) %>%
   head(5) %>%
   kbl(format="latex",
@@ -78,7 +78,7 @@ summary.table <- inner_join(summary.sequence, summary.period.sequence,
   bind_rows(summary.period) %>%
   relocate(Subjects, .after = Sequence)
 
-sink("report/tables/ch3/proteinDataSummary.tex")
+sink("report/tables/ch3/proteinDataSummary.tex", type="output")
 summary.table %>%
   kbl(format="latex",
       caption = "Summary Table for Protein Data (with Baselines)",
@@ -114,7 +114,7 @@ data.baselines <- data.wide %>%
   relocate(Sequence, .after = "Subject") %>%
   relocate(Pre_diff, .after = "Post")
 
-sink("report/tables/ch3/preDiffSubsample.tex")
+sink("report/tables/ch3/preDiffSubsample.tex", type="output")
 data.baselines %>% arrange(Subject) %>%
   head(5) %>%
   kbl(format="latex",
@@ -130,7 +130,7 @@ mixed.model.baselines <-
   lmer(Post ~ Treatment + Period * Pre_diff + Sequence + (1|Subject),
                               data = data.baselines)
 
-sink("report/tables/ch3/proteinDataEstimates.tex")
+sink("report/tables/ch3/proteinDataEstimates.tex", type="output")
 summary(mixed.model.baselines)$coefficients %>%
   kbl(format="latex",
       caption="Mixed Model Estimates with Baseline Interaction",
@@ -142,7 +142,7 @@ sink()
 
 # LS Means
 emm <- emmeans(mixed.model.baselines, pairwise ~ Sequence)
-sink("report/tables/ch3/proteinDataMeans.tex")
+sink("report/tables/ch3/proteinDataMeans.tex", type="output")
 emm %>% rbind(emm$contrasts) %>%
   kbl(caption="LS Means for Mixed Model on Protein Data",
       label="proteinDataLSMeans",
