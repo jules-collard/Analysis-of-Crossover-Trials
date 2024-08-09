@@ -1,3 +1,8 @@
+
+> summary.table %>%
++   kbl(format="latex",
++       caption = "Summary Table for Protein Data (with Baselines)",
++       label = "proteinDataSummary", .... [TRUNCATED] 
 \begin{table}
 \centering
 \caption{\label{tab:proteinDataSummary}Summary Table for Protein Data (with Baselines)}
@@ -18,3 +23,5 @@ Total & 20 & 26.81 & 13.83 & 23.84 & 12.74 & 26.88 & 15.25 & 25.48 & 14.60 & 26.
 \bottomrule
 \end{tabular}}
 \end{table}
+
+> sink()
