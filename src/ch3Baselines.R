@@ -1,10 +1,10 @@
 library(tidyverse)
 library(readxl)
 library(kableExtra)
-library(xtable)
 library(lme4)
 library(lmerTest)
 library(emmeans)
+library(broom.mixed)
 
 # Importing Data
 data <- read_xlsx("data/CrossOverData2.xlsx") %>%
@@ -130,7 +130,8 @@ mixed.model.baselines <-
                               data = data.baselines)
 
 sink("report/tables/ch3/proteinDataEstimates.tex", type="output")
-summary(mixed.model.baselines)$coefficients %>%
+tidy(mixed.model.baselines) %>%
+  select(-c(effect, group)) %>%
   kbl(format="latex",
       caption="Mixed Model Estimates with Baseline Interaction",
       col.names = c("", "Estimate", "Std. Error", "df", "t", "p-value"),
@@ -141,7 +142,8 @@ summary(mixed.model.baselines)$coefficients %>%
 sink()
 
 # LS Means
-emm <- emmeans(mixed.model.baselines, pairwise ~ Sequence)
+emm <- emmeans(mixed.model.baselines, pairwise ~ Treatment)
+
 sink("report/tables/ch3/proteinDataMeans.tex", type="output")
 emm %>% rbind(emm$contrasts) %>%
   kbl(format="latex",
