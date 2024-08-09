@@ -375,7 +375,7 @@ summary.period <- data %>%
          sdOverallPost = sd(data$Post),
          .before = meanPre1)
 
-table1 <- inner_join(summary.sequence, summary.period.sequence,
+summary.table <- inner_join(summary.sequence, summary.period.sequence,
                      by = "Sequence") %>%
   bind_rows(summary.period) %>%
   relocate(Subjects, .after = Sequence)
