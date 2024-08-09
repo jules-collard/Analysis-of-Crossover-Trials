@@ -116,12 +116,12 @@ Carryover is both difficult to test for and then to adjust for. Tests for carryo
 Senn \cite{senn2002crossover} proposes that the most efficient way to deal with carryover is introducing a \textit{wash-out period} to the experiment design. A wash-out period is "a period in a trial during which the effect of a treatment given previously is believed to disappear" \cite{senn2002crossover}. Effectively, time is allowed after the first treatment to allow any lingering effects to 'wash out'. After the wash-out period, we can assume that all measurements taken are no longer affected by the previous treatment, the consequence being that all conclusions become conditional on the absence of a carryover effect.
 
 \chapter{Summary \& Visualisation of Cross-over Data} \label{visualisation}
-This chapter will follow example data from Jones and Kenward \cite{jones2003design}, on a study testing efficacy of a drug (A) and a placebo (B) on patients with \textit{chronic obstructive pulmonary disease} (COPD). Due to the nature of the condition, the observation measurement used was \textit{peak expiratory flow rate} (PEFR), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 56 patients, where each patient measured their PEFR 3 times per day during the treatment periods, recording the highest value. A sub-sample of the data is outlined in table \ref{pefData}.
+This chapter will follow example data from Jones and Kenward \cite{jones2003design}, on a study testing efficacy of a drug (A) and a placebo (B) on patients with \textit{chronic obstructive pulmonary disease} (COPD). Due to the nature of the condition, the observation measurement used was \textit{peak expiratory flow rate} (PEFR), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 56 patients, where each patient measured their PEFR 3 times per day during the treatment periods, recording the highest value. A sub-sample of the data is outlined in table \ref{tab:pefrDataSubsample}.
 
-\input{report/tables/pefData.tex}
+\input{report/tables/ch2/pefrDataSubsample}
 \section{Summary Tables}
-When the outcome data is continuous, a simple summary table showing the mean and standard deviation of the outcomes \cite{vetter2017descriptive}, grouped by sequence and period (see table \ref{summaryTable}), suffices to give an overview of the data.  If further data were collected on additional covariates, they can be summarised using the traditional \textit{Table 1}.
-\input{report/tables/summaryTable}
+When the outcome data is continuous, a simple summary table showing the mean and standard deviation of the outcomes \cite{vetter2017descriptive}, grouped by sequence and period (see table \ref{tab:pefrDataSummary}), suffices to give an overview of the data.  If further data were collected on additional covariates, they can be summarised using the traditional \textit{Table 1}.
+\input{report/tables/ch2/pefrDataSummary}.
 
 \section{Summary Plots}
 Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the introductory plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials.
@@ -130,19 +130,19 @@ An overview of the trial data can be obtained using a simple boxplot, separated 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/boxplot.png}
+    \includegraphics[width=0.85\linewidth]{report/figures/ch2/boxplot.png}
     \caption{Boxplot}
     \label{fig:boxplot}
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/subjectProfilesPlot.png}
+    \includegraphics[width=0.85\linewidth]{report/figures/ch2/subjectProfilesPlot.png}
     \caption{Subject-Profile Plot}
     \label{fig:subjectprofile}
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/pairedboxplot.png}
+    \includegraphics[width=0.85\linewidth]{report/figures/ch2/pairedBoxplot.png}
     \caption{Paired Boxplot}
     \label{fig:pairedboxplot}
 \end{figure}
@@ -151,7 +151,7 @@ To begin to understand potential treatment effects, we can use a simple scatter 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/periodsPlot.png}
+    \includegraphics[width=0.85\linewidth]{report/figures/ch2/periodsPlot.png}
     \caption{Period 2 vs Period 1 Plots}
     \label{fig:period2vsperiod1}
 \end{figure}
@@ -164,12 +164,12 @@ Additionally, we can overlay these two plots, distinguishing the groups by colou
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/centroidsPlot.png}
+    \includegraphics[width=0.85\linewidth]{report/figures/ch2/centroidsPlot.png}
     \caption{Period 2 vs Period 1 with Centroids}
     \label{fig:centroids}
 \end{figure}
 
-Finally, the summary table \ref{summaryTable} can be visualised using a groups-by-periods plot, as shown in figure \ref{fig:groupsbyperiods}.
+Finally, the summary table \ref{tab:pefrDataSummary} can be visualised using a groups-by-periods plot, as shown in figure \ref{fig:groupsbyperiods}.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/groupsByPeriodsPlot.png}
@@ -243,21 +243,6 @@ The regression model for the former case, treating subject effects as unknown fi
 \end{equation}
 where $Y$ is the outcome variable, $T$ is the treatment administered, $P$ is the period, $Se$ is the sequence, and $Su$ is the subject. Notice that $\beta_1$ represents the direct treatment effect.
 
-\subsection{ANOVA on Other Effects}
-Before analysing the direct treatment effect, we must first verify that the aforementioned effects (other than the treatment effect) do not appear in the trial data. This can be done by applying analysis of variance (ANOVA) to model \ref{fixedmodelregression}. An example ANOVA table on 2x2 cross-over trial data from Senn and Auclair \cite{senn1990graphical} is shown in table \ref{anovaTable}.
-
-\input{report/tables/anovaTable.tex}
-
-Notice that in this example, neither the sequence (i.e. carryover) or period effects are statistically significant, indicating we can reliably estimate the treatment effect \cite{lim2021considerations}.
-
-\subsubsection{In Practice}
-The ANOVA table \ref{anovaTable} can be easily generated using the built-in \mintinline{r}{aov()} and \mintinline{r}{summary()} functions, with the standard linear model notation as input.
-\begin{minted}{R}
-    # Table 3.1
-    aov(PEF ~ Treat+Period+Sequence+Subject, data = data) %>% summary()
-\end{minted}
-For these data, neither the sequence or period effects are significant, so we can move on to the analysis.
-
 \subsection{Mixed Model for Cross-over Design}\label{mixed-model-subsection}
 When between-subject differences are judged to be relevant, a mixed model (more specifically a random intercepts model) is superior to the simple linear regression model \ref{fixedmodelregression} for 2x2 cross-over trials \cite{jones2003design}. In a random intercepts mixed model, treating subject effects as random effects, we include a term for the unique effect of each subject, so that we have subject-specific intercepts \cite{mixedmodelsR}. The corresponding regression is demonstrated in equation \ref{mixedmodelregression}, and can be estimated using the Restricted Maximum Likelihood (REML) method \cite{jones2003design}.
 
@@ -290,13 +275,13 @@ Before analysing model results, it is important to verify that some key assumpti
 Linearity is not a concern as the independent variable (treatment) only takes 2 values. Homoscedasticity and normality of residuals are best verified graphically using a scatter plot of residuals against fitted values and a Q-Q plot, respectively.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/homoscedasticityPlot.png}
+    \includegraphics[width=0.85\linewidth]{report/figures/ch3/homoscedasticity.png}
     \caption{Plot to verify homoscedasticity}
     \label{fig:homoscedasticity}
 \end{figure}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/qqplot.png}
+    \includegraphics[width=0.85\linewidth]{report/figures/ch3/qqplot.png}
     \caption{Q-Q Plot to verify normality of residuals}
     \label{fig:qqplot}
 \end{figure}
@@ -314,10 +299,10 @@ For these data, figures \ref{fig:homoscedasticity} and \ref{fig:qqplot} provide 
 We see that there is a statistically significant difference between the treatments, at the $<1\%$ significance level.
 
 \subsection{Analysing Results}
-Whichever model is chosen, the estimated coefficients and their corresponding p-values should be reported, as in table \ref{modelTable}. We can then use the p-values to determine the existence of a treatment effect (or difference between treatments). It is also useful to report the least squares (LS) means (see table \ref{lsMeansTable}) for each treatment, which provide an insightful summary of the differences between treatments, and hence the magnitude of the treatment effect (if any).
+Whichever model is chosen, the estimated coefficients and their corresponding p-values should be reported, as in table \ref{tab:pefrDataEstimates}. We can then use the p-values to determine the existence of a treatment effect (or difference between treatments). It is also useful to report the least squares (LS) means (see table \ref{tab:pefrDataLSMeans}) for each treatment, which provide an insightful summary of the differences between treatments, and hence the magnitude of the treatment effect (if any).
 
-\input{report/tables/estimatesTable.tex}
-\input{report/tables/adjMeansTable.tex}
+\input{report/tables/ch3/pefrDataEstimates}
+\input{report/tables/ch3/pefrDataMeans}
 
 \subsubsection{In Practice}
 The base \mintinline{R}{summary()} function can be used to obtain the model coefficients, std. errors, p-values etc. shown in table \ref{modelTable}:
