@@ -10,7 +10,7 @@
 			\vspace*{0.5cm}
 
 			\LARGE
-			\textbf{Design and Analysis of 2x2 Cross-Over Trials}
+			\textbf{Design and Analysis of 2x2 Cross-Over Trials with Continuous Data}
 			
 			\vspace{1cm}
 			
@@ -59,11 +59,11 @@
 \section{The Cross-over Design}
 A cross-over trial is defined as a "trial in which subjects are given sequences of treatments with the object of studying differences between individual treatments" \cite{senn2002crossover}. This differs from the traditional parallel group trial, where subjects typically only receive one treatment throughout the trial.
 
-The most common and simple cross-over design is the 2x2 cross-over design, whereby there are two treatments and two treatment groups. In this design, for example comparing two treatments \textit{A} and \textit{B}, subjects receive either \textit{A} or \textit{B} in the first period, and then are 'crossed over' to the other treatment in the second period. When investigating the effects of only one treatment (as opposed to comparing two treatments), the other 'treatment' is then a placebo or control.
+The most common and simple cross-over design is the 2x2 cross-over design, whereby there are two treatments and two treatment groups. In this design, for example comparing two treatments \textit{A} and \textit{B}, subjects receive either \textit{A} or \textit{B} in the first period, and then are 'crossed over' to the other treatment in the second period. \textit{A} and \textit{B} could either be two active treatments, or one is a control treatment (or placebo).
 
 Cross-over designs are typically used for testing treatments for ongoing or chronic diseases, where "there is no question of curing the underlying problem which has caused the illness but a hope of moderating its effects through treatment" \cite{senn2002crossover}. Examples of such conditions include asthma, rheumatism, epilepsy and migraines. Due to time constraints and the risk of drop-out or carryover, cross-over designs are more suitable to single-dose trials, as opposed to trials involving multiple doses over a period of time \cite{senn2002crossover}.
 
-\subsection{Consequences}
+\subsection{Randomisation}
 A unique characteristic of the cross-over design is that only the \textit{order} of treatments is randomised, which has the following consequences \cite{piantadosi2005clinical}:
 \begin{itemize}
     \item The validity of treatment comparison does not depend on randomisation.
@@ -120,13 +120,14 @@ This chapter will follow example data from Jones and Kenward \cite{jones2003desi
 
 \input{report/tables/ch2/pefrDataSubsample}
 \section{Summary Tables}
-When the outcome data is continuous, a simple summary table showing the mean and standard deviation of the outcomes \cite{vetter2017descriptive}, grouped by sequence and period (see table \ref{tab:pefrDataSummary}), suffices to give an overview of the data.  If further data were collected on additional covariates, they can be summarised using the traditional \textit{Table 1}.
-\input{report/tables/ch2/pefrDataSummary}.
+When the outcome data is continuous, a simple summary table showing a measure of central tendency and a measure of variability, grouped by sequence and period (see table \ref{tab:pefrDataSummary}), suffices to give an overview of the data. If the data are normal, the mean and standard deviation should be used, and the median and interquartile range (IQR) for non-normal data \cite{vetter2017descriptive}.
+
+\input{report/tables/ch2/pefrDataSummary}
 
 \section{Summary Plots}
 Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the introductory plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials.
 
-An overview of the trial data can be obtained using a simple boxplot, separated by sequence, as shown in figure \ref{fig:boxplot}. A subject-profile plot (see figure \ref{fig:subjectprofile}) provides a subject-level summary of the data. These can even be combined to give a comprehensive summary of the data, as shown in figure \ref{fig:pairedboxplot}.
+An overview of the trial data can be obtained using a simple boxplot, separated by sequence and period, as shown in figure \ref{fig:boxplot}. A subject-profile plot (see figure \ref{fig:subjectprofile}) provides a subject-level summary of the data. These can even be combined to give a comprehensive summary of the data, as shown in figure \ref{fig:pairedboxplot}.
 
 \begin{figure}[ht]
     \centering
@@ -233,32 +234,25 @@ where $Y_{ijk}$ is the response of the $i$th subject in the $k$th sequence at th
 
 The direct treatment effect, period effect and sequence effect should all be considered as fixed effects \cite{lim2021considerations}. As mentioned in the preceding discussion about carryover effect, it should be mitigated at the experiment design stage, as its presence seriously threatens the validity of the trial and post-hoc analysis. Furthermore, in the 2x2 cross-over design specifically, the carryover effect is inherent in the sequence \cite{lim2021considerations}. Hence in the regression models below, no carryover term is included, but instead we include a term for the sequence effect.
 
-If we assume the subject effects $s_{ik}$ to be unknown fixed parameters, the regression will only use information from within-subject comparisons. Alternatively, when subject totals are judged to contain useful information, the subject effects should be treated as random effects as part of a random intercepts mixed model (see below) \cite{jones2003design}.
-
-The regression model for the former case, treating subject effects as unknown fixed parameters, is shown in equation \ref{fixedmodelregression}, and can be estimated using the standard OLS method.
-
-\begin{equation}
-     Y = \beta_0 + \beta_1 T + \beta_2 P + \beta_3 Se + \beta_4 Su + \epsilon
-     \label{fixedmodelregression}
-\end{equation}
-where $Y$ is the outcome variable, $T$ is the treatment administered, $P$ is the period, $Se$ is the sequence, and $Su$ is the subject. Notice that $\beta_1$ represents the direct treatment effect.
+If we assume the subject effects $s_{ik}$ to be unknown fixed parameters, the regression will only use information from within-subject comparisons. ANOVA and regression in this case become excessively complicated. Alternatively, when subject totals are judged to contain useful information, the subject effects should be treated as random effects as part of a random intercepts mixed model \cite{jones2003design}.
 
 \subsection{Mixed Model for Cross-over Design}\label{mixed-model-subsection}
-When between-subject differences are judged to be relevant, a mixed model (more specifically a random intercepts model) is superior to the simple linear regression model \ref{fixedmodelregression} for 2x2 cross-over trials \cite{jones2003design}. In a random intercepts mixed model, treating subject effects as random effects, we include a term for the unique effect of each subject, so that we have subject-specific intercepts \cite{mixedmodelsR}. The corresponding regression is demonstrated in equation \ref{mixedmodelregression}, and can be estimated using the Restricted Maximum Likelihood (REML) method \cite{jones2003design}.
+The more intuitive approach for 2x2 cross-over trials, judging between-subject differences to be relevant, is a random intercepts mixed model \cite{jones2003design}. In a random intercepts mixed model, treating subject effects as random effects, we include a term for the unique effect of each subject, so that we have subject-specific intercepts \cite{mixedmodelsR}. In this way, within-subjects information is incorporated into the model. The corresponding regression is demonstrated in equation \ref{mixedmodelregression}, and can be estimated using the Restricted Maximum Likelihood (REML) method \cite{jones2003design}.
 
 \begin{equation}
    Y = \beta_0 + \beta_1 T + \beta_2 P + \beta_3 Se + \beta_{subject} + \epsilon
    \label{mixedmodelregression}
 \end{equation}
+\begin{quote}
+    where $Y$ is the outcome variable, $T$ is the treatment administered, $P$ is the period, $Se$ is the sequence, and $\beta_{subject}$ the subject-specific effect. Notice that $\beta_1$ represents the direct treatment effect.
+\end{quote}
 
 Additional subject-level covariates, such as sex and age, can be added as covariates in the same way as for a simple linear regression.
 
 \subsubsection{In Practice}
-The \mintinline{R}{lme4} package provides functionality to easily implement mixed models in R, and the \mintinline{R}{lmerTest} provides p-values for such models.
+The \mintinline{R}{lme4} package provides functionality to easily implement mixed models in R, and the \mintinline{R}{lmerTest} provides p-values for such models. For the random-intercept model specifically, we include the term \mintinline{R}{(1|Subject)} to specify that the intercept should vary by subject \cite{mixedmodelsR}.
 
-For the random-intercept model specifically, we include the term \mintinline{R}{(1|Subject)} to specify that the intercept should vary by subject \cite{mixedmodelsR}.
-
-\begin{minted}{R}
+\begin{minted}[samepage]{R}
     library(lme4)
     library(lmerTest)
     mixed.model <- lmer(PEF~Treat+Period+Sequence + (1 | Subject),
@@ -305,14 +299,14 @@ Whichever model is chosen, the estimated coefficients and their corresponding p-
 \input{report/tables/ch3/pefrDataMeans}
 
 \subsubsection{In Practice}
-The base \mintinline{R}{summary()} function can be used to obtain the model coefficients, std. errors, p-values etc. shown in table \ref{modelTable}:
+The \mintinline{R}{broom.mixed::tidy()} function can be used to obtain the model coefficients, std. errors, p-values etc. shown in table \ref{tab:pefrDataEstimates}:
 \begin{minted}{R}
-    mixed.model %>% summary() # Table 3.2
+    mixed.model %>% tidy() # Table 3.1
 \end{minted}
 The package \mintinline{R}{emmeans} can calculate adjusted means for mixed models; we specify \mintinline{R}{~ Sequence} as an argument to separate the adjusted means by sequence.
 \begin{minted}{R}
     library(emmeans)
-    emmeans(mixed.model, ~ Sequence) # Table 3.3
+    emmeans(mixed.model, pairwise ~ Sequence) # Table 3.2
 \end{minted}
 
 \section{Adjusting for Baseline Values}
