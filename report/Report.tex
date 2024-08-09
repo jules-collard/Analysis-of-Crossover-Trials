@@ -334,12 +334,23 @@ The package \mintinline{R}{emmeans} can calculate adjusted means for mixed model
 In pre-post designs, analysis of covariance (ANCOVA), whereby the pre-test (baseline) measurement is included as a covariate, is the most efficient method of analysis \cite{wan2021statistical}. For 2x2 cross-over trials, we can further improve model efficiency by taking baseline measurements into account (when available). This requires that baseline measurements be taken for each subject prior to each treatment period, so that a total of 4 measurements per subject are taken over the course of the trial.
 
 \subsection{Example Data}
-This chapter uses data from a cross-over study by Dai, Lov, Martin-Arrowsmith et al. \cite{dai2022insect}. The trial measured various outcomes after ingesting a protein-based beverage, comparing between beverages with beef- or insect-derived proteins. 20 subjects were randomised into either a cricket-beef (C-B) sequence or a beef-cricket (B-C) sequence. For this example, we use the data collected on the subjects' insulin levels. For each treatment period, insulin levels were measured just before ingestion (Pre), and 300 minutes after ingestion (Post), resulting in 4 measurements per subject. A subsample of the data is shown in INSERT TABLE. 
+This chapter uses data from a cross-over study by Dai, Lov, Martin-Arrowsmith et al. \cite{dai2022insect}. The trial measured various outcomes after ingesting a protein-based beverage, comparing between beverages with beef- or insect-derived proteins. 20 subjects were randomised into either a cricket-beef (C-B) sequence or a beef-cricket (B-C) sequence. For this example, we use the data collected on the subjects' insulin levels. For each treatment period, insulin levels were measured just before ingestion (Pre), and 300 minutes after ingestion (Post), resulting in 4 measurements per subject. A subsample of the data is shown in table \ref{proteinDataSubsample}.
+
+\input{report/tables/ch3/proteinDataSubsample}
 
 \subsection{Tables and Plots}
-We can expand the summary table to include the pre-treatment measurements as well, as shown in INSERT TABLE.
+We can expand the summary table to include the pre-treatment measurements as well, as shown in table \ref{proteinDataSummary}.
 
-The boxplot can also be extended to show the pre-treatment measurements, as shown in INSERT FIGURE.
+\input{report/tables/ch3/proteinDataSummary}
+
+The boxplot can also be extended to show the pre-treatment measurements, as shown in figure \ref{fig:proteinBoxplot}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\linewidth]{report/figures/ch3/proteinBoxplot.png}
+    \caption{Boxplot with Baseline Measurements for Protein Data}
+    \label{fig:proteinBoxplot}
+\end{figure}
 
 \subsection{Mixed Model with Baselines}
 After comparison of many different models, Mehrotra \cite{mehrotra2014} concludes that the most efficient method to interpret baseline measurements is to include \textit{within-subject difference in baselines} as a covariate, interacting with the period effect.
@@ -356,17 +367,17 @@ As in section \ref{mixed-model-subsection}, a random intercepts mixed model, tre
 \end{quote}
 
 \subsubsection{In Practice}
-As in section \ref{mixed-model-subsection}, first the data must be pivoted into long format, this time also with a column for within-subject baseline differences:
-\begin{minted}{R}
+As in section \ref{mixed-model-subsection}, first the data must be pivoted into long format, this time also with a column for within-subject baseline differences, as in table \ref{preDiffSubsample} (see appendix for more detailed code).
+\input{report/tables/ch3/preDiffSubsample}
 
-\end{minted}
 Now we implement the model using \mintinline{R}{lme4::lmer()}:
 \begin{minted}{R}
     mixed.model.baselines <- lmer(Post ~ Treatment + Period * Pre_diff + Sequence + (1|Subject),
     data = data.baselines)
 \end{minted}
-At this point, the assumptions should be verified, as demonstrated in section \ref{verifying-assumptions-subsection}. The resulting estimates for the protein trial data are shown in INSERT TABLE, with the adjusted means shown in INSERT TABLE.
-
+At this point, the assumptions should be verified as in section \ref{verifying-assumptions-subsection}. The resulting estimates for the protein trial data are shown in table \ref{proteinDataEstimates}, with the adjusted means shown in table \ref{proteinDataLSMeans}.
+\input{report/tables/ch3/proteinDataEstimates}
+\input{report/tables/ch3/proteinDataMeans}
 We notice that there is no statistically significant difference between the cricket- and beef-derived proteins, in terms of ensuing insulin levels.
 
 	% Begin Bibliography
