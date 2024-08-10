@@ -179,6 +179,9 @@ Finally, the summary table \ref{tab:pefrDataSummary} can be visualised using a g
 \end{figure}
 
 \chapter{Analysis of 2x2 Cross-over Trials}
+This chapter uses data from Senn and Auclair \cite{senn1990graphical} as an example for the analysis presented. These data also consist of measurements of PEFR, this time on children suffering from athsma. The trial was a 2x2 cross-over design, comparing the effectiveness of two drugs; salbutamol (Sal) and formoterol (For). 13 patients were randomised into either a For-Sal sequence or a Sal-For sequence. The data are presented in table INSERT TABLE.
+
+For analysis, cross-over data should usually be in 'long' format, as in table INSERT TABLE. All the analysis shown in the \textit{in practice} sections was done in the \textit{R} programming language, with the \mintinline{R}{tidyverse} package loaded. Any additional packages required are indicated where applicable.
 
 \section{Matched-Pairs \textit{t}-Test}
 The most straightforward analysis for a 2x2 cross-over trial uses a matched-pairs \textit{t}-test, which takes advantage of the paired structure of the data (every observation in period 1 can be matched to the subject's corresponding observation in period 2) \cite{senn2002crossover}. Note that the alternative, a simple two-sample t-test, would give the same result as if the experiment had been carried out as a parallel group trial, as the paired structure of the cross-over design would be ignored. First we will introduce some basic notation:
@@ -194,6 +197,16 @@ And then the mean cross-over difference $\bar{d} := \frac{1}{n}\sum_{i=1}^{n}d_k
     \widehat{se(\bar{d})} &= \frac{s}{\sqrt{n}} \\
     \implies \frac{\bar{d}}{\widehat{se(\bar{d})}} &\sim t_{n-1}
 \end{align*}
+
+\subsubsection{In Practice}
+Provided the data is in 'long' format, we can easily carry out a paired $t$-test using the \mintinline{R}{rstatix::t_test()} function. The result of the test on the PEFR data is outlined in \ref{tab:tTest}, showing a statistically significant difference between the For and Sal treatments.
+\begin{minted}[samepage]{R}
+    library(rstatix)
+    data %>%
+        arrange(Subject, Treat) %>% # sort for correct pairings
+        t_test(PEF ~ Treat, paired = TRUE)
+\end{minted}
+\input{report/tables/ch3/tTest}
 
 \subsection{Assumptions}
 This method involves two important assumptions:
