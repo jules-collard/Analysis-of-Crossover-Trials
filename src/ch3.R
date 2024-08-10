@@ -11,6 +11,17 @@ library(rstatix)
 data <- read_xlsx("data/CrossOverData.xlsx") %>%
   mutate(across(Sequence:Treat, as_factor))
 
+# Print data
+sink("report/tables/ch3/forSalData.tex")
+data %>%
+  arrange(Subject, Period) %>% head(6) %>%
+  kbl(format="latex",
+      caption="For/Sal Data (L/min)",
+      label="forSalData",
+      booktabs = TRUE,
+      digits=2)
+sink()
+
 # Matched-pairs t-test
 data %>%
   arrange(Subject, Treat) %>%
@@ -21,7 +32,7 @@ data %>%
   arrange(Subject, Treat) %>%
   t_test(PEF ~ Treat, paired = TRUE) %>%
   kbl(format="latex",
-      caption="Matched-Pairs t-Test on PEFR Data",
+      caption="Matched-Pairs t-Test on For/Sal Data",
       label="tTest",
       booktabs = TRUE,
       digits = 3,
@@ -36,7 +47,7 @@ tidy(mixed.model) %>%
   filter(effect == "fixed") %>%
   select(-c(effect, group)) %>%
   kbl(format="latex",
-      caption="Mixed Model Estimates for PEFR Data",
+      caption="Mixed Model Estimates for For/Sal Data",
       col.names = c("", "Estimate", "Std. Error", "df", "t", "p-value"),
       label="pefrDataEstimates",
       booktabs=TRUE,
@@ -46,11 +57,11 @@ sink()
 
 # LS Means
 emm <- emmeans(mixed.model, pairwise ~ Treat)
-
+emm$contrasts
 sink("report/tables/ch3/pefrDataMeans.tex", type="output")
 emm %>% rbind(emm$contrasts) %>%
   kbl(format="latex",
-      caption="LS Means for Mixed Model on PEFR Data",
+      caption="LS Means for Mixed Model on For/Sal Data",
       label="pefrDataLSMeans",
       col.names = c("Sequence", "Difference", "Adj. Mean", "SE", "df",
                     "Lower CI", "Upper CI"),
