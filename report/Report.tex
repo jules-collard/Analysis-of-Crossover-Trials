@@ -179,9 +179,11 @@ Finally, the summary table \ref{tab:pefrDataSummary} can be visualised using a g
 \end{figure}
 
 \chapter{Analysis of 2x2 Cross-over Trials}
-This chapter uses data from Senn and Auclair \cite{senn1990graphical} as an example for the analysis presented. These data also consist of measurements of PEFR, this time on children suffering from athsma. The trial was a 2x2 cross-over design, comparing the effectiveness of two drugs; salbutamol (Sal) and formoterol (For). 13 patients were randomised into either a For-Sal sequence or a Sal-For sequence. The data are presented in table INSERT TABLE.
+This chapter uses data from Senn and Auclair \cite{senn1990graphical} as an example for the analysis presented. These data also consist of measurements of PEFR, this time on children suffering from athsma. The trial was a 2x2 cross-over design, comparing the effectiveness of two drugs; salbutamol (Sal) and formoterol (For). 13 patients were randomised into either a For-Sal sequence or a Sal-For sequence. A subsample of the data is presented in table \ref{tab:forSalData}.
 
-For analysis, cross-over data should usually be in 'long' format, as in table INSERT TABLE. All the analysis shown in the \textit{in practice} sections was done in the \textit{R} programming language, with the \mintinline{R}{tidyverse} package loaded. Any additional packages required are indicated where applicable.
+\input{report/tables/ch3/forSalData}
+
+For analysis, cross-over data should usually be in 'long' format, as in table \ref{tab:forSalData}. All the analysis shown in the \textit{in practice} sections was done in the \textit{R} programming language, with the \mintinline{R}{tidyverse} package loaded. Any additional packages required are indicated where applicable.
 
 \section{Matched-Pairs \textit{t}-Test}
 The most straightforward analysis for a 2x2 cross-over trial uses a matched-pairs \textit{t}-test, which takes advantage of the paired structure of the data (every observation in period 1 can be matched to the subject's corresponding observation in period 2) \cite{senn2002crossover}. Note that the alternative, a simple two-sample t-test, would give the same result as if the experiment had been carried out as a parallel group trial, as the paired structure of the cross-over design would be ignored. First we will introduce some basic notation:
@@ -204,7 +206,7 @@ Provided the data is in 'long' format, we can easily carry out a paired $t$-test
     library(rstatix)
     data %>%
         arrange(Subject, Treat) %>% # sort for correct pairings
-        t_test(PEF ~ Treat, paired = TRUE)
+        t_test(PEF ~ Treat, paired = TRUE) # Table 3.2
 \end{minted}
 \input{report/tables/ch3/tTest}
 
@@ -315,20 +317,20 @@ Whichever model is chosen, the estimated coefficients and their corresponding p-
 The \mintinline{R}{broom.mixed::tidy()} function can be used to obtain the model coefficients, std. errors, p-values etc. shown in table \ref{tab:pefrDataEstimates}:
 \begin{minted}{R}
     library(broom.mixed)
-    tidy(mixed.model) # Table 3.1
+    tidy(mixed.model) # Table 3.3
 \end{minted}
 The package \mintinline{R}{emmeans} can calculate adjusted means for mixed models; we specify \mintinline{R}{~ Treat} as an argument to separate the adjusted means by treatment.
 \begin{minted}{R}
     library(emmeans)
     emm <- emmeans(mixed.model, pairwise ~ Treat)
-    emm %>% rbind(emm$contrasts) # Table 3.2
+    emm %>% rbind(emm$contrasts) # Table 3.4
 \end{minted}
 
 \section{Adjusting for Baseline Values}
 In pre-post designs, analysis of covariance (ANCOVA), whereby the pre-test (baseline) measurement is included as a covariate, is the most efficient method of analysis \cite{wan2021statistical}. For 2x2 cross-over trials, we can further improve model efficiency by taking baseline measurements into account (when available). This requires that baseline measurements be taken for each subject prior to each treatment period, so that a total of 4 measurements per subject are taken over the course of the trial.
 
 \subsection{Example Data}
-This chapter uses data from a cross-over study by Dai, Lov, Martin-Arrowsmith et al. \cite{dai2022insect}. The trial measured various outcomes after ingesting a protein-based beverage, comparing between beverages with beef- or insect-derived proteins. 20 subjects were randomised into either a cricket-beef (C-B) sequence or a beef-cricket (B-C) sequence. For this example, we use the data collected on the subjects' insulin levels. For each treatment period, insulin levels were measured just before ingestion (Pre), and 300 minutes after ingestion (Post), resulting in 4 measurements per subject. A subsample of the data is shown in table \ref{tab:proteinDataSubsample}.
+This section uses data from a cross-over study by Dai, Lov, Martin-Arrowsmith et al. \cite{dai2022insect}. The trial measured various outcomes after ingesting a protein-based beverage, comparing between beverages with beef- or insect-derived proteins. 20 subjects were randomised into either a cricket-beef (C-B) sequence or a beef-cricket (B-C) sequence. For this example, we use the data collected on the subjects' insulin levels. For each treatment period, insulin levels were measured just before ingestion (Pre), and 300 minutes after ingestion (Post), resulting in 4 measurements per subject. A subsample of the data is shown in table \ref{tab:proteinDataSubsample}.
 
 \input{report/tables/ch3/proteinDataSubsample}
 
