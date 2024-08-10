@@ -19,7 +19,8 @@ data %>%
       caption="For/Sal Data (L/min)",
       label="forSalData",
       booktabs = TRUE,
-      digits=2)
+      digits=2,
+      linesep="")
 sink()
 
 # Matched-pairs t-test

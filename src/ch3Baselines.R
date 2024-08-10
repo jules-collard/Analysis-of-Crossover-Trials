@@ -131,13 +131,15 @@ mixed.model.baselines <-
 
 sink("report/tables/ch3/proteinDataEstimates.tex", type="output")
 tidy(mixed.model.baselines) %>%
+  filter(effect == "fixed") %>%
   select(-c(effect, group)) %>%
   kbl(format="latex",
       caption="Mixed Model Estimates with Baseline Interaction",
       col.names = c("", "Estimate", "Std. Error", "df", "t", "p-value"),
       label="proteinDataEstimates",
       booktabs=TRUE,
-      digits=2) %>%
+      digits=2,
+      linesep = "") %>%
   column_spec(1, border_right = TRUE)
 sink()
 
