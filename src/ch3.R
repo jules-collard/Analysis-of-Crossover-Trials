@@ -6,15 +6,34 @@ library(lmerTest)
 library(emmeans)
 library(broom.mixed)
 library(ggpmisc)
+library(rstatix)
 
 data <- read_xlsx("data/CrossOverData.xlsx") %>%
   mutate(across(Sequence:Treat, as_factor))
+
+# Matched-pairs t-test
+data %>%
+  arrange(Subject, Treat) %>%
+  t_test(PEF ~ Treat, paired = TRUE)
+
+sink("report/tables/ch3/tTest.tex")
+data %>%
+  arrange(Subject, Treat) %>%
+  t_test(PEF ~ Treat, paired = TRUE) %>%
+  kbl(format="latex",
+      caption="Matched-Pairs t-Test on PEFR Data",
+      label="tTest",
+      booktabs = TRUE,
+      digits = 3,
+      col.names = c("", "Group 1", "Group 2", "n1", "n2", "t-statistic", "df", "p"))
+sink()
 
 # Table of Estimates
 mixed.model <- lmer(PEF~Treat+Period+Sequence + (1 | Subject), data = data)
 
 sink("report/tables/ch3/pefrDataEstimates.tex", type="output")
 tidy(mixed.model) %>%
+  filter(effect == "fixed") %>%
   select(-c(effect, group)) %>%
   kbl(format="latex",
       caption="Mixed Model Estimates for PEFR Data",
