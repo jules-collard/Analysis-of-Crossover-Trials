@@ -1,7 +1,7 @@
 \documentclass[12pt, TexShade, letterpaper]{report}
 
 \usepackage{import}
-\import{}{preamble.tex}
+\import{}{report/preamble.tex}
 
 \begin{document}
 
@@ -18,7 +18,7 @@
 			
 			\vspace{1.2cm}
 			
-			\includegraphics[width=0.25\textwidth]{mcglogo.png}
+			\includegraphics[width=0.25\textwidth]{report/mcglogo.png}
 			
 			\Large
 			MATH 410 Final Report
@@ -55,7 +55,10 @@
 
     \listoffigures
     \listoftables
-	\pagenumbering{arabic} % restart page numbers at one, now in arabic style
+
+    \clearpage
+	
+    \pagenumbering{arabic} % restart page numbers at one, now in arabic style
 
 	% start of mainmatter
 \chapter{Introduction to Cross-over Trials}
@@ -382,11 +385,23 @@ At this point, the assumptions should be verified as in section \ref{verifying-a
 \input{report/tables/ch3/proteinDataMeans}
 
 	% Begin Bibliography
-	{
-	
-	\bibliography{references}
-	\bibliographystyle{ieeetr}
-	
-	}
-	
+{
+
+\bibliography{report/references}
+\bibliographystyle{ieeetr}
+
+}
+
+\appendix
+\chapter{Code for Chapter 2}
+\section{Tables}
+    \inputminted{R}{src/ch2tables.R}
+
+\section{Figures}
+    \inputminted{R}{src/ch2figures.R}
+
+\chapter{Code for Chapter 3}
+\inputminted{R}{src/ch3.R}
+\section{Adjusting for Baseline Values}
+\inputminted{R}{src/ch3Baselines.R}
 \end{document}
