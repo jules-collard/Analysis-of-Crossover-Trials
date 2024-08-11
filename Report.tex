@@ -46,22 +46,28 @@
 	\markboth{\thechapter.\ #1}{}}
 \chapter*{Abstract}\markboth{Abstract}{}
 	\label{chap:engAbstract}
-%	\addcontentsline{toc}{section}{\nameref{chap:engAbstract}}
+	\addcontentsline{toc}{section}{\nameref{chap:engAbstract}}
+
+In this project report, the design and analysis of 2x2 cross-over trials is discussed and carried out. 2x2 cross-over trials are a type of clinical trial whereby subjects are assigned to a sequence of two treatments (either AB or BA, for example).  Chapter \ref{chap1} outlines the 2x2 cross-over design, and discusses its theoretical and practical benefits and drawbacks. Chapter \ref{visualisation} demonstrates how cross-over trial data can be summarised and visualised, and chapter \ref{analysis} addresses different techniques used to analyse cross-over data, and puts them into practice with \textit{R} code examples.
+
+
 
  % Start of ToC, LoT, gls
 	\tableofcontents\thispagestyle{plain}
 
  	\clearpage
 
-    \listoffigures
-    \listoftables
+    \listoffigures\label{listfigures}
+    \addcontentsline{toc}{section}{\nameref{listfigures}}
+    \listoftables\label{listtables}
+    \addcontentsline{toc}{section}{\nameref{listtables}}
 
     \clearpage
 	
     \pagenumbering{arabic} % restart page numbers at one, now in arabic style
 
 	% start of mainmatter
-\chapter{Introduction to Cross-over Trials}
+\chapter{Introduction to Cross-over Trials}\label{chap1}
 \section{The Cross-over Design}
 A cross-over trial is defined as a ``trial in which subjects are given sequences of treatments with the object of studying differences between individual treatments" \cite{senn2002crossover}. This differs from the traditional parallel group trial, where subjects typically only receive one treatment throughout the trial.
 
@@ -185,7 +191,7 @@ Finally, the summary table \ref{tab:pefrDataSummary} can be visualised using a g
     \label{fig:groupsbyperiods}
 \end{figure}
 
-\chapter{Analysis of 2x2 Cross-over Trials}
+\chapter{Analysis of 2x2 Cross-over Trials} \label{analysis}
 This chapter uses data from Senn and Auclair \cite{senn1990graphical} as an example for the analysis presented\footnote{For analysis, cross-over data should usually be in `long' format, as in table \ref{tab:forSalData}. All the analysis shown in the \textit{in practice} sections was done in the \textit{R} programming language, with the \mintinline{R}{tidyverse} package loaded. Any additional packages required are indicated where applicable.}. These data also consist of measurements of PEFR, this time on children suffering from athsma. The trial was a 2x2 cross-over design, comparing the effectiveness of two drugs; salbutamol (Sal) and formoterol (For). 13 patients were randomised into either a For-Sal sequence or a Sal-For sequence. A subsample of the data is presented in table \ref{tab:forSalData}.
 
 \input{report/tables/ch3/forSalData}
@@ -369,10 +375,10 @@ As in section \ref{mixed-model-subsection}, a random intercepts mixed model, tre
 \begin{quote}
     Where $X_{diff} := X_1 - X_2$, with $X_1$ and $X_2$ being the baseline measurements before treatment periods 1 and 2 respectively.
 \end{quote}
-
+\input{report/tables/ch3/preDiffSubsample}
+\FloatBarrier
 \subsubsection{In Practice}
 As in section \ref{mixed-model-subsection}, first the data must be pivoted into long format, this time also with a column for within-subject baseline differences, as in table \ref{tab:preDiffSubsample} (see appendix for more detailed code).
-\input{report/tables/ch3/preDiffSubsample}
 
 Now we implement the model using \mintinline{R}{lme4::lmer()}:
 \begin{minted}[samepage]{R}
@@ -393,10 +399,10 @@ At this point, the assumptions should be verified as in section \ref{verifying-a
 }
 
 \appendix
-\chapter{Code for Chapter 2}
+\chapter{R Code for Chapter 2}
     \inputminted{R}{src/ch2.R}
 
-\chapter{Code for Chapter 3}
+\chapter{R Code for Chapter 3}
 \section{\textit{t}-Test}
     \inputminted{R}{src/ch3tTest.R}
 \section{Mixed Model}
