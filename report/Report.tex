@@ -30,7 +30,7 @@
 			Montr\'eal, Qu\'ebec, Canada
 			
 			\vspace{5mm}
-			August 9, 2024
+			August 12, 2024
 			\small
 			\vspace{0.5cm}
 			{\color{red} \hrule height 0.75mm}
@@ -57,11 +57,11 @@
 	% start of mainmatter
 \chapter{Introduction to Cross-over Trials}
 \section{The Cross-over Design}
-A cross-over trial is defined as a "trial in which subjects are given sequences of treatments with the object of studying differences between individual treatments" \cite{senn2002crossover}. This differs from the traditional parallel group trial, where subjects typically only receive one treatment throughout the trial.
+A cross-over trial is defined as a ``trial in which subjects are given sequences of treatments with the object of studying differences between individual treatments" \cite{senn2002crossover}. This differs from the traditional parallel group trial, where subjects typically only receive one treatment throughout the trial.
 
-The most common and simple cross-over design is the 2x2 cross-over design, whereby there are two treatments and two treatment groups. In this design, for example comparing two treatments \textit{A} and \textit{B}, subjects receive either \textit{A} or \textit{B} in the first period, and then are 'crossed over' to the other treatment in the second period. \textit{A} and \textit{B} could either be two active treatments, or one is a control treatment (or placebo).
+The most common and simple cross-over design is the 2x2 cross-over trial, whereby there are two treatments and two treatment groups. In this design, for example comparing two treatments \textit{A} and \textit{B}, subjects receive either \textit{A} or \textit{B} in the first period, and then are `crossed over' to the other treatment in the second period. \textit{A} and \textit{B} could either be two active treatments, or one is a control treatment (or placebo).
 
-Cross-over designs are typically used for testing treatments for ongoing or chronic diseases, where "there is no question of curing the underlying problem which has caused the illness but a hope of moderating its effects through treatment" \cite{senn2002crossover}. Examples of such conditions include asthma, rheumatism, epilepsy and migraines. Due to time constraints and the risk of drop-out or carryover, cross-over designs are more suitable to single-dose trials, as opposed to trials involving multiple doses over a period of time \cite{senn2002crossover}.
+Cross-over designs are typically used for testing treatments for ongoing or chronic diseases, where ``there is no question of curing the underlying problem which has caused the illness but a hope of moderating its effects through treatment" \cite{senn2002crossover}. Examples of such conditions include asthma, rheumatism, epilepsy and migraines. Due to time constraints and the risk of drop-out or carryover, cross-over designs are more suitable to single-dose trials, as opposed to trials involving multiple doses over a period of time \cite{senn2002crossover}.
 
 \subsection{Randomisation}
 A unique characteristic of the cross-over design is that only the \textit{order} of treatments is randomised, which has the following consequences \cite{piantadosi2005clinical}:
@@ -103,54 +103,55 @@ Secondly, the data can be interpreted in terms of subject-level \textit{differen
 An oft-overlooked benefit to the crossover trial is improved recruitment and reduced spill-over rates \cite{piantadosi2005clinical}. Since all subjects are guaranteed to receive each treatment at least once, it can be easier to recruit participants. Spill-over is a significant risk for parallel group trials, where if a treatment is known to be desirable (e.g. exercise), subjects in the control group voluntarily take the treatment. Cross-over trials are evidently less at risk of this, since all subjects know they will receive the treatment.
 
 \section{Disadvantages}
-Many of the aforementioned benefits of the crossover design come with drawbacks. For example, the longer trial and multiple treatments could be seen as an added inconvenience to patients, and analysis of results is often more difficult and complex (particularly when there are more than two treatments or groups). Also, the design cannot be used for infectious diseases, where either a significant deterioration or improvement in condition can occur during treatment, introducing bias into the subsequent treatment period. Patient drop-out is also very harmful to cross-over trials, since observations for all treatments are required for each patient to analyse the within-patient differences. In comparison, a parallel group trial can still recover some information after a patient drops out \cite{senn2002crossover}.
+Many of the aforementioned benefits of the crossover design come with drawbacks. For example, the longer trial and multiple treatments could be seen instead as an added inconvenience to patients, and analysis of results is more difficult and complex (particularly when there are more than two treatments or groups). Also, the design cannot be used for infectious diseases, where either a significant deterioration or improvement in condition can occur during treatment, introducing bias into the subsequent treatment period. Patient drop-out is also very harmful to cross-over trials, since observations for all treatments are required to analyse the within-patient differences for each patient. In comparison, a parallel group trial can still recover some information after a patient drops out \cite{senn2002crossover}.
 
 There is also risk of \textit{period-by-treatment interaction} complicating analysis, where the effect of the treatment is not constant over time \cite{senn2002crossover}. In other words, when the period in which the treatment is administered affects the effectiveness of the treatment.
 
 \subsection{Carryover}
-The most common example of a period-by-treatment interaction is carryover, defined as "the persistence of a treatment applied in one period in a subsequent period of treatment" \cite{senn2002crossover}. In a cross-over design, this occurs when at the beginning of the second treatment period, patients are not in the state they would have been in, had they not received treatment in the first period. This causes the effect of one treatment to be misinterpreted as the effect of both treatments combined, introducing bias to the treatment effect estimates.
+The most common example of a period-by-treatment interaction is carryover, defined as ``the persistence of a treatment applied in one period in a subsequent period of treatment" \cite{senn2002crossover}. In a cross-over design, this occurs when at the beginning of the second treatment period, patients are not in the state they would have been in, had they not received treatment in the first period. This causes the effect of one treatment to be misinterpreted as the effect of both treatments combined, introducing bias to the treatment effect estimates.
 
 Carryover is both difficult to test for and then to adjust for. Tests for carryover effects are difficult to interpret independently of the treatment effect, and including carryover parameters in the model introduces additional uncertainty and requires additional (usually unreasonable) assumptions \cite{senn2002crossover}.
 
 \subsection{Wash-out Period}
-Senn \cite{senn2002crossover} proposes that the most efficient way to deal with carryover is introducing a \textit{wash-out period} to the experiment design. A wash-out period is "a period in a trial during which the effect of a treatment given previously is believed to disappear" \cite{senn2002crossover}. Effectively, time is allowed after the first treatment to allow any lingering effects to 'wash out'. After the wash-out period, we can assume that all measurements taken are no longer affected by the previous treatment, the consequence being that all conclusions become conditional on the absence of a carryover effect.
+Senn \cite{senn2002crossover} proposes that the most efficient way to deal with carryover is introducing a \textit{wash-out period} to the experiment design. A wash-out period is ``a period in a trial during which the effect of a treatment given previously is believed to disappear" \cite{senn2002crossover}. Effectively, time is allowed after the first treatment to allow any lingering effects to `wash out'. After the wash-out period, we can assume that all measurements taken are no longer affected by the previous treatment, with the significant consequence being that \textit{all conclusions become conditional on the absence of a carryover effect}.
 
 \chapter{Summary \& Visualisation of Cross-over Data} \label{visualisation}
-This chapter will follow example data from Jones and Kenward \cite{jones2003design}, on a study testing efficacy of a drug (A) and a placebo (B) on patients with \textit{chronic obstructive pulmonary disease} (COPD). Due to the nature of the condition, the observation measurement used was \textit{peak expiratory flow rate} (PEFR), defined as "a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 56 patients, where each patient measured their PEFR 3 times per day during the treatment periods, recording the highest value. A sub-sample of the data is outlined in table \ref{tab:pefrDataSubsample}.
+This chapter will follow example data from Jones and Kenward \cite{jones2003design}, on a study testing efficacy of a drug (A) and a placebo (B) on patients with \textit{chronic obstructive pulmonary disease} (COPD). Due to the nature of the condition, the observation measurement used was \textit{peak expiratory flow rate} (PEFR), defined as ``a simple measure of the maximal flow rate that can be achieved during forceful expiration following full inspiration" \cite{peakflowrate2023}. The study employed a 2x2 cross-over design on 56 patients, where each patient measured their PEFR 3 times per day during the treatment periods, recording the highest value. A sub-sample of the data is outlined in table \ref{tab:pefrDataSubsample}.
 
 \input{report/tables/ch2/pefrDataSubsample}
 \section{Summary Tables}
-When the outcome data is continuous, a simple summary table showing a measure of central tendency and a measure of variability, grouped by sequence and period (see table \ref{tab:pefrDataSummary}), suffices to give an overview of the data. If the data are normal, the mean and standard deviation should be used, and the median and interquartile range (IQR) for non-normal data \cite{vetter2017descriptive}.
+When the outcome data is continuous, a simple summary table showing a measure of central tendency and a measure of variability, grouped by sequence and period, suffices to give an overview of the data. If the data are normal, the mean and standard deviation should be used, and the median and interquartile range (IQR) for non-normal data \cite{vetter2017descriptive}. Table \ref{tab:pefrDataSummary} demonstrates the recommended format with the COPD trial data.
 
 \input{report/tables/ch2/pefrDataSummary}
 
 \section{Summary Plots}
-Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the introductory plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials.
+Before undertaking any analysis, it is important to gain an understanding of the data and preliminary results. This section demonstrates the plots suggested by Jones and Kenward \cite{jones2003design} for cross-over trials\footnote{These plots  apply to any continuous 2x2 cross-over trial data; plots shown in this chapter use the COPD trial data for demonstration purposes.} \footnote{All plots shown were generated using the \mintinline{R}{ggplot2} package in R.}.
 
-An overview of the trial data can be obtained using a simple boxplot, separated by sequence and period, as shown in figure \ref{fig:boxplot}. A subject-profile plot (see figure \ref{fig:subjectprofile}) provides a subject-level summary of the data. These can even be combined to give a comprehensive summary of the data, as shown in figure \ref{fig:pairedboxplot}.
+An overview of the trial data can be obtained using a simple boxplot, separated by sequence and period, as shown in figure \ref{fig:boxplot}. A subject-profile plot, demonstrated in figure \ref{fig:subjectprofile}, provides a subject-level summary of the data. These can even be combined to give a comprehensive summary of the data, as shown in figure \ref{fig:pairedboxplot}.
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/ch2/boxplot.png}
+    \includegraphics[height=0.42\textheight, keepaspectratio]{report/figures/ch2/boxplot.png}
     \caption{Boxplot}
     \label{fig:boxplot}
 \end{figure}
-\begin{figure}[ht]
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/ch2/subjectProfilesPlot.png}
+    \includegraphics[height=0.42\textheight, keepaspectratio]{report/figures/ch2/subjectProfilesPlot.png}
     \caption{Subject-Profile Plot}
     \label{fig:subjectprofile}
 \end{figure}
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/ch2/pairedBoxplot.png}
+    \includegraphics[height=0.42\textheight]{report/figures/ch2/pairedBoxplot.png}
     \caption{Paired Boxplot}
     \label{fig:pairedboxplot}
 \end{figure}
 
 To begin to understand potential treatment effects, we can use a simple scatter plot of observations in each period, separated by group, as demonstrated in figure \ref{fig:period2vsperiod1}. Also included is a straight line with slope 1 and intercept 0; if the treatments were identical we would expect all observations to lie along this line. Using this plot we can verify within-patient correlation, and also notice the spread of points across the line, indicating between-patient variation.
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.85\linewidth]{report/figures/ch2/periodsPlot.png}
     \caption{Period 2 vs Period 1 Plots}
@@ -163,9 +164,9 @@ Additionally, we can overlay these two plots, distinguishing the groups by colou
     \item Centroids appearing on opposite sides of the line, with some vertical separation, suggests there exists a direct treatment effect.
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/ch2/centroidsPlot.png}
+    \includegraphics[height=0.55\textheight]{report/figures/ch2/centroidsPlot.png}
     \caption{Period 2 vs Period 1 with Centroids}
     \label{fig:centroids}
 \end{figure}
@@ -179,14 +180,12 @@ Finally, the summary table \ref{tab:pefrDataSummary} can be visualised using a g
 \end{figure}
 
 \chapter{Analysis of 2x2 Cross-over Trials}
-This chapter uses data from Senn and Auclair \cite{senn1990graphical} as an example for the analysis presented. These data also consist of measurements of PEFR, this time on children suffering from athsma. The trial was a 2x2 cross-over design, comparing the effectiveness of two drugs; salbutamol (Sal) and formoterol (For). 13 patients were randomised into either a For-Sal sequence or a Sal-For sequence. A subsample of the data is presented in table \ref{tab:forSalData}.
+This chapter uses data from Senn and Auclair \cite{senn1990graphical} as an example for the analysis presented\footnote{For analysis, cross-over data should usually be in `long' format, as in table \ref{tab:forSalData}. All the analysis shown in the \textit{in practice} sections was done in the \textit{R} programming language, with the \mintinline{R}{tidyverse} package loaded. Any additional packages required are indicated where applicable.}. These data also consist of measurements of PEFR, this time on children suffering from athsma. The trial was a 2x2 cross-over design, comparing the effectiveness of two drugs; salbutamol (Sal) and formoterol (For). 13 patients were randomised into either a For-Sal sequence or a Sal-For sequence. A subsample of the data is presented in table \ref{tab:forSalData}.
 
 \input{report/tables/ch3/forSalData}
 
-For analysis, cross-over data should usually be in 'long' format, as in table \ref{tab:forSalData}. All the analysis shown in the \textit{in practice} sections was done in the \textit{R} programming language, with the \mintinline{R}{tidyverse} package loaded. Any additional packages required are indicated where applicable.
-
 \section{Matched-Pairs \textit{t}-Test}
-The most straightforward analysis for a 2x2 cross-over trial uses a matched-pairs \textit{t}-test, which takes advantage of the paired structure of the data (every observation in period 1 can be matched to the subject's corresponding observation in period 2) \cite{senn2002crossover}. Note that the alternative, a simple two-sample t-test, would give the same result as if the experiment had been carried out as a parallel group trial, as the paired structure of the cross-over design would be ignored. First we will introduce some basic notation:
+The most straightforward analysis for a 2x2 cross-over trial uses a matched-pairs \textit{t}-test, which takes advantage of the paired structure of the data (every observation in period 1 can be matched to the subject's corresponding observation in period 2) \cite{senn2002crossover}. Note that carrying out the alternative, a simple two-sample t-test, would give the same result as if the experiment had been carried out as a parallel group trial, as the paired structure of the data would be ignored. First we will introduce some basic notation:
 \begin{itemize}
     \item $n$: number of subjects
     \item $y_{A_k}$, $y_{B_k}$: measured outcomes for subject $k$ ($k=1,\cdots,n$) after treatments $A$ and $B$ respectively.
@@ -201,7 +200,7 @@ And then the mean cross-over difference $\bar{d} := \frac{1}{n}\sum_{i=1}^{n}d_k
 \end{align*}
 
 \subsubsection{In Practice}
-Provided the data is in 'long' format, we can easily carry out a paired $t$-test using the \mintinline{R}{rstatix::t_test()} function. The result of the test on the PEFR data is outlined in \ref{tab:tTest}, showing a statistically significant difference between the For and Sal treatments.
+Provided the data is in `long' format, as in table \ref{tab:forSalData}, we can easily carry out a paired $t$-test using the \mintinline{R}{rstatix::t_test()} function. The result of the test on the PEFR data is outlined in \ref{tab:tTest}, showing a statistically significant difference between the For and Sal treatments.
 \begin{minted}[samepage]{R}
     library(rstatix)
     data %>%
@@ -219,7 +218,7 @@ This method involves two important assumptions:
 The most important assumption is the first one, and there are a number of situations which could cause it to be violated:
 
 \subsubsection{Period effect}
-A period effect is present when there is a trend over time affecting the experiment as a whole. Under unbalanced allocation between treatment groups, this introduces bias to the treatment effect estimates. More generally, this can also cause us to overestimate the influence of random variation, as systematic changes between periods would be incorrectly "ascribed to random variation" \cite{senn2002crossover}.
+A period effect is present when there is a trend over time affecting the experiment as a whole. Under unbalanced allocation between treatment groups, this introduces bias to the treatment effect estimates. More generally, this can also cause us to overestimate the influence of random variation, as systematic changes between periods would be incorrectly ``ascribed to random variation" \cite{senn2002crossover}.
 
 \subsubsection{Sequence Effect}
 Results may be affected by the sequence that subjects are assigned to. However, under successful randomisation, we can assume that there is no sequence effect \cite{lim2021considerations} (recalling that in a cross-over design, only the \textit{sequence} of treatments is randomised). Note that this assumption cannot be tested statistically \cite{lim2021considerations}.
@@ -237,22 +236,24 @@ Further complication occurs if patients are subject to period effects which are 
 Patient-by-period and patient-by-treatment interactions do not necessarily threaten the validity of the experiment, but they do increase variance and reduce ease of interpretation. As discussed above, period-by-treatment interactions (including carry-over) are best addressed by careful trial design, but are also the fundamental drawbacks to the cross-over design \cite{senn2002crossover}. If present, they seriously threaten the validity of subsequent analysis. Period and sequence effects, whilst not ideal, can be adjusted for using more complex models, which are demonstrated later in this chapter.
 
 \section{Linear Models}
-The issues with the matched-pairs \textit{t}-test, and the cross-over design as a whole, are better addressed within the framework of a linear model. This allows us to control for period and sequence effects, whilst also taking into account the within-subject differences. It also allows scope to include other variables of interest such as covariates, such as sex and age.
+The issues with the matched-pairs \textit{t}-test, and the cross-over design as a whole, are better addressed within the framework of a linear model. This allows us to control for period and sequence effects, whilst also taking into account the within-subject differences. It also allows scope to include other variables of interest as covariates, such as sex and age.
 
-The general framework for a cross-over trial model is shown in equation \ref{mixed_model}; some decisions need to be made on how to treat each individual variable to then implement a regression.
+The general framework for a cross-over trial linear model is shown in equation \ref{mixed_model}; some decisions need to be made on how to treat each individual variable to then implement regression.
 
 \begin{equation}
     Y_{ijk} = \mu + \tau_{jk} + \pi_j + \lambda_{j-1,k} + \gamma_k + s_{ik} + \epsilon_{ijk}
     \label{mixed_model}
 \end{equation}
-where $Y_{ijk}$ is the response of the $i$th subject in the $k$th sequence at the $j$th period. The model then includes the direct treatment effect $\tau_{jk}$, period effect $\pi_j$, carryover effect $\lambda_{j-1,k}$, sequence effect $\gamma_k$ and subject effects $s_{ik}$. The errors $\epsilon_{ijk}$ are i.i.d. with mean 0 and variance $\sigma^2_s$ \cite{lim2021considerations}.
+\begin{quote}
+    where $Y_{ijk}$ is the response of the $i$th subject in the $k$th sequence at the $j$th period. The model then includes the direct treatment effect $\tau_{jk}$, period effect $\pi_j$, carryover effect $\lambda_{j-1,k}$, sequence effect $\gamma_k$ and subject effects $s_{ik}$. The errors $\epsilon_{ijk}$ are i.i.d. with mean 0 and variance $\sigma^2_s$ \cite{lim2021considerations}.
+\end{quote}
 
 The direct treatment effect, period effect and sequence effect should all be considered as fixed effects \cite{lim2021considerations}. As mentioned in the preceding discussion about carryover effect, it should be mitigated at the experiment design stage, as its presence seriously threatens the validity of the trial and post-hoc analysis. Furthermore, in the 2x2 cross-over design specifically, the carryover effect is inherent in the sequence \cite{lim2021considerations}. Hence in the regression models below, no carryover term is included, but instead we include a term for the sequence effect.
 
 If we assume the subject effects $s_{ik}$ to be unknown fixed parameters, the regression will only use information from within-subject comparisons. ANOVA and regression in this case become excessively complicated. Alternatively, when subject totals are judged to contain useful information, the subject effects should be treated as random effects as part of a random intercepts mixed model \cite{jones2003design}.
 
 \subsection{Mixed Model for Cross-over Design}\label{mixed-model-subsection}
-The more intuitive approach for 2x2 cross-over trials, judging between-subject differences to be relevant, is a random intercepts mixed model \cite{jones2003design}. In a random intercepts mixed model, treating subject effects as random effects, we include a term for the unique effect of each subject, so that we have subject-specific intercepts \cite{mixedmodelsR}. In this way, within-subjects information is incorporated into the model. The corresponding regression is demonstrated in equation \ref{mixedmodelregression}, and can be estimated using the Restricted Maximum Likelihood (REML) method \cite{jones2003design}.
+The more intuitive approach for 2x2 cross-over trials, judging between-subject differences to be relevant, is a random intercepts mixed model \cite{jones2003design}. In a random intercepts mixed model, treating subject effects as random effects, we include a term for the unique effect of each subject, so that we have subject-specific intercepts \cite{mixedmodelsR}. In this way, within-subject information is incorporated into the model. The corresponding regression is demonstrated in equation \ref{mixedmodelregression}, and can be estimated using the Restricted Maximum Likelihood (REML) method \cite{jones2003design}.
 
 \begin{equation}
    Y = \beta_0 + \beta_1 T + \beta_2 P + \beta_3 Se + \beta_{subject} + \epsilon
@@ -265,7 +266,7 @@ The more intuitive approach for 2x2 cross-over trials, judging between-subject d
 Additional subject-level covariates, such as sex and age, can be added as covariates in the same way as for a simple linear regression.
 
 \subsubsection{In Practice}
-The \mintinline{R}{lme4} package provides functionality to easily implement mixed models in R, and the \mintinline{R}{lmerTest} provides p-values for such models. For the random-intercept model specifically, we include the term \mintinline{R}{(1|Subject)} to specify that the intercept should vary by subject \cite{mixedmodelsR}.
+The \mintinline{R}{lme4} package provides functionality to easily implement mixed models in R, and the \mintinline{R}{lmerTest} calculates $p$-values for such models. For the random-intercept model specifically, we include the term \mintinline{R}{(1|Subject)} to specify that the intercept should vary by subject \cite{mixedmodelsR}.
 
 \begin{minted}[samepage]{R}
     library(lme4)
@@ -282,15 +283,16 @@ Before analysing model results, it is important to verify that some key assumpti
     \item Normality of residuals
 \end{itemize}
 Linearity is not a concern as the independent variable (treatment) only takes 2 values. Homoscedasticity and normality of residuals are best verified graphically using a scatter plot of residuals against fitted values and a Q-Q plot, respectively.
-\begin{figure}[ht]
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/ch3/homoscedasticity.png}
+    \includegraphics[height=0.42\textheight]{report/figures/ch3/homoscedasticity.png}
     \caption{Plot to verify homoscedasticity}
     \label{fig:homoscedasticity}
 \end{figure}
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\linewidth]{report/figures/ch3/qqplot.png}
+    \includegraphics[height=0.42\textheight]{report/figures/ch3/qqplot.png}
     \caption{Q-Q Plot to verify normality of residuals}
     \label{fig:qqplot}
 \end{figure}
@@ -305,10 +307,8 @@ The \mintinline{R}{broom.mixed::augment()} function extends the original datafra
 
 For these data, figures \ref{fig:homoscedasticity} and \ref{fig:qqplot} provide no evidence to suggest that either assumption has been violated.
 
-We see that there is a statistically significant difference between the treatments, at the $<1\%$ significance level.
-
 \subsection{Analysing Results}
-Whichever model is chosen, the estimated coefficients and their corresponding p-values should be reported, as in table \ref{tab:pefrDataEstimates}. We can then use the p-values to determine the existence of a treatment effect (or difference between treatments). It is also useful to report the least squares (LS) means (see table \ref{tab:pefrDataLSMeans}) for each treatment, which provide an insightful summary of the differences between treatments, and hence the magnitude of the treatment effect (if any).
+Whichever model is chosen, the estimated coefficients and their corresponding p-values should be reported, as in table \ref{tab:pefrDataEstimates}. We can then use the p-values to determine the existence of a treatment effect (or a difference between treatments). It is also useful to report the adjusted (LS) means (see table \ref{tab:pefrDataLSMeans}) for each treatment, which provide an insightful summary of the differences between treatments, and hence the magnitude of the treatment effect (if any).
 
 \input{report/tables/ch3/pefrDataEstimates}
 \input{report/tables/ch3/pefrDataMeans}
@@ -319,6 +319,8 @@ The \mintinline{R}{broom.mixed::tidy()} function can be used to obtain the model
     library(broom.mixed)
     tidy(mixed.model) # Table 3.3
 \end{minted}
+We see that there is a statistically significant difference between the treatments, at the $<1\%$ significance level.
+
 The package \mintinline{R}{emmeans} can calculate adjusted means for mixed models; we specify \mintinline{R}{~ Treat} as an argument to separate the adjusted means by treatment.
 \begin{minted}{R}
     library(emmeans)
@@ -333,7 +335,7 @@ In pre-post designs, analysis of covariance (ANCOVA), whereby the pre-test (base
 This section uses data from a cross-over study by Dai, Lov, Martin-Arrowsmith et al. \cite{dai2022insect}. The trial measured various outcomes after ingesting a protein-based beverage, comparing between beverages with beef- or insect-derived proteins. 20 subjects were randomised into either a cricket-beef (C-B) sequence or a beef-cricket (B-C) sequence. For this example, we use the data collected on the subjects' insulin levels. For each treatment period, insulin levels were measured just before ingestion (Pre), and 300 minutes after ingestion (Post), resulting in 4 measurements per subject. A subsample of the data is shown in table \ref{tab:proteinDataSubsample}.
 
 \input{report/tables/ch3/proteinDataSubsample}
-
+\FloatBarrier
 \subsection{Tables and Plots}
 We can expand the summary table to include the pre-treatment measurements as well, as shown in table \ref{tab:proteinDataSummary}.
 
@@ -351,7 +353,7 @@ The boxplot can also be extended to show the pre-treatment measurements, as show
 \subsection{Mixed Model with Baselines}
 After comparison of many different models, Mehrotra \cite{mehrotra2014} concludes that the most efficient method to interpret baseline measurements is to include \textit{within-subject difference in baselines} as a covariate, interacting with the period effect.
 
-As in section \ref{mixed-model-subsection}, a random intercepts mixed model, treating subject effects as random, remains a suitable method to account for both between- and within-subject differences. The new regression equation, including within-subject differences in baseline as a covariate, is shown in equation \ref{baselinemixedmodel}.
+As in section \ref{mixed-model-subsection}, a random intercepts mixed model, treating subject effects as random, remains a suitable method to account for both between- and within-subject differences. The new mixed model, including within-subject differences in baseline as a covariate, is shown in equation \ref{baselinemixedmodel}.
 
 \begin{equation}
     Y = \beta_0 + \beta_1 T + \beta_2 P \cdot X_{diff} + \beta_3 P +
