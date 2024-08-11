@@ -119,11 +119,11 @@ sink("report/tables/ch3/preDiffSubsample.tex", type="output")
 data.baselines %>% arrange(Subject) %>%
   head(5) %>%
   kbl(format="latex",
-      caption="Subsample of Protein Data ('Long' Format with Baseline Differences)",
+      caption="Subsample of Protein Data (Long Format with Baseline Differences)",
       label="preDiffSubsample",
       booktabs=TRUE,
       digits = 1,
-      position = "b")
+      position = "hb")
 sink()
 
 # Mixed Model
@@ -136,13 +136,13 @@ tidy(mixed.model.baselines) %>%
   filter(effect == "fixed") %>%
   select(-c(effect, group)) %>%
   kbl(format="latex",
-      caption="Mixed Model Estimates with Baseline Interaction",
+      caption="Mixed Model on Protein Data Estimates with Baseline Interaction",
       col.names = c("", "Estimate", "Std. Error", "df", "t", "p-value"),
       label="proteinDataEstimates",
       booktabs=TRUE,
       digits=2,
       linesep = "",
-      position="b") %>%
+      position="hbt") %>%
   column_spec(1, border_right = TRUE)
 sink()
 
@@ -157,6 +157,7 @@ emm %>% rbind(emm$contrasts) %>%
       col.names = c("Sequence", "Difference", "Adj. Mean", "SE", "df",
                     "Lower CI", "Upper CI"),
       booktabs = TRUE,
-      digits=2) %>%
+      digits=2,
+      position="hbt") %>%
   column_spec(2, border_right = TRUE)
 sink()
