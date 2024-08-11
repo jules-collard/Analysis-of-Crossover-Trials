@@ -48,7 +48,7 @@
 	\label{chap:engAbstract}
 	\addcontentsline{toc}{section}{\nameref{chap:engAbstract}}
 
-In this project report, the design and analysis of 2x2 cross-over trials is discussed and carried out. 2x2 cross-over trials are a type of clinical trial whereby subjects are assigned to a sequence of two treatments (either AB or BA, for example).  Chapter \ref{chap1} outlines the 2x2 cross-over design, and discusses its theoretical and practical benefits and drawbacks. Chapter \ref{visualisation} demonstrates how cross-over trial data can be summarised and visualised, and chapter \ref{analysis} addresses different techniques used to analyse cross-over data, and puts them into practice with \textit{R} code examples.
+In this project report, the design and analysis of 2x2 cross-over trials is discussed and carried out. 2x2 cross-over trials are a type of clinical trial whereby subjects are assigned to a sequence of two treatments (either AB or BA, for example).  Chapter \ref{chap1} outlines the 2x2 cross-over design, and discusses its theoretical and practical benefits and drawbacks. Chapter \ref{visualisation} demonstrates how cross-over trial data can be summarised and visualised, and chapter \ref{analysis} addresses different techniques used to analyse cross-over data, and puts them into practice with \textit{R} code examples \footnote{Full source code is available in appendices A and B, and at the project's Github repository \url{https://github.com/velominatus/Analysis-of-Crossover-Trials}}.
 
 
 
@@ -107,7 +107,7 @@ Secondly, the data can be interpreted in terms of subject-level \textit{differen
     &= 2\frac{\sigma^2}{n}(1-\rho_{AB})
 \end{align*}
 \begin{quote}
-    \textit{Where $\sigma^2$ is the observation variance, $\bar{Y}_A$ and $\bar{Y}_B$ are the average observations for treatments A and B respectively, $\rho_{AB}$ is the within-subject response correlation, and $\hat{\delta}_{AB} := \bar{Y}_A - \bar{Y}_B$.}
+    Where $\sigma^2$ is the observation variance, $\bar{Y}_A$ and $\bar{Y}_B$ are the average observations for treatments A and B respectively, $\rho_{AB}$ is the within-subject response correlation, and $\hat{\delta}_{AB} := \bar{Y}_A - \bar{Y}_B$.
 
     Given that $\rho_{AB} = 0$ in parallel group trials, positive correlation of within-subject responses will make a crossover trial more efficient \cite{piantadosi2005clinical}.
 \end{quote}
