@@ -8,42 +8,14 @@ library(broom.mixed)
 library(ggpmisc)
 library(rstatix)
 
+# Data Import
 data <- read_xlsx("data/CrossOverData.xlsx") %>%
   mutate(across(Sequence:Treat, as_factor))
 
-# Print data
-sink("report/tables/ch3/forSalData.tex")
-data %>%
-  arrange(Subject, Period) %>% head(6) %>%
-  kbl(format="latex",
-      caption="For/Sal Data (L/min)",
-      label="forSalData",
-      booktabs = TRUE,
-      digits=2,
-      linesep="",
-      positioning="bht")
-sink()
-
-# Matched-pairs t-test
-data %>%
-  arrange(Subject, Treat) %>%
-  t_test(PEF ~ Treat, paired = TRUE)
-
-sink("report/tables/ch3/tTest.tex")
-data %>%
-  arrange(Subject, Treat) %>%
-  t_test(PEF ~ Treat, paired = TRUE) %>%
-  kbl(format="latex",
-      caption="Matched-Pairs t-Test on For/Sal Data",
-      label="tTest",
-      booktabs = TRUE,
-      digits = 3,
-      col.names = c("", "Group 1", "Group 2", "n1", "n2", "t-statistic", "df", "p"))
-sink()
-
-# Table of Estimates
+# Mixed Model
 mixed.model <- lmer(PEF~Treat+Period+Sequence + (1 | Subject), data = data)
 
+# Table 3.3 - Mixed Model Estimates
 sink("report/tables/ch3/pefrDataEstimates.tex", type="output")
 tidy(mixed.model) %>%
   filter(effect == "fixed") %>%
@@ -59,7 +31,8 @@ sink()
 
 # LS Means
 emm <- emmeans(mixed.model, pairwise ~ Treat)
-emm$contrasts
+
+# Table 3.4 - LS Means
 sink("report/tables/ch3/pefrDataMeans.tex", type="output")
 emm %>% rbind(emm$contrasts) %>%
   kbl(format="latex",
@@ -72,8 +45,9 @@ emm %>% rbind(emm$contrasts) %>%
   column_spec(2, border_right = TRUE)
 sink()
 
-# Assumption Plots
+# Figure 3.1 - homoscedasticity
 model.metrics <- mixed.model %>% augment()
+
 ggplot(data = model.metrics, mapping = aes(x = .fitted, y = .resid)) +
   geom_point() +
   geom_abline(slope = 0, linetype = "dashed") +
@@ -82,6 +56,7 @@ ggplot(data = model.metrics, mapping = aes(x = .fitted, y = .resid)) +
   labs(x = "Fitted Value", y = "Residual")
 ggsave("report/figures/ch3/homoscedasticity.png")
 
+# Figure 3.2 - Q-Q Plot
 ggplot(data = model.metrics, mapping = aes(sample = .resid)) +
   geom_qq() +
   geom_qq_line() +

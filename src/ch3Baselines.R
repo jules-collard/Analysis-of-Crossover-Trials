@@ -6,7 +6,7 @@ library(lmerTest)
 library(emmeans)
 library(broom.mixed)
 
-# Importing Data
+# Data Import
 data <- read_xlsx("data/CrossOverData2.xlsx") %>%
   mutate(across(Subject:treat, as_factor)) %>%
   rename(Treatment = "treat")
@@ -22,7 +22,7 @@ data.long <- data %>%
                values_to = "Insulin",
                names_transform = as_factor)
 
-# Data Example Table
+# Table 3.5 - Subsample
 sink("report/tables/ch3/proteinDataSubsample.tex", type="output")
 data.wide %>% arrange(Subject) %>%
   head(5) %>%
@@ -34,10 +34,9 @@ data.wide %>% arrange(Subject) %>%
       col.names = c("Subject", "Sequence", "Pre", "Post", "Pre", "Post")) %>%
   add_header_above(c(" "=2, "Period 1"=2, "Period 2" = 2)) %>%
   column_spec(2, border_right = TRUE)
-
 sink()
 
-# Summary Table
+# Constructing Summary Table
 summary.period.sequence <- data.wide %>% # Summary by period & sequence
   group_by(Sequence) %>%
   summarise(Subjects = n(),
@@ -78,6 +77,7 @@ summary.table <- inner_join(summary.sequence, summary.period.sequence,
   bind_rows(summary.period) %>%
   relocate(Subjects, .after = Sequence)
 
+# Table 3.6 - Summary
 sink("report/tables/ch3/proteinDataSummary.tex", type="output")
 summary.table %>%
   kbl(format="latex",
@@ -97,7 +97,7 @@ summary.table %>%
   kable_styling(latex_options = "scale_down")
 sink()
 
-# Boxplot
+# Figure 3.3 - Boxplot
 ggplot(data = data.long, mapping = aes(x = Period, y = Insulin, col = Measurement)) +
   facet_wrap(~Sequence) +
   geom_boxplot() +
@@ -115,6 +115,7 @@ data.baselines <- data.wide %>%
   relocate(Sequence, .after = "Subject") %>%
   relocate(Pre_diff, .after = "Post")
 
+# Table 3.7 - Data Long with Baseline Differences
 sink("report/tables/ch3/preDiffSubsample.tex", type="output")
 data.baselines %>% arrange(Subject) %>%
   head(5) %>%
@@ -123,14 +124,15 @@ data.baselines %>% arrange(Subject) %>%
       label="preDiffSubsample",
       booktabs=TRUE,
       digits = 1,
-      position = "H")
+      position = "hbt")
 sink()
 
-# Mixed Model
+# Mixed Model with Baselines
 mixed.model.baselines <-
   lmer(Post ~ Treatment + Period * Pre_diff + Sequence + (1|Subject),
                               data = data.baselines)
 
+# Table 3.8 - Mixed Model Estimates with Baselines
 sink("report/tables/ch3/proteinDataEstimates.tex", type="output")
 tidy(mixed.model.baselines) %>%
   filter(effect == "fixed") %>%
@@ -149,6 +151,7 @@ sink()
 # LS Means
 emm <- emmeans(mixed.model.baselines, pairwise ~ Treatment)
 
+# Table 3.9 - LS Means
 sink("report/tables/ch3/proteinDataMeans.tex", type="output")
 emm %>% rbind(emm$contrasts) %>%
   kbl(format="latex",
