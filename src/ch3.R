@@ -20,7 +20,8 @@ data %>%
       label="forSalData",
       booktabs = TRUE,
       digits=2,
-      linesep="")
+      linesep="",
+      positioning="bht")
 sink()
 
 # Matched-pairs t-test
