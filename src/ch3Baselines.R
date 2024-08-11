@@ -123,7 +123,7 @@ data.baselines %>% arrange(Subject) %>%
       label="preDiffSubsample",
       booktabs=TRUE,
       digits = 1,
-      position = "hb")
+      position = "H")
 sink()
 
 # Mixed Model
