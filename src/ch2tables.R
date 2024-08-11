@@ -26,7 +26,7 @@ pef.data %>%
          `Period 2` = "Period2") %>%
   head(5) %>%
   kbl(format = "latex",
-      caption = "Subsample of PEFR Data (L/min)",
+      caption = "Subsample of COPD Trial Data (PEFR in L/min)",
       label = "pefrDataSubsample",
       booktabs = TRUE,
       digits = 2)
@@ -69,11 +69,12 @@ summary.table <- inner_join(summary.period.sequence, summary.sequence, by = "Seq
 sink("report/tables/ch2/pefrDataSummary.tex", type="output")
 summary.table %>%
   kbl(format="latex",
-      caption = "Summary Table for PEFR Data",
+      caption = "Summary Table for COPD Trial Data",
       label = "pefrDataSummary",
       booktabs = TRUE,
       digits = 2,
-      col.names = c("", "", rep(c("Mean", "SD"), 3))) %>%
+      col.names = c("", "", rep(c("Mean", "SD"), 3)),
+      linesep = "") %>%
   add_header_above(c(" "=2, "Overall"=2, "Period 1"=2, "Period 2"=2)) %>%
   row_spec(2, hline_after = TRUE) %>%
   column_spec(2, border_right = TRUE)

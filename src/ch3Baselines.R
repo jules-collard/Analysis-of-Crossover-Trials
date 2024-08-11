@@ -85,7 +85,8 @@ summary.table %>%
       label = "proteinDataSummary",
       booktabs = TRUE,
       col.names = c("Sequence", "Subject", rep(c("Mean","SD"), 6)),
-      digits = 2) %>%
+      digits = 2,
+      linesep="") %>%
   add_header_above(c(" "=2,
                      "Pre"=2, "Post"=2,
                      "Pre"=2, "Post"=2,
@@ -121,7 +122,8 @@ data.baselines %>% arrange(Subject) %>%
       caption="Subsample of Protein Data ('Long' Format with Baseline Differences)",
       label="preDiffSubsample",
       booktabs=TRUE,
-      digits = 1)
+      digits = 1,
+      position = "b")
 sink()
 
 # Mixed Model
@@ -139,7 +141,8 @@ tidy(mixed.model.baselines) %>%
       label="proteinDataEstimates",
       booktabs=TRUE,
       digits=2,
-      linesep = "") %>%
+      linesep = "",
+      position="b") %>%
   column_spec(1, border_right = TRUE)
 sink()
 
