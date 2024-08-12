@@ -76,7 +76,7 @@ summary.table %>%
       label = "pefrDataSummary",
       booktabs = TRUE,
       digits = 2,
-      col.names = c("", "", rep(c("Mean", "SD"), 3)),
+      col.names = c("", "Subjects", rep(c("Mean", "SD"), 3)),
       linesep = "") %>%
   add_header_above(c(" "=2, "Overall"=2, "Period 1"=2, "Period 2"=2)) %>%
   row_spec(2, hline_after = TRUE) %>%

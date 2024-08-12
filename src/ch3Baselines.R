@@ -84,7 +84,7 @@ summary.table %>%
       caption = "Summary Table for Protein Data (with Baselines)",
       label = "proteinDataSummary",
       booktabs = TRUE,
-      col.names = c("Sequence", "Subject", rep(c("Mean","SD"), 6)),
+      col.names = c("Sequence", "Subjects", rep(c("Mean","SD"), 6)),
       digits = 2,
       linesep="") %>%
   add_header_above(c(" "=2,
