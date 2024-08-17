@@ -48,7 +48,7 @@
 	\label{chap:engAbstract}
 	\addcontentsline{toc}{section}{\nameref{chap:engAbstract}}
 
-In this project report, the design and analysis of 2x2 cross-over trials is discussed and carried out. 2x2 cross-over trials are a type of clinical trial whereby subjects are assigned to a sequence of two treatments (either AB or BA, for example).  Chapter \ref{chap1} outlines the 2x2 cross-over design, and discusses its theoretical and practical benefits and drawbacks. Chapter \ref{visualisation} demonstrates how cross-over trial data can be summarised and visualised, and chapter \ref{analysis} addresses different techniques used to analyse cross-over data, and puts them into practice with \textit{R} code examples \footnote{Full source code is available in appendices A and B, and at the project's Github repository \url{https://github.com/velominatus/Analysis-of-Crossover-Trials}}.
+In this project report, the design and analysis of 2x2 cross-over trials on continuous data is discussed and carried out. 2x2 cross-over trials are a type of clinical trial whereby subjects are assigned to a sequence of two treatments (either AB or BA, for example).  Chapter \ref{chap1} outlines the 2x2 cross-over design, and discusses its theoretical and practical benefits and drawbacks. Chapter \ref{visualisation} demonstrates how cross-over trial data can be summarised and visualised, and chapter \ref{analysis} addresses different techniques used to analyse cross-over data, and puts them into practice with \textit{R} code examples \footnote{Full source code is available in appendices A and B, and at the project's Github repository \url{https://github.com/velominatus/Analysis-of-Crossover-Trials}}.
 
 
 
@@ -343,7 +343,7 @@ The package \mintinline{R}{emmeans} can calculate adjusted means for mixed model
 \section{Adjusting for Baseline Values}
 In pre-post designs, analysis of covariance (ANCOVA), whereby the pre-test (baseline) measurement is included as a covariate, is the most efficient method of analysis \cite{wan2021statistical}. For 2x2 cross-over trials, we can further improve model efficiency by taking baseline measurements into account (when available). This requires that baseline measurements be taken for each subject prior to each treatment period, so that a total of 4 measurements per subject are taken over the course of the trial.
 
-\subsection{Example Data}
+\subsection{Insect- and Beef-Derived Proteins Study}
 This section uses data from a cross-over study by Dai, Lov, Martin-Arrowsmith et al. \cite{dai2022insect}. The trial measured various outcomes after ingesting a protein-based beverage, comparing between beverages with beef- or insect-derived proteins. 20 subjects were randomised into either a cricket-beef (C-B) sequence or a beef-cricket (B-C) sequence. For this example, we use the data collected on the subjects' insulin levels. For each treatment period, insulin levels were measured just before ingestion (Pre), and 300 minutes after ingestion (Post), resulting in 4 measurements per subject. A subsample of the data is shown in table \ref{tab:proteinDataSubsample}.
 
 \input{report/tables/ch3/proteinDataSubsample}
