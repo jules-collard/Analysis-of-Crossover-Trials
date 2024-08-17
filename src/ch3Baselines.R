@@ -98,10 +98,12 @@ summary.table %>%
 sink()
 
 # Figure 3.3 - Boxplot
-ggplot(data = data.long, mapping = aes(x = Period, y = Insulin, col = Measurement)) +
-  facet_wrap(~Sequence) +
+labels=c(`C-B`="C-B Sequence", `B-C`="B-C Sequence")
+ggplot(data = data.long, mapping = aes(x = Period, y = Insulin, fill = Measurement)) +
+  facet_wrap(~Sequence, labeller = as_labeller(labels)) +
   geom_boxplot() +
-  theme_bw()
+  theme_bw() +
+  labs(fill="")
 ggsave("report/figures/ch3/proteinBoxplot.png")
 
 # Data long with baselines
@@ -139,7 +141,7 @@ tidy(mixed.model.baselines) %>%
   select(-c(effect, group)) %>%
   kbl(format="latex",
       caption="Mixed Model on Protein Data Estimates with Baseline Interaction",
-      col.names = c("", "Estimate", "Std. Error", "df", "t", "p-value"),
+      col.names = c("", "Estimate", "Std. Error", "df", "t", "p"),
       label="proteinDataEstimates",
       booktabs=TRUE,
       digits=2,

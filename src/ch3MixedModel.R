@@ -22,7 +22,7 @@ tidy(mixed.model) %>%
   select(-c(effect, group)) %>%
   kbl(format="latex",
       caption="Mixed Model Estimates for For/Sal Data",
-      col.names = c("", "Estimate", "Std. Error", "df", "t", "p-value"),
+      col.names = c("", "Estimate", "Std. Error", "df", "t", "p"),
       label="pefrDataEstimates",
       booktabs=TRUE,
       digits=2) %>%

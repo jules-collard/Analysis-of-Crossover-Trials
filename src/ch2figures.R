@@ -12,10 +12,11 @@ means <- data %>%
   summarise(Period1 = mean(Period1), Period2 = mean(Period2))
 
 # Period 1 vs Period 2 Plot
+labels=c(AB="AB Sequence", BA="BA Sequence")
 ggplot(data = data, mapping = aes(x=Period1, y=Period2, colour=Sequence)) +
   geom_point(show.legend = FALSE) +
   geom_abline(slope=1,intercept=0) +
-  facet_wrap(~Sequence) +
+  facet_wrap(~Sequence, labeller = as_labeller(labels)) +
   labs(x = "Period 1", y = "Period 2") +
   theme_bw()
 ggsave("report/figures/ch2/periodsPlot.png")
@@ -38,7 +39,7 @@ data.long <- data %>%
 ggplot(data = data.long, mapping = aes(x=Period, y=PEFR)) +
   geom_line(aes(group = Subject_Label), alpha = 0.55) +
   geom_point(aes(colour = Sequence), show.legend = FALSE) +
-  facet_wrap(~Sequence) +
+  facet_wrap(~Sequence, labeller = as_labeller(labels)) +
   theme_bw()
 ggsave("report/figures/ch2/subjectProfilesPlot.png")
 
@@ -64,7 +65,7 @@ ggsave("report/figures/ch2/groupsByPeriodsPlot.png")
 
 # Paired boxplot
 ggplot(data = data.long, mapping = aes(x=Period, y=PEFR)) +
-  facet_wrap(~Sequence) +
+  facet_wrap(~Sequence, labeller = as_labeller(labels)) +
   geom_boxplot(outliers = FALSE) +
   geom_line(aes(group = Subject_Label), alpha = 0.35) +
   geom_point(alpha=0.6, mapping = aes(col = Sequence), show.legend = FALSE) +
