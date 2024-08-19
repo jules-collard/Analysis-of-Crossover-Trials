@@ -5,33 +5,81 @@
 \institute{McGill University}
 \date{August 23, 2024}
 
+\usepackage{booktabs}
+
 \begin{document}
 
 \frame{\titlepage}
 
 \section{Introduction to Cross-Over Trials}
 \begin{frame}{The Cross-Over Design}
+\begin{definition}
+    A cross-over trial is a ``trial in which subjects are given sequences of treatments with the object of studying differences between individual treatments” \cite{senn2002crossover}.
+\end{definition}
+\end{frame}
 
+\begin{frame}{Randomisation}
+    Only the \textit{order} of treatments is randomised:
+    \begin{itemize}
+        \item Validity of treatment comparison does not depend on randomisation.
+        \item Randomisation does not guarantee unbiased comparison of treatments.
+        \item Treatment groups differ with respect to their recent exposure to potentially effective treatments.
+    \end{itemize}
+    
+    \begin{alertblock}{Fundamental Issue of Cross-Over Design}
+        The comparability of treatments is not guaranteed by the structure of the trial alone, but instead depends on the treatments themselves \cite{piantadosi2005clinical}.
+    \end{alertblock}
 \end{frame}
 
 \begin{frame}{Advantages}
-    
+    \begin{itemize}
+        \item More observations per treatment \cite{senn2002crossover}
+        \item Data in terms of \textit{difference to control}
+        \item Improved recruitment rates
+        \item Reduced spill-over rates \cite{piantadosi2005clinical}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Disadvantages}
-    
+    \begin{itemize}
+        \item Longer/inconvenient for subjects
+        \item Complex analysis
+        \item Cannot be used for infectious diseases
+        \item Risk of drop-out
+        \item Period-by-treatment interactions
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Carryover}
+    \begin{definition}
+        Carryover is the persistence of a treatment applied in one period in a subsequent period of treatment \cite{senn2002crossover}.
+    \end{definition}
+    \begin{itemize}
+        \item Introduces bias to direct treatment effect estimates.
+        \item Difficult to test and adjust for.
+        \item Best solution is to introduce a wash-out period \cite{senn2002crossover}.
+    \end{itemize}
 \end{frame}
 
 \section{Summary and Analysis of Cross-Over Trial Data}
 
 \begin{frame}{Athsma Trial}
-    
+    \begin{itemize}
+        \item 2x2 cross-over design.
+        \item Comparing effectiveness of Salbutamol (Sal) vs Formoterol (For) on children suffering from asthma.
+        \item 13 patients randomised into either For-Sal or Sal-For sequence.
+        \item Outcome measurement is \textit{peak expiratory flow rate} (PEFR), measured 8hrs after treatment.
+        \item 1 day wash-out period
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Sample Data}
+    \input{report/tables/ch3/forSalData}
 \end{frame}
 
 \subsection{Summary Tables and Plots}
 
 \begin{frame}{Summary Table}
-
 \end{frame}
 
 \subsection{Analysis}
@@ -46,5 +94,10 @@
 \subsubsection{Mixed Model for Cross-Over Design}
 
 \subsubsection{Controlling for Baseline Measurements}
+
+\begin{frame}{Bibliography}
+    \bibliography{report/references}
+    \bibliographystyle{ieeetr}
+\end{frame}
 
 \end{document}
