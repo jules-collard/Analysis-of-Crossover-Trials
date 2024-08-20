@@ -120,15 +120,69 @@
 
 \subsection{Analysis}
 \begin{frame}{Matched-Pairs $t$-Test}
-    
+    \input{report/tables/presentation/tTest}
 \end{frame}
 
 \begin{frame}{Assumptions}
-    
+    Matched-pairs $t$-test involves two main assumptions:
+    \begin{enumerate}
+        \item Within-subject differences are independently and randomly distributed around the true treatment effect.
+        \item Within-subject differences are distributed approximately normally.
+    \end{enumerate}
+    A number of situations cause assumption 1 to be violated:
+    \begin{itemize}
+        \item Period effect
+        \item Sequence effect
+        \item Period-by-treatment interaction
+        \item Carryover
+        \item Patient-by-treatment interaction
+        \item Patient-by-period interaction
+    \end{itemize}
 \end{frame}
-\subsubsection{Mixed Model for Cross-Over Design}
+\begin{frame}{Mixed Model}
+    A random-intercepts mixed model allows us to control for \cite{jones2003design} \cite{mixedmodelsR}:
+    \begin{itemize}
+        \item Period effect
+        \item Sequence effect
+        \item Subject-specific effects
+        \item Subject-level variables (e.g. sex, age)
+    \end{itemize}
+    \begin{block}{Mixed Model Equation}
+        $Y = \beta_0 + \beta_1 T + \beta_2 P + \beta_3 Se + \beta_{subject} + \epsilon$
+    \end{block}
+    Three key assumptions:
+    \begin{enumerate}
+        \item Linearity
+        \item Homoscedasticity
+        \item Normality of residuals
+    \end{enumerate}
+\end{frame}
 
-\subsubsection{Controlling for Baseline Measurements}
+\begin{frame}{Verifying Assumptions: Homoscedasticity}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\linewidth]{report/figures/presentation/homoscedasticity.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Verifying Assumptions: Normality}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{report/figures/presentation/qqplot.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Mixed Model Estimates}
+    \input{report/tables/presentation/copdDataEstimates}
+\end{frame}
+
+\begin{frame}{Adjusted Means}
+    \input{report/tables/presentation/copdDataMeans}
+\end{frame}
+
+
+
+\subsection{Controlling for Baseline Measurements}
 
 \begin{frame}{Bibliography}
     \bibliography{report/references}
