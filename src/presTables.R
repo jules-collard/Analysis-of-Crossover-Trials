@@ -33,7 +33,7 @@ sink()
 
 # Mixed Model
 
-mixed.model <- lmer(PEFR~Treat+Period+Sequence + (1 | Subject), data = data)
+mixed.model <- lmer(PEFR~Treat+Period+Sequence + (1 | Subject_Label), data = data)
 
 sink("report/tables/presentation/copdDataEstimates.tex", type="output")
 tidy(mixed.model) %>%
