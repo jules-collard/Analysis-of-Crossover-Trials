@@ -60,7 +60,8 @@ emm %>% rbind(emm$contrasts) %>%
                     "Lower CI", "Upper CI"),
       booktabs = TRUE,
       digits=2) %>%
-  column_spec(2, border_right = TRUE)
+  column_spec(2, border_right = TRUE) %>%
+  kable_styling(latex_options = "scale_down")
 sink()
 
 # homoscedasticity
