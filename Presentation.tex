@@ -180,9 +180,28 @@
     \input{report/tables/presentation/copdDataMeans}
 \end{frame}
 
-
-
 \subsection{Controlling for Baseline Measurements}
+\begin{frame}{Adjusting for Baseline Values}
+    \begin{itemize}
+        \item ANCOVA incorporates baseline measurements as a covariate in pre-post designs.
+        \item Cross-over designs requires measurements for each subject prior to each treatment period to incorporate baselines.
+        \item Most efficient method is to include \textit{within-subject difference in baselines} as an interaction with the period effect \cite{mehrotra2014}.
+    \end{itemize}
+    \begin{block}{Mixed Model with Baselines}
+        $Y = \beta_0 + \beta_1 T + \beta_2 P \cdot X_{diff} + \beta_3 P + \beta_4 X_{diff} + \beta_5 Se + \beta_{subject} + \epsilon$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Expanded Boxplot}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{report/figures/ch3/proteinBoxplot.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Expanded Summary Table}
+    \input{report/tables/ch3/proteinDataSummary}
+\end{frame}
 
 \begin{frame}{Bibliography}
     \bibliography{report/references}
