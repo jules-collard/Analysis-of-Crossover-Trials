@@ -1,5 +1,7 @@
 \documentclass{beamer}
-\usetheme[block=fill]{metropolis}
+\usetheme[block=fill, subsectionpage=progressbar]{metropolis}
+\setbeameroption{show notes on second screen=right}
+
 \title{Design and Analysis of 2x2 Cross-Over Trials with Continuous Data}
 \author{Jules Lanari-Collard}
 \institute{McGill University}
@@ -16,6 +18,10 @@
 \begin{definition}
     A cross-over trial is a ``trial in which subjects are given sequences of treatments with the object of studying differences between individual treatments” \cite{senn2002crossover}.
 \end{definition}
+\note[item]{Differs from PGT, where subjects only receive 1 treatment.}
+\note[item]{Most common design is 2x2 - AB/BA example.}
+\note[item]{Either 2 active treatments, or 1 active and 1 control}
+\note[item]{Typically used for chronic diseases - no question of curing underlying problem. e.g. athsma, rheumatism, epilepsy, migranes.}
 \end{frame}
 
 \begin{frame}{Randomisation}
@@ -38,6 +44,11 @@
         \item Improved recruitment rates
         \item Reduced spill-over rates \cite{piantadosi2005clinical}
     \end{itemize}
+    \note[item]{Significant resource savings}
+    \note[item]{Difference to control: eliminates between-patient variation (> within-patient variation)}
+    \note[item]{Within-subject responses are positively correlated, reducing variance in treatment difference from control.}
+    \note[item]{Improved recruitment - everyone guaranteed to receive both treatments.}
+    \note[item]{Spillover - if treatment known to be desirable (e.g. exercise)}
 \end{frame}
 
 \begin{frame}{Disadvantages}
@@ -48,6 +59,8 @@
         \item Risk of drop-out
         \item Period-by-treatment interactions
     \end{itemize}
+    \note[item]{Drop-out - all observations required for analysis of cross-over. PGT can recover information}
+    \note[item]{Period-by-treatment interaction - effect of treatment not constant over time.}
 \end{frame}
 
 \begin{frame}{Carryover}
@@ -59,9 +72,14 @@
         \item Difficult to test and adjust for.
         \item Best solution is to introduce a wash-out period \cite{senn2002crossover}.
     \end{itemize}
+    \note[item]{Patient not in state they would have been in without treatment in 1st period.}
+    \note[item]{Effect of one treatment misinterpreted as effect of both treatments combined.}
+    \note[item]{Models require additional assumptions, tests difficult to interpret independently of TE.}
+    \note[item]{Wash-out period: period allowing effects of previous treatment to disappear.}
+    \note[item]{Consequence - all conclusions are conditional on absence of carryover effect.}
 \end{frame}
 
-\section{Summary and Analysis of Cross-Over Trial Data}
+\section{Summary and Visualisation of Cross-Over Trial Data}
 
 \begin{frame}{COPD Trial}
     \begin{itemize}
@@ -79,6 +97,7 @@
 
 \begin{frame}{Summary Table}
     \input{report/tables/ch2/pefrDataSummary}
+    \note[item]{Normal data: mean/SD, otherwise median/IQR}
 \end{frame}
 
 \subsection{Summary Plots}
@@ -109,6 +128,8 @@
         \centering
         \includegraphics[width=\linewidth]{report/figures/ch2/centroidsPlot.png}
     \end{figure}
+    \note[item]{Both groups symmetrical about diagonal line -> no period effect}
+    \note[item]{Centroids on opposite sides -> treatment effect}
 \end{frame}
 
 \begin{frame}{Groups-by-Periods Plot}
@@ -118,9 +139,13 @@
     \end{figure}
 \end{frame}
 
-\subsection{Analysis}
+\section{Analysis of Cross-Over Trial Data}
+\subsection{$t$-Tests}
+
 \begin{frame}{Matched-Pairs $t$-Test}
     \input{report/tables/presentation/tTest}
+    \note[item]{Takes advantage of paired structure}
+    \note[item]{2-sample t-test equivalent results to PGT}
 \end{frame}
 
 \begin{frame}{Assumptions}
@@ -129,7 +154,7 @@
         \item Within-subject differences are independently and randomly distributed around the true treatment effect.
         \item Within-subject differences are distributed approximately normally.
     \end{enumerate}
-    A number of situations cause assumption 1 to be violated:
+    Potential assumption violations:
     \begin{itemize}
         \item Period effect
         \item Sequence effect
@@ -138,8 +163,17 @@
         \item Patient-by-treatment interaction
         \item Patient-by-period interaction
     \end{itemize}
+    \note[item]{Period effect: trend over time affecting both groups. Overestimate effect random variation, bias under unbalanced allocation}
+    \note[item]{Sequence effect: assume none under successful randomisation.}
+    \note[item]{Period-by-treatment: effect of treatment varies by period}
+    \note[item]{Patient-by-treatment: effect of treatment varies patient-to-patient}
+    \note[item]{Patient-by-period: period effects different for each patient}
+    \note[item]{Last two don't affect validity but increase variance.}
 \end{frame}
-\begin{frame}{Mixed Model}
+
+\subsection{Mixed Models}
+
+\begin{frame}{Random-Intercepts Model}
     A random-intercepts mixed model allows us to control for \cite{jones2003design} \cite{mixedmodelsR}:
     \begin{itemize}
         \item Period effect
@@ -150,12 +184,13 @@
     \begin{block}{Mixed Model Equation}
         $Y = \beta_0 + \beta_1 T + \beta_2 P + \beta_3 Se + \beta_{subject} + \epsilon$
     \end{block}
-    Three key assumptions:
+    Three key assumptions \cite{palmieri}:
     \begin{enumerate}
         \item Linearity
         \item Homoscedasticity
         \item Normality of residuals
     \end{enumerate}
+    \note[item]{Intercept varies by subject}
 \end{frame}
 
 \begin{frame}{Verifying Assumptions: Homoscedasticity}
@@ -181,6 +216,21 @@
 \end{frame}
 
 \subsection{Controlling for Baseline Measurements}
+
+\begin{frame}{Expanded Boxplot}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{report/figures/ch3/proteinBoxplot.png}
+    \end{figure}
+    \note[item]{The trial measured insulin levels after ingesting a protein-based beverage, between beverages with beef- or insect-derived proteins.}
+    \note[item]{ 20 subjects  randomised into either C-B or B-C sequence.}
+    \note[item]{insulin levels measured just before ingestion (Pre), and 300 minutes after ingestion (Post), resulting in 4 measurements per subject.}
+\end{frame}
+
+\begin{frame}{Expanded Summary Table}
+    \input{report/tables/ch3/proteinDataSummary}
+\end{frame}
+
 \begin{frame}{Adjusting for Baseline Values}
     \begin{itemize}
         \item ANCOVA incorporates baseline measurements as a covariate in pre-post designs.
@@ -190,17 +240,12 @@
     \begin{block}{Mixed Model with Baselines}
         $Y = \beta_0 + \beta_1 T + \beta_2 P \cdot X_{diff} + \beta_3 P + \beta_4 X_{diff} + \beta_5 Se + \beta_{subject} + \epsilon$
     \end{block}
+    \note[item]{4 total measurements per subject}
 \end{frame}
 
-\begin{frame}{Expanded Boxplot}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\linewidth]{report/figures/ch3/proteinBoxplot.png}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Expanded Summary Table}
-    \input{report/tables/ch3/proteinDataSummary}
+\begin{frame}{Mixed Model Estimates with Baselines}
+    \input{report/tables/ch3/proteinDataEstimates}
+    \notep[item]{Can also calculate LS means}
 \end{frame}
 
 \begin{frame}{Bibliography}
